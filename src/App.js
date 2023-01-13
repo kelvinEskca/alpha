@@ -10,6 +10,11 @@ import Help from './Pages/Help';
 import Login from './Pages/Login';
 import Forgot from "./Pages/Forgot";
 import Register from "./Pages/Register";
+import Account from "./Pages/Account";
+import Addresses from "./Pages/Addresses";
+import Dashboard from "./Pages/Dashboard";
+import Orders from "./Pages/Orders";
+import Products from "./Pages/Products";
 const App = () => {
   return (
     <Router>
@@ -24,6 +29,11 @@ const App = () => {
         <Route path="/login" element={<Login />}/>
         <Route path="/forget" element={<Forgot />}/>
         <Route path="/register" element={<Register />}/>
+        <Route path="/account" element={<Account />}/>
+        <Route path="/addresses" element={<Addresses />}/>
+        <Route path="/dashboard" element={<Dashboard />}/>
+        <Route path="/orders" element={<Orders />}/>
+        <Route path="/products" element={<Products />}/>
       </Routes>
     </Router>
   );
