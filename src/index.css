@@ -951,9 +951,9 @@ header .bottom-right img{
 }
 
 .support-header{
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content:flex-start;
   padding: 1rem;
   background-color: #32556e;
   position: fixed;
@@ -1237,6 +1237,19 @@ header .bottom-right img{
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+
+  .support-header{
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    padding: 1rem;
+    background-color: #32556e;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    transition: background-color .4s ease-in-out;
   }
 }
 
