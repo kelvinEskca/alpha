@@ -11,6 +11,29 @@ const ImageCard = ({imageOne,imageTwo,tag}) => {
                 <p className="paragraph">White</p>
                 <p className="paragraph">$40.00</p>
             </div>
+
+            <div className="size-box">
+                <div className="size"><small>S</small></div>
+                <div className="size"><small>S</small></div>
+                <div className="size"><small>S</small></div>
+                <div className="size"><small>S</small></div>
+            </div>
+
+            <div className="images-box">
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+                <img src={imageOne} alt={imageOne} className="imageOne" />
+            </div>
         </div>
     );
 }

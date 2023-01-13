@@ -15,6 +15,8 @@ import Addresses from "./Pages/Addresses";
 import Dashboard from "./Pages/Dashboard";
 import Orders from "./Pages/Orders";
 import Products from "./Pages/Products";
+import Men from "./Pages/Men";
+import Women from "./Pages/Women";
 const App = () => {
   return (
     <Router>
@@ -34,6 +36,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="/orders" element={<Orders />}/>
         <Route path="/products" element={<Products />}/>
+        <Route path="/men" element={<Men />}/>
+        <Route path="/women" element={<Women />}/>
       </Routes>
     </Router>
   );

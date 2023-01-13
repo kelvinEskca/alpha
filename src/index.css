@@ -1178,6 +1178,107 @@ header .bottom-right img{
   width: auto;
 }
 
+.gallery .boxes{
+  overflow: none;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1rem;
+}
+
+.gallery .boxes .box{
+  width: auto;
+  margin: 0;
+}
+
+.gallery .image-box{
+  width: auto;
+}
+
+.size-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #191919;
+  border-radius: .5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid #363636;
+  padding: .5rem;
+  width: 150px;
+  display: none;
+}
+
+.new .box{
+  min-height: 450px;
+}
+
+.new .box:hover .text{
+  display: none;
+}
+
+.new .box:hover .size-box{
+  display: flex;
+}
+
+.size-box .size{
+  width: 1.5rem;
+  height: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.size-box .size:hover{
+  background-color: #2b2a33;
+  border-radius: .2rem;
+}
+
+.size-box .size small{
+  color: #c8cdd1;
+  font-size: .7rem;
+  font-weight: 400;
+}
+
+.gallery .box .image-box{
+  width: 100%;
+}
+
+.gallery .box{
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.images-box{
+  overflow-x: scroll;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #191919;
+  border: 1px solid #363636;
+  max-width: 100%;
+  scrollbar-width: none;
+  padding: .5rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent; 
+}
+
+.images-box img{
+  width: 70px;
+  height: 70px;
+  margin-right: .5rem;
+  border-radius: .3rem;
+}
+
+.gallery .box .image-box{
+  min-height: 320px;
+}
+
 @media screen and (min-width:376px){
   body{
     max-width: 100%;
@@ -1517,10 +1618,35 @@ header .bottom-right img{
   .latest .top button{
     width: 14rem;
   }
+
+  .gallery .boxes{
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .new .box:hover .size-box{
+    display: none;
+  }
+
+  .new .box:hover .images-box{
+    display: flex;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    background-color: transparent; 
+  }
+
+  .gallery .box .image-box{
+    height: 320px;
+  }
 }
 
 @media screen and (min-width:1000px){
   .visit .cards,.about-hero .box{
     height: 650px;
+  }
+
+  .gallery .boxes{
+    grid-template-columns: repeat(4,1fr);
   }
 }
