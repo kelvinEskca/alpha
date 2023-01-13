@@ -1,0 +1,99 @@
+import React from "react";
+import {Link} from 'react-router-dom';
+import Button from "../Components/Button";
+import Footer from "../Components/Footer";
+import Header from "../Components/Header";
+const About = () => {
+    return (
+        <>
+            <Header />
+            <main className="main">
+                <section className="section about-hero">
+                    <div className="wrapper">
+                        <div className="boxes">
+                            <div className="box">
+                                <video src="../images/homevid.mp4"  loop muted autoPlay></video>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="section how">
+                    <div className="wrapper">
+                        <div className="boxes">
+                            <div className="box">
+                                <h3 className="heading">HOW IT STARTED</h3>
+                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Alphalete was born.</p>
+
+                                <Link to='#'><Button btnText={'Watch My Story'} /></Link>
+                            </div>
+
+                            <div className="box">
+                                <img src="../images/070A4425.jpg" alt="images" />
+                            </div>
+                        </div>
+
+                        <div className="boxes">
+                            <div className="box">
+                                <h3 className="heading">HOW IT STARTED</h3>
+                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Alphalete was born.</p>
+
+                                <Link to='#'><Button btnText={'Watch My Story'} /></Link>
+                            </div>
+
+                            <div className="box">
+                                <img src="../images/12227FB3-7FB7-43A9-AE8B-DFFD27293359.webp" alt="images" />
+                            </div>
+                        </div>
+
+                        <div className="boxes">
+                            <div className="box">
+                                <h3 className="heading">HOW IT STARTED</h3>
+                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Alphalete was born.</p>
+
+                                <Link to='#'><Button btnText={'Watch My Story'} /></Link>
+                            </div>
+
+                            <div className="box">
+                                <img src="../images/Summer_Shredding_Crew_-_duotone.webp" alt="images" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="section learn">
+                    <div className="wrapper">
+                        <div className="boxes">
+                            <div className="box">
+                                <h3 className="heading">THE L.D.B. PHILOSOPHY</h3>
+                                <div className="image-box"></div>
+
+                                <div className="text-row">
+                                    <div className="text">
+                                        <h3 className="heading">LEARN MORE</h3>
+                                        <p className="paragraph">You can overcome anything. You can learn something new, make new habits, think new thoughts — all that matters is that you decide today and never look back.</p>
+                                    </div>
+
+                                    <div className="text">
+                                        <h3 className="heading">DREAM MORE</h3>
+                                        <p className="paragraph">Believe that your potential is infinite... your only limitations are the ones you set for yourself. Start where you are, use what you have, do what you can.</p>
+                                    </div>
+
+                                    <div className="text">
+                                        <h3 className="heading">BE MORE</h3>
+                                        <p className="paragraph">Your success isn’t determined by fame, it’s determined by the milestones you set and accomplish. Go with the option that scares you the most because that’s where you’ll grow.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <Footer />
+        </>
+        
+    );
+}
+ 
+export default About;

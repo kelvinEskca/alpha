@@ -1,0 +1,17 @@
+<svg id="cookie-svg-icon" class="h-[35px]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+            <defs>
+              <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="#ffbc47"></stop>
+                <stop offset="0.196" stop-color="#ffba42"></stop>
+                <stop offset="0.439" stop-color="#fab534"></stop>
+                <stop offset="0.709" stop-color="#f2ab1d"></stop>
+                <stop offset="0.995" stop-color="#eba613"></stop>
+                <stop offset="1" stop-color="#eba613"></stop>
+              </linearGradient>
+            </defs>
+            <g id="Cookie_Icon" data-name="Cookie Icon" transform="translate(-10088 -2906)">
+              <path id="Cookie" d="M41.5,23a4.44,4.44,0,0,1-2.4-.7,2.055,2.055,0,0,0-2-.1,8.459,8.459,0,0,1-4.688.737A8.5,8.5,0,0,1,25.8,10.9a1.982,1.982,0,0,0-.062-1.938A4.437,4.437,0,0,1,25,6.5a4.66,4.66,0,0,1,.35-1.723c.135-.339.01-.73-.382-.746C24.647,4.018,24.325,4,24,4A20,20,0,1,0,44,24c0-.315-.012-.627-.027-.938-.02-.437-.411-.578-.81-.387A3.849,3.849,0,0,1,41.5,23Z" transform="translate(10084 2902)" fill="url(#linear-gradient)"></path>
+              <path id="Chocolate_Chips" data-name="Chocolate Chips" d="M90,31.5A1.5,1.5,0,1,1,91.5,33,1.5,1.5,0,0,1,90,31.5ZM78,29a3,3,0,1,1,3,3A3,3,0,0,1,78,29Zm17-6a2,2,0,1,1,2,2A2,2,0,0,1,95,23ZM72,20a2,2,0,1,1,2,2A2,2,0,0,1,72,20Zm10-2.5A2.5,2.5,0,1,1,84.5,20,2.5,2.5,0,0,1,82,17.5ZM74,10a2,2,0,1,1,2,2A2,2,0,0,1,74,10Zm6-5.5A1.5,1.5,0,1,1,81.5,6,1.5,1.5,0,0,1,80,4.5Z" transform="translate(10022 2908)" fill="#c1661b"></path>
+              <path id="Crumbs" d="M82,14.5A1.5,1.5,0,1,1,83.5,16,1.5,1.5,0,0,1,82,14.5Zm-10-2A2.5,2.5,0,1,1,74.5,15,2.5,2.5,0,0,1,72,12.5Zm2-8A1.5,1.5,0,1,1,75.5,6,1.5,1.5,0,0,1,74,4.5Z" transform="translate(10042 2905)" fill="#f9b331"></path>
+            </g>
+        </svg>
