@@ -1212,6 +1212,10 @@ header .bottom-right img{
   min-height: 450px;
 }
 
+.new .area .box{
+  min-height: 2rem;
+}
+
 .new .box:hover .text{
   display: none;
 }
