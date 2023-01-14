@@ -1,6 +1,9 @@
 
 import { Link } from "react-router-dom";
-const Header = () => {
+import CartContext from "../CartContext";
+import { useContext } from "react";
+const Header = ({handleModal}) => {
+    const {items} = useContext(CartContext);
     return (
         <header className="header">
             <nav className="top">
@@ -28,9 +31,11 @@ const Header = () => {
                 </div>
 
                 <div className="bottom-right">
-                    <img src="../images/icons8-search-30.png" alt="icons8-search-30" />
-                    <img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu" />
-                    <img src="../images/icons8-shopping-bag-30.png" alt="icons8-shopping-bag-30" />
+                    <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" /></div>
+                    <div className="small"><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu" /></div>
+                    <div className="small" onClick={handleModal}><img src="../images/icons8-shopping-bag-30.png" alt="icons8-shopping-bag-30" />
+                    <div className="badge"><p className="count">{items.length}</p></div>
+                    </div>
                 </div>
             </nav>
         </header>

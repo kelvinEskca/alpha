@@ -5,15 +5,35 @@ import Button from "../Components/Button";
 import CategoryToggle from "../Components/CategoryToggle";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import CartContext from "../CartContext";
+import { useContext } from "react";
+import { useState } from "react";
+import Modal from "../Components/Modal";
+import videos from "../videos";
+import { useEffect } from "react";
 const Home = () => {
+    const {addToCart,removeFromCart} = useContext(CartContext);
+    const [modal,setModal] = useState(false)
+    const handleModal = () =>{
+        setModal(!modal);
+    }
+
+    const [clip,setClip] = useState([]);
+    const [loading,setLoading] = useState(true);
+    useEffect(()=>{
+        setClip(videos)
+        setLoading(false);
+    },[]);
+
+    if(loading) return <h3 className="heading">Loading....</h3>;
     return (
         <>
-            <Header />
+            <Header handleModal={handleModal}/>
             <main className="main">
                 <section className="section visit hero">
                     <div className="wrapper">
                         <div className="boxes">
-                            <VideoCard video={'../images/homevid.mp4'} heading={'Alphalete X Manifested'} paragraph={'Manifest your dreams into reality'} btn={'Shop Now'} btnTwo={'btn'} />
+                            <VideoCard video={clip[0].video} heading={clip[0].heading} paragraph={clip[0].paragraph} btn={clip[0].btn} btnTwo={clip[0].btnTwo} />
                         </div>
                     </div>
                 </section>
@@ -58,22 +78,7 @@ const Home = () => {
                             <CategoryToggle />
                         </div>
                         <div className="boxes">
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
+                            <ImageCard />
                         </div>
                     </div>
                 </section>
@@ -135,22 +140,7 @@ const Home = () => {
                             <h3 className="heading">Leggings</h3>
                         </div>
                         <div className="boxes">
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
-
-                            <ImageCard imageOne={'../images/ManifestedTeeWhite3_400x.webp'} imageTwo={'../images/ManifestedTeeWhite1_400x.jpg'} />
-
+                            <ImageCard />
                         </div>
                     </div>
                 </section>
@@ -158,11 +148,16 @@ const Home = () => {
                 <section className="section visit">
                     <div className="wrapper">
                         <div className="boxes">
-                            <VideoCard video={'../images/footervid.mp4'} heading={'Visit AlphaLand'} paragraph={'An oasis where individuals come to'} btn={'Learn More'} btnTwo={'Watch Video'} />
+                            <VideoCard video={clip[1].video} heading={clip[1].heading} paragraph={clip[1].paragraph} btn={clip[1].btn} btnTwo={clip[1].btnTwo} />
                         </div>
                     </div>
                 </section>
+
+                <Modal modal={modal} handleModal={handleModal} />
+                
             </main>
+
+            
             <Footer />
         </>
     );

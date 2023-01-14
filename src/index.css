@@ -600,6 +600,7 @@ main{
   margin-bottom: 1rem;
   width: 200px;
   margin-right: 1rem;
+  align-items: center;
 }
 
 .new .image-box{
@@ -608,6 +609,71 @@ main{
   border-radius: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
+  position: relative;
+  overflow-y: hidden;
+  justify-content: center;
+  align-content: center;
+}
+
+.new .image-box:hover .quick-add{
+  transform: translateY(81px);
+}
+
+.new .quick-add{
+  background-color: #000;
+  border-radius: .5rem;
+  width: 95%;
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateY(150px);
+  transition: transform .5s ease-in-out;
+  margin-left: -47.5%;
+}
+
+.quick-add .quick-add-top{
+  border-bottom: 1px solid #c8cdd1;
+  align-items: center;
+  justify-content: center;
+}
+
+.new .image-box .quick-add:hover{
+  transform: translateY(-40px);
+}
+
+.quick-add-top .heading{
+  color: #929294;
+  font-weight: 600;
+  font-size: .8rem;
+  text-transform: uppercase;
+  margin-bottom: .3rem;
+}
+
+.quick-add-bottom{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-area: .5rem;
+  margin-top: 1rem;
+}
+
+.quick-add-bottom .size{
+  width: 1.5rem;
+  height: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.quick-add-bottom .size:hover{
+  background-color: #2b2a33;
+  border-radius: .2rem;
+}
+
+.quick-add-bottom .size small{
+  color: #c8cdd1;
+  font-size: .7rem;
+  font-weight: 400;
 }
 
 .new .image-box:hover img:nth-of-type(2){
@@ -615,6 +681,14 @@ main{
 }
 
 .new .image-box:hover img:nth-of-type(1){
+  display: none;
+}
+
+.modal .modal-box .image-box:hover img:nth-of-type(2){
+  display: block;
+}
+
+.modal .modal-box .image-box:hover img:nth-of-type(1){
   display: none;
 }
 
@@ -888,11 +962,44 @@ header .bottom-right{
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 80px;
+  width: 100px;
 }
 
 header .bottom-right img{
   width: 20px;
+}
+
+header .bottom-right .small{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .2s ease-in-out;
+  position: relative;
+  cursor: pointer;
+}
+
+header .bottom-right .small:hover{
+  background-color: #2b2a33;
+}
+
+header .bottom-right .small .badge{
+  position: absolute;
+  right: .1rem;
+  top: .7rem;
+  background-color: #49e472;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+header .bottom-right .small .badge .count{
+  font-weight: 600;
+  font-size: .85rem;
+  height: auto;
 }
 
 .auth .box{
@@ -1283,6 +1390,161 @@ header .bottom-right img{
   min-height: 320px;
 }
 
+img{
+  cursor: pointer;
+}
+
+.modal{
+  position: fixed;
+  height: 100vh;
+  background-color: #0f0f0fbc;
+  backdrop-filter: blur(100px);
+  border: 1px solid #929294;
+  z-index: 10;
+  top: 0;
+  padding: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .wrapper,.modal .boxes{
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.modal .boxes{
+  padding-block: 3rem;
+}
+
+.modal .box{
+  max-width: 90%;
+}
+
+.modal .btn-column{
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.modal .box:nth-of-type(1){
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+  padding-block: 2rem;
+}
+
+.modal .box{
+  background-color: #000;
+  padding: 1rem;
+}
+
+.modal .box .line{
+  width: 90%;
+  height: .7px;
+  background-color: #434242;
+  margin-block:1rem;
+}
+
+.modal .box .heading{
+  font-size: .8rem;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 600;
+}
+
+.modal .box:nth-of-type(1) button{
+  background-color: transparent;
+  border: 2px solid #3b3b3b;
+  color: #fff;
+  font-weight: 600;
+  font-size: .6rem;
+  height: 2.5rem;
+  border-radius: .6rem;
+  margin-bottom: .5rem;
+}
+
+.modal .box:nth-of-type(1) a:nth-of-type(1) button{
+  width: 12rem;
+}
+
+.off{
+  display: none;
+}
+
+.main{
+  position: relative;
+}
+
+.modal .box:nth-of-type(2) .heading{
+  border-top: 1px solid #434242;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.modal .quick-add{
+  display: none;
+}
+
+.modal .modal-box .image-box img:nth-of-type(2){
+  display: none;
+}
+
+.modal .modal-box .text .paragraph{
+  font-size: .7rem;
+  color: #c8cdd1;
+  font-weight: 500;
+}
+
+.modal .modal-box .box{
+  min-height: 450px;
+}
+
+.modal .modal-box .image-box{
+  width: 200px;
+  height: 280px;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  position: relative;
+  overflow-y: hidden;
+  justify-content: center;
+  align-content: center;
+  margin: 0;
+}
+
+.modal .modal-box .image-box img{
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+}
+
+.modal .box:nth-of-type(2) .modal-box .heading{
+  border: none;
+  padding: 0;
+}
+
+.modal .box .modal-box .text{
+  margin-top: 1rem;
+}
+
+.modal .box .modal-box .box{
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.modal .box .modal-box{
+  overflow-x: scroll;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 100%;
+  scrollbar-width: none;
+}
+
 @media screen and (min-width:376px){
   body{
     max-width: 100%;
@@ -1518,7 +1780,11 @@ header .bottom-right img{
   }
 
   header .bottom-right{
-    width: 50px;
+    width: 70px;
+  }
+
+  header .bottom .small:nth-of-type(2){
+    display: none;
   }
 
   header .bottom .menu{
@@ -1642,6 +1908,46 @@ header .bottom-right img{
 
   .gallery .box .image-box{
     height: 320px;
+  }
+
+  .modal .boxes{
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal .boxes > .box{
+    max-width: 100%;
+  }
+
+  .modal .box:nth-of-type(2){
+    background-color: transparent;
+  }
+
+  .modal .box.box:nth-of-type(2) .box{
+    background-color: transparent;
+  }
+
+  .modal .boxes > .box:nth-of-type(1){
+    width: 25rem;
+    background-color: #0f0f0fd4;
+    backdrop-filter: blur(100px);
+    height: 85%;
+    position: fixed;
+    z-index: 1;
+    border-radius: 1.5rem;
+    right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid #2b2a33;
+  }
+
+  .modal .box:nth-of-type(2) .heading{
+    border: none;
+  }
+
+  .modal{
+    padding: 0;
   }
 }
 
