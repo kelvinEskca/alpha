@@ -1,12 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import ImageCard from '../Components/ImageCard';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import Modal from "../Components/Modal";
+import MobileNav from "../Components/MobileNav";
 const Women = () => {
+    const [modal,setModal] = useState(false)
+    const [mobile,setMobile] = useState(false)
+    const handleModal = () =>{
+        setModal(!modal);
+    }
+
+    const handleMobile = () =>{
+        setMobile(!mobile);
+    }
     return (
         <>
-            <Header />
+            <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 <section className="section shop gender">
                     <div className="wrapper">
@@ -26,41 +37,45 @@ const Women = () => {
                 <section className="section new gallery">
                     <div className="wrapper">
                         <div className="boxes">
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
-                            <ImageCard imageOne={'../images/WhiteCapitolCropHoodie2_400x.jpg'} imageTwo={'../images/WhiteCapitolCropHoodie3_400x.jpg'} />
+                            <ImageCard />
 
                         </div>
                     </div>
                 </section>
+
+                <Modal modal={modal} handleModal={handleModal} />
+
+                <MobileNav mobile={mobile} handleMobile={handleMobile} />
             </main>
             <Footer />
         </>

@@ -1,15 +1,34 @@
+import React,{useState} from "react";
 import Button from "./Button";
 import FooterBox from "./FooterBox";
-import Input from "./Input";
+import axios from "axios";
 
 const Footer = () => {
+    const [email,setEmail] = useState();
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        if(email !== ''){
+            try{
+                axios.post('http://localhost:5000/alphaapi/newsletter',{
+                    email:email
+                });
+
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        else{
+            alert('Please ensure all fields are filled');
+        }
+    }
     return (
         <footer className="footer">
             <div className="rows">
                 <div className="newsletter">
                     <h3 className="heading">SIGN UP FOR ALPHALETE NEWSLETTER</h3>
-                    <form action="#" className="form">
-                        <label htmlFor="#"><Input type={'email'} placeholder={'Your Email Address'} /></label>
+                    <form action="#" className="form" onSubmit={handleSubmit}>
+                        <label htmlFor="#"><input type='email' placeholder='Your Email Address' onChange={(e)=>{setEmail(e.target.value)}}/></label>
                         <label htmlFor="#"><Button btnText={'Sign Up'}/></label>
                     </form>
 

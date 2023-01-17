@@ -13,10 +13,13 @@ import Register from "./Pages/Register";
 import Account from "./Pages/Account";
 import Addresses from "./Pages/Addresses";
 import Dashboard from "./Pages/Dashboard";
+import Customers from "./Pages/Customers";
 import Orders from "./Pages/Orders";
 import Products from "./Pages/Products";
 import Men from "./Pages/Men";
 import Women from "./Pages/Women";
+import PrivateUserRoute from "./Components/PrivateUserRoutes";
+import PrivateRoute from "./Components/AdminRoute";
 import { CartProvider } from "./CartContext";
 const App = () => {
   return (
@@ -33,11 +36,12 @@ const App = () => {
           <Route path="/login" element={<Login />}/>
           <Route path="/forget" element={<Forgot />}/>
           <Route path="/register" element={<Register />}/>
-          <Route path="/account" element={<Account />}/>
-          <Route path="/addresses" element={<Addresses />}/>
-          <Route path="/dashboard" element={<Dashboard />}/>
-          <Route path="/orders" element={<Orders />}/>
-          <Route path="/products" element={<Products />}/>
+          <Route path="/account" element={<PrivateUserRoute><Account /></PrivateUserRoute>}/>
+          <Route path="/addresses" element={<PrivateUserRoute><Addresses /></PrivateUserRoute>}/>
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
+          <Route path="/customers" element={<PrivateRoute><Customers /></PrivateRoute>}/>
+          <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>}/>
+          <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}/>
           <Route path="/men" element={<Men />}/>
           <Route path="/women" element={<Women />}/>
         </Routes>

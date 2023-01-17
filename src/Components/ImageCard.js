@@ -1,13 +1,21 @@
 import React,{useEffect,useState} from "react";
 import items from "../items";
-
+import { useContext } from "react";
+import CartContext from "../CartContext";
 const ImageCard = () => {
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [selectedSize,setSelectedSize] = useState('');
+    const {addToCart} = useContext(CartContext);
     useEffect(()=>{
         setProducts(items);
         setLoading(false);
     },[]);
+
+    const handleClick = (size,item)=>{
+        setSelectedSize(size);
+        addToCart(item,size);
+    }
 
     if(loading) return <h3 className='heading'>Loading....</h3>
     return (
@@ -26,7 +34,7 @@ const ImageCard = () => {
 
                             <div className="quick-add-bottom">
                                 {item.sizes.map((size,i)=>{
-                                    return (<div className="size"><small>{size.size}</small></div>)
+                                    return (<div className="size"><small className={`${size.size === selectedSize ? 'sizeActive' : ''}`} onClick={()=>handleClick(size.size,item)}>{size.size}</small></div>)
                                 })}
                             </div>
                         </div>

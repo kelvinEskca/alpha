@@ -1,9 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
 import {Link} from 'react-router-dom';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import AddressModal from "../Components/AddressModal";
 const Account = () => {
+    const [addressModal,setAddressModal] = useState(false);
+    const openModal = () =>{
+        setAddressModal(!addressModal);
+    }
+    const auth = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+    const useraddress = JSON.parse(localStorage.getItem('address'));
     return (
         <>
             <Header />
@@ -14,7 +22,7 @@ const Account = () => {
                             <Link to='/account'><Button btnText={' < Back To Account'}/></Link>
                             <div className="box">
                                 <h3 className="heading">MY ADDRESSES</h3>
-                                <Button btnText={'Add A New Address'}/>
+                                <button  onClick={openModal}>Add A NEW ADDRESS</button>
                             </div>
                         </div>
                     </div>
@@ -26,17 +34,19 @@ const Account = () => {
                             <div className="box">
                                 <div className="text">
                                     <h3 className="heading">Default Address</h3>
-                                    <p className="paragraph">Kelvin Eskca</p>
-                                    <p className="paragraph">United States</p>
+                                    <p className="paragraph">{useraddress ? (useraddress.fname + ' ' + useraddress.lname) : (user.fname + ' ' + user.lname)}</p>
+                                    {useraddress  ? (<p className="paragraph">{useraddress.country}</p>) : (<p className="paragraph">United States</p>)}
                                 </div>
 
                                 <div className="btn-row">
-                                    <Button btnText={'Edit'} />
+                                    <button onClick={openModal}>Edit</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
+
+                <AddressModal openModal={openModal} addressModal={addressModal} />
             </main>
             <Footer />
         </>

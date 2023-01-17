@@ -7,10 +7,14 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.2",
+    "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropdown-select": "^4.9.3",
+    "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
+    "react-select": "^5.7.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -19,6 +23,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "watchIgnore": [
+    "public"
+  ],
   "eslintConfig": {
     "extends": [
       "react-app",

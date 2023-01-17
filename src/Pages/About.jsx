@@ -1,12 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import {Link} from 'react-router-dom';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import Modal from "../Components/Modal";
+import MobileNav from "../Components/MobileNav";
 const About = () => {
+    const [modal,setModal] = useState(false)
+    const [mobile,setMobile] = useState(false)
+    const handleModal = () =>{
+        setModal(!modal);
+    }
+
+    const handleMobile = () =>{
+        setMobile(!mobile);
+    }
     return (
         <>
-            <Header />
+            <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 <section className="section about-hero">
                     <div className="wrapper">
@@ -88,6 +99,10 @@ const About = () => {
                         </div>
                     </div>
                 </section>
+
+                <Modal modal={modal} handleModal={handleModal} />
+
+                <MobileNav mobile={mobile} handleMobile={handleMobile} />
             </main>
 
             <Footer />

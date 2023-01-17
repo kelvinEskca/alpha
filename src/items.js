@@ -7,7 +7,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Male",
-        id:1
+        id:1,
+        qty:1,
+        total:0
     },
     {
         name:"Female tee",
@@ -17,7 +19,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Female",
-        id:2
+        id:2,
+        qty:1,
+        total:0
     },
     {
         name:"Male tee",
@@ -27,7 +31,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Male",
-        id:3
+        id:3,
+        qty:1,
+        total:0
     },
     {
         name:"Female tee",
@@ -37,7 +43,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Female",
-        id:4
+        id:4,
+        qty:1,
+        total:0
     },
     {
         name:"Male tee",
@@ -47,7 +55,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Male",
-        id:5
+        id:5,
+        qty:1,
+        total:0
     },
     {
         name:"Female tee",
@@ -57,7 +67,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Female",
-        id:6
+        id:6,
+        qty:1,
+        total:0
     },
     {
         name:"Male tee",
@@ -67,7 +79,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Male",
-        id:7
+        id:7,
+        qty:1,
+        total:0
     },
     {
         name:"Female tee",
@@ -77,7 +91,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Female",
-        id:8
+        id:8,
+        qty:1,
+        total:0
     },
     {
         name:"Male tee",
@@ -87,7 +103,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Male",
-        id:9
+        id:9,
+        qty:1,
+        total:0
     },
     {
         name:"Female tee",
@@ -97,7 +115,9 @@ const items = [
         color:"White",
         sizes:[{size:"S"},{size:"M"},{size:"X"},{size:"XL"},{size:"XXL"}],
         category:"Female",
-        id:10
+        id:10,
+        qty:1,
+        total:0
     },
     
 ]

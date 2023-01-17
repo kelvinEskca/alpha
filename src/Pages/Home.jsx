@@ -5,21 +5,30 @@ import Button from "../Components/Button";
 import CategoryToggle from "../Components/CategoryToggle";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import CartContext from "../CartContext";
-import { useContext } from "react";
+import MobileNav from "../Components/MobileNav";
 import { useState } from "react";
 import Modal from "../Components/Modal";
 import videos from "../videos";
 import { useEffect } from "react";
 const Home = () => {
-    const {addToCart,removeFromCart} = useContext(CartContext);
-    const [modal,setModal] = useState(false)
+    const [toggleState, setToggleState] = useState(1);
+    const [modal,setModal] = useState(false);
+    const [mobile,setMobile] = useState(false);
+    const [clip,setClip] = useState([]);
+    const [loading,setLoading] = useState(true);
+
+    const toggleTab = (index) =>{
+        setToggleState(index);
+    }
+    
     const handleModal = () =>{
         setModal(!modal);
     }
 
-    const [clip,setClip] = useState([]);
-    const [loading,setLoading] = useState(true);
+    const handleMobile = () =>{
+        setMobile(!mobile);
+    }
+
     useEffect(()=>{
         setClip(videos)
         setLoading(false);
@@ -28,7 +37,7 @@ const Home = () => {
     if(loading) return <h3 className="heading">Loading....</h3>;
     return (
         <>
-            <Header handleModal={handleModal}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 <section className="section visit hero">
                     <div className="wrapper">
@@ -75,10 +84,10 @@ const Home = () => {
                         <div className="area">
                             <p className="paragraph">Shop</p>
                             <h3 className="heading">New Arrivals</h3>
-                            <CategoryToggle />
+                            <CategoryToggle toggleState={toggleState} toggleTab={toggleTab} />
                         </div>
                         <div className="boxes">
-                            <ImageCard />
+                            <ImageCard/>
                         </div>
                     </div>
                 </section>
@@ -154,10 +163,9 @@ const Home = () => {
                 </section>
 
                 <Modal modal={modal} handleModal={handleModal} />
-                
-            </main>
 
-            
+                <MobileNav mobile={mobile} handleMobile={handleMobile} />
+            </main>
             <Footer />
         </>
     );
