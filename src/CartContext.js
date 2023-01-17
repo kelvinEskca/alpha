@@ -1,68 +1,73 @@
-import {useState,createContext} from "react";
+import {useState,createContext,useEffect} from "react";
 const CartContext = createContext();
 
 export function CartProvider({children}){
-    const [items,setItems] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
-
-    const addToCart = (item,size)=>{
-        const updatedItems = [...items, {...item, total: item.price,size}]
-        setItems(updatedItems);
-        setTotalPrice(totalPrice + item.price);
-        calculateTotalPrice();
-    };
-
-    const increaseQuantity = (itemId,itemData) => {
-        setItems(
-            items.map((item) => {
-            if (item.id === itemId) {
-              return { ...item, qty: item.qty + 1, total:((item.qty + 1)  * item.price) };
+    const loadCartFromLocalStorage = () =>{
+        try {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            if (cart) {
+              return cart;
             }
-            return item;
-          })
-        );
-        calculateTotalPrice();
-        setTotalPrice(totalPrice + itemData.price);
-    };
+          } catch (err) {
+            console.error(err);
+          }
+        return [];
+    }
 
-    const removeFromCart = (itemId)=>{
-        setItems(items.filter((item) => item.id !== itemId));
-        calculateTotalPrice();
-    };
-
-    const reduceQuantity = (itemId,itemData) => {
-        setItems(
-            items.filter((item) => {
-                if (item.id === itemId) {
-                    if(item.qty === 1){
-                        removeFromCart(itemId);
-                        return false;
-                    }
-                    else{
-                        return true;
-                    }
-                }
-                return true;
-            }).map(item => {
-                if(item.id === itemId){
-                    return { ...item, qty: item.qty - 1,total:((item.qty - 1) * itemData.price) };
-                }
-                return item;
-            })
-        );
-        calculateTotalPrice();
-        setTotalPrice(totalPrice - itemData.price);
-    };
-
-    const calculateTotalPrice = () => {
-        if (items.length) {
-            let total = items.reduce((acc, item) => acc + item.price * item.qty, 0);
-            setTotalPrice(total);
+    const saveCartToLocalStorage = (items) => {
+        try {
+          localStorage.setItem('cart', JSON.stringify(items));
+        } catch (err) {
+          console.error(err);
         }
-    };
+    }
+
+    const [items,setItems] = useState(() => loadCartFromLocalStorage());
+
+    useEffect(() => {
+        saveCartToLocalStorage(items);
+    }, [items]);
+
+   
+    const addToCart = (item) => {
+        setItems(prevCart => [...prevCart, item]);
+    }
+    
+    const increaseQuantity = (itemId) => {
+        setItems(prevCart => prevCart.map(item => 
+            item.id === itemId ? {...item, qty: item.qty + 1} : item
+        ))
+    }
+    
+    const reduceQuantity = (itemId) => {
+        setItems(prevCart => prevCart.map(item => {
+            if (item.id === itemId) {
+              if (item.qty > 1) {
+                return { ...item, qty: item.qty - 1 }
+              } else {
+                return null;
+              }
+            } else {
+              return item;
+            }
+        }).filter(item => item !== null))
+    }
+    
+    const removeFromCart = (itemId) => {
+        setItems(prevCart => prevCart.filter(item => item.id !== itemId))
+    }
+
+    const getTotalAmount = () => {
+        return items.reduce((acc, item) => acc + item.price * item.qty, 0)
+    }
+
+    const getItemAmount = () => {
+        return items.map(item => item.price * item.qty);
+    }
+
 
     return(
-        <CartContext.Provider value={{items,addToCart,removeFromCart,increaseQuantity,reduceQuantity,totalPrice}}>{children}</CartContext.Provider>
+        <CartContext.Provider value={{items,addToCart,removeFromCart,increaseQuantity,reduceQuantity,getTotalAmount,getItemAmount}}>{children}</CartContext.Provider>
     )
 }
 

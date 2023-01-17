@@ -1,20 +1,30 @@
 import React,{useEffect,useState} from "react";
-import items from "../items";
 import { useContext } from "react";
 import CartContext from "../CartContext";
+import axios from "axios";
 const ImageCard = () => {
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     const [selectedSize,setSelectedSize] = useState('');
     const {addToCart} = useContext(CartContext);
     useEffect(()=>{
-        setProducts(items);
+        const getproducts = async ()=>{
+            try{
+                const res = await axios.get('http://localhost:5000/alphaapi/product')
+                setProducts(res.data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getproducts();
         setLoading(false);
     },[]);
 
     const handleClick = (size,item)=>{
         setSelectedSize(size);
-        addToCart(item,size);
+        addToCart({...item, size});
     }
 
     if(loading) return <h3 className='heading'>Loading....</h3>
@@ -24,8 +34,8 @@ const ImageCard = () => {
                 <div className="box" key={item.id}>
                     <div className="tag"><small></small></div>
                     <div className="image-box">
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageTwo} alt={item.imageTwo} className="imageTwo" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0].originalname} className="imageOne" />
+                        <img src={`../images/${item.image[1].originalname}`} alt={item.image[1].originalname} className="imageTwo" />
 
                         <div className="quick-add">
                             <div className="quick-add-top">
@@ -34,7 +44,7 @@ const ImageCard = () => {
 
                             <div className="quick-add-bottom">
                                 {item.sizes.map((size,i)=>{
-                                    return (<div className="size"><small className={`${size.size === selectedSize ? 'sizeActive' : ''}`} onClick={()=>handleClick(size.size,item)}>{size.size}</small></div>)
+                                    return (<div className="size" key={i}><small className={`${size === selectedSize ? 'sizeActive' : ''}`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
                                 })}
                             </div>
                         </div>
@@ -47,24 +57,24 @@ const ImageCard = () => {
 
                     <div className="size-box">
                         {item.sizes.map((size,i)=>{
-                            return (<div className="size"><small>{size.size}</small></div>)
+                            return (<div className="size" key={i}><small>{size}</small></div>)
                         })}
                     </div>
 
                     <div className="images-box">
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
 
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
-                        <img src={item.imageOne} alt={item.imageOne} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                        <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
                     </div>
                 </div>
             )

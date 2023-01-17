@@ -3,8 +3,28 @@ import ImageCard from '../Components/ImageCard';
 import Button from "./Button";
 import { useContext } from "react";
 import CartContext from "../CartContext";
+import StripeCheckout from "react-stripe-checkout";
+import axios from 'axios';
 const Modal = ({modal,handleModal}) => {
-    const {items,increaseQuantity,reduceQuantity,removeFromCart,totalPrice} = useContext(CartContext);
+    axios.defaults.withCredentials = true;
+    const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount} = useContext(CartContext);
+    const individualTotalPrice = getItemAmount();
+    const makePayment = async (token) =>{
+        try{
+            const response = await axios.post('http://localhost:5000/alphaapi/pay',{
+                items,
+                total:getTotalAmount(),
+                token,
+            })
+            if(response.status === 200){
+                console.log('Your Payment Was successful');
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
     return (
         <section className={`section  ${modal ? ('modal') : ('off')}`}>
             <div className="wrapper">
@@ -49,7 +69,7 @@ const Modal = ({modal,handleModal}) => {
                                                 </div>
 
                                                 <div className="smaller">
-                                                    <h3 className="heading">{item.total}</h3>
+                                                    <h3 className="heading">${individualTotalPrice[i]}</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -58,13 +78,20 @@ const Modal = ({modal,handleModal}) => {
                             })}
                             <div className="total-banner">
                                 <span>
-                                    <h3 className="heading">Total: ${totalPrice}</h3>
+                                    <h3 className="heading">Total: ${getTotalAmount()}</h3>
                                     {items.length > 1 ? (<h3 className="heading"> | {items.length} items</h3>) : (<h3 className="heading"> | {items.length} item</h3>)}
                                     
                                 </span>
-                                
                             </div>
-                            <button>Checkout</button>
+                            <StripeCheckout 
+                            stripeKey={process.env.REACT_APP_KEY} 
+                            token={makePayment} 
+                            name="Pay With Credit Card"
+                            billingAddress
+                            shippingAddress
+                            description={`Your total is $${getTotalAmount()}`}
+                            amount={getTotalAmount() * 100}
+                            ><button>Checkout</button></StripeCheckout>
                             <button onClick={handleModal}>Cancel</button>
                         </div>
                         

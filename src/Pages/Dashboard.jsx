@@ -131,7 +131,7 @@ const Dashboard = () => {
                     <div className="wrapper">
                         <h3 className="heading">Latest Customers</h3>
                         <div className="boxes">
-                            {customers === null ? (
+                            {customers.length === 0 ? (
                                 <div className="table">
                                     <p className="paragraph">No data</p>
                                 </div>

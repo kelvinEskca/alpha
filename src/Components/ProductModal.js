@@ -5,105 +5,93 @@ import axios from "axios";
 const ProductModal = ({productModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user'));
     const navigate = useNavigate();
     
-    const handleChange = (e) =>{
+    const [formData, setFormData] = useState({
+        name: "",
+        desc: "",
+        sizes: [],
+        images: [],
+        price: "",
+        category: "",
+        colors: [],
+        quantity: "",
+        inStock: ""
+    });
+    const handleChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    const handleImageChange = e => {
+        setFormData({ ...formData, images: e.target.files });
+    };
+    
+    const handleSubmit = async e => {
         e.preventDefault();
-        setProduct({...product,[e.target.name]: e.target.value})
-    }
-    const addProduct = async (e) =>{
-        e.preventDefault();
-        if(product !== ''){
-            try{
-                const result = await axios.post('http://localhost:5000/alphaapi/product',{
-                    title:product.title,
-                    desc:product.desc,
-                    category:product.category,
-                    //image:product.image,
-                    quantity:product.quantity,
-                    price:product.price,
-                    //galleryImage:product.galleryImage,
-                    sizes:product.sizes,
-                    colors:product.colors,
-                    userId:user._id
-                },{ headers:{token:token} });
-                if(result.status === 200){
-                    alert("Product updated successfuly");
-                    navigate('/products')
-                    localStorage.setItem('address',JSON.stringify(result.data));
-                }
-                else{
-                    alert("Address failed to upload successfuly")
-                }
-            }
-            catch(err){
-                console.log(err);
-            }
+        const data = new FormData();
+        data.append("name", formData.name);
+        data.append("desc", formData.desc);
+        data.append("sizes", formData.sizes.split(',').map(size => size.trim()));
+        for (let i = 0; i < formData.images.length; i++) {
+            data.append("image", formData.images[i]);
         }
-        else{
-            alert('Ensure All inputs are filled!');
+        data.append("price", formData.price);
+        data.append("category", formData.category);
+        data.append("colors", formData.colors);
+        data.append("quantity", formData.quantity);
+        data.append("inStock", formData.inStock);
+        try {
+            const res = await axios.post("http://localhost:5000/alphaapi/product", data,{headers:{token:token}});
+            console.log(res);
+            if(res.status === 200){
+                navigate('/products')
+            }
+        } catch (err) {
+        console.error(err);
         }
-    }
-
-    //add products;
-    const [product,setProduct] = useState({title:"",desc:"",category:"", quantity:"",price:"",colors:"",size:""});
+    };
     
     return (
         <section className={`section addressModal  ${productModal ? ('modal') : ('off')}`} >
             <div className="wrapper">
                 <div className="boxes" >
                     <div className="box">
-                        <form action="#" className="form" onSubmit={addProduct}>
+                        <form action="#" className="form" onSubmit={handleSubmit} encType="multipart/form-data">
                             <h3 className="heading">Add a new product</h3>
-                            <div className="row-label">
-                                <label htmlFor="#">Product Title 
-                                    <input type="text" id="title" name="title" onChange={handleChange}/>
-                                </label>
-
-                                <label htmlFor="#">Product Description 
-                                    <textarea name="desc" id="description" cols="30" rows="10"  onChange={handleChange}></textarea>
-                                </label>
-                            </div>
-                            
-                            <label htmlFor="#">Product Category 
-                                <input type="text" id="category" name="category" onChange={handleChange}/>
+                            <label htmlFor="#">
+                                <input type="text" name="name" placeholder="Product name" onChange={handleChange} value={formData.name}/>
                             </label>
 
-                            <label htmlFor="#">Product Quantity 
-                                <input type="text" id="quantity" name="quantity" onChange={handleChange}/>
+                            <label htmlFor="#">
+                                <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Product Description" onChange={handleChange} value={formData.desc}></textarea>
                             </label>
 
-                            <label htmlFor="#">Product Price 
-                                <input type="text" id="price" name="price" onChange={handleChange}/>
+                            <label htmlFor="#">
+                                <input type="text" name="sizes" placeholder="Sizes (comma separated)" onChange={handleChange} value={formData.sizes}/>
                             </label>
 
-                            {/* <div className="row-label">
-                                <label htmlFor="#">Gallery Image 
-                                    <input type="text" id="gallery" name="gallery" onChange={handleChange}/>
-                                </label>
-
-                            </div> */}
-
-                            <label htmlFor="#">Product Sizes 
-                                <select name="sizes" id="sizes" multiple onChange={handleChange}>
-                                    <option value="S">S</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="XXL">XXL</option>
-                                </select>
+                            <label htmlFor="#">
+                                <input type="file" name="images" placeholder="Images" onChange={handleImageChange} multiple/>
                             </label>
 
-                            <div className="row-label">
-                                <label htmlFor="#">Product Colors 
-                                    <select name="colors" id="colors" multiple onChange={handleChange}>
-                                        <option value="White">White</option>
-                                        <option value="Black">Black</option>
-                                        <option value="Blue">Blue</option>
-                                        <option value="Red">Red</option>
-                                    </select>
-                                </label>
-                            </div>
+                            <label htmlFor="#">
+                                <input type="text" name="price" placeholder="Price" onChange={handleChange} value={formData.price}/>
+                            </label>
+
+                            <label htmlFor="#">
+                                <input type="text" name="category" placeholder="Category" onChange={handleChange} value={formData.category}/>
+                            </label>
+
+                            <label htmlFor="#">
+                                <input type="text" name="colors" placeholder="Colors (comma separated)" onChange={handleChange} value={formData.colors}/>
+                            </label>
+
+                            <label htmlFor="#">
+                                <input type="text" name="quantity" placeholder="Quantity" onChange={handleChange} value={formData.quantity}/>
+                            </label>
+
+                            <label htmlFor="#">
+                                <input type="text" name="inStock" placeholder="In stock (true/false)" onChange={handleChange} value={formData.inStock}/>
+                            </label>
 
                             <label htmlFor="#">
                                 <Button btnText={'Add Product'} />

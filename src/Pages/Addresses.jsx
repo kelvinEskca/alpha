@@ -9,7 +9,6 @@ const Account = () => {
     const openModal = () =>{
         setAddressModal(!addressModal);
     }
-    const auth = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
     const useraddress = JSON.parse(localStorage.getItem('address'));
     return (
