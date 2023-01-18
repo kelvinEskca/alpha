@@ -9,9 +9,15 @@ const Footer = () => {
         e.preventDefault();
         if(email !== ''){
             try{
-                axios.post('http://localhost:5000/alphaapi/newsletter',{
+                const news = await axios.post('http://localhost:5000/alphaapi/newsletter',{
                     email:email
                 });
+                if(news.status === 200){
+                    alert("Success")
+                }
+                else{
+                    alert(news.statusText);
+                }
 
             }
             catch(err){

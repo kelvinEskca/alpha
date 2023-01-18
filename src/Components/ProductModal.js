@@ -27,16 +27,18 @@ const ProductModal = ({productModal,openModal}) => {
     
     const handleSubmit = async e => {
         e.preventDefault();
+        const sizesArray = formData.sizes.split(',').map(size => size.trim());
+        const colorArray = formData.colors.split(',').map(color => color.trim());
         const data = new FormData();
         data.append("name", formData.name);
-        data.append("desc", formData.desc);
-        data.append("sizes", formData.sizes.split(',').map(size => size.trim()));
+        data.append("desc", sizesArray);
+        data.append("sizes", formData.sizes);
         for (let i = 0; i < formData.images.length; i++) {
             data.append("image", formData.images[i]);
         }
         data.append("price", formData.price);
         data.append("category", formData.category);
-        data.append("colors", formData.colors);
+        data.append("colors", colorArray);
         data.append("quantity", formData.quantity);
         data.append("inStock", formData.inStock);
         try {

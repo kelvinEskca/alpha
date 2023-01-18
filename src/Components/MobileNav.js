@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-
 const MobileNav = ({handleMobile,mobile}) => {
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
         <div className={`${mobile ? ("mobile-footer") : ("mobile-off")}`} onClick={handleMobile}>
             <div className="mobile-inner">
@@ -9,19 +9,39 @@ const MobileNav = ({handleMobile,mobile}) => {
                     <Link to="/men">Men</Link>
                 </div>
 
-                <div className="center">
-                    <h3 className="heading">Welcome Back, Kelvin!</h3>
+                {user  ? (
+                    <div className="center">
+                        <h3 className="heading">Welcome Back, {user.fname}!</h3>
+                        <ul className="list">
+                            {user.isAdmin ? (
+                                <li><Link to='/dashboard'>Account</Link></li>
+                            ) : (
+                                <li><Link to='/account'>Account</Link></li>
+                            )}
+                            
+                            <li><Link to='/help'>Help Center</Link></li>
+                            <li><Link to='/shipping'>Shipping Info</Link></li>
+                            <li><Link to='/orders'>Track My Order</Link></li>
+                            <li><Link to='/support'>Returns & Exchange</Link></li>
+                            <li><Link to='/about'>About Us</Link></li>
+                        </ul>
+                    </div>
+                ) : (
+                    <div className="center">
+                        <h3 className="heading">Welcome To Alphalete</h3>
+                        <ul className="list">
+                            <li><Link to='/login'>Login</Link></li>
+                            <li><Link to='/register'>Register</Link></li>
+                            <li><Link to='/help'>Help Center</Link></li>
+                            <li><Link to='/shipping'>Shipping Info</Link></li>
+                            <li><Link to='/orders'>Track My Order</Link></li>
+                            <li><Link to='/support'>Returns & Exchange</Link></li>
+                            <li><Link to='/about'>About Us</Link></li>
+                        </ul>
+                    </div>
 
-                    <ul className="list">
-                        <li><Link to='/account'>My Account</Link></li>
-                        <li><Link to='/help'>Help Center</Link></li>
-                        <li><Link to='/shipping'>Shipping Info</Link></li>
-                        <li><Link to='/orders'>Track My Order</Link></li>
-                        <li><Link to='/support'>Returns & Exchange</Link></li>
-                        <li><Link to='/about'>About Us</Link></li>
-                    </ul>
-                </div>
-
+                )}
+                
                 <div className="bottom">
                     <div className="social-wrapper">
                         <img src="../images/icons8-instagram-30.png" alt="icons8-instagram-30" />

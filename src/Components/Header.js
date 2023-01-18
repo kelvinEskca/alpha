@@ -1,10 +1,17 @@
 
 import { Link } from "react-router-dom";
 import CartContext from "../CartContext";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 const Header = ({handleModal,handleMobile}) => {
     const {items} = useContext(CartContext);
     const user = JSON.parse(localStorage.getItem('user'));
+    let location = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [location]);
+  
     return (
         user ? (
             <>
@@ -50,7 +57,7 @@ const Header = ({handleModal,handleMobile}) => {
                                     <p className="paragraph">Shop Women's top pick</p>
                                 </div>
 
-                                <div className="right">
+                                <div className="right small-right">
                                     <ul>
                                         <li><Link to='/account'>Account</Link></li>
                                         <li><Link to='/addresses'>Address</Link></li>
@@ -85,9 +92,9 @@ const Header = ({handleModal,handleMobile}) => {
                         <p className="paragraph">Shop Women's top pick</p>
                     </div>
 
-                    <div className="right">
+                    <div className="right small-right">
                         <ul>
-                            <li><Link to='/info'>Info</Link></li>
+                            <li><Link to='/register'>Register</Link></li>
                             <li><Link to='/login'>Login</Link></li>
                         </ul>
                     </div>

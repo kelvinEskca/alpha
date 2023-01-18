@@ -6,9 +6,11 @@ import CartContext from "../CartContext";
 import StripeCheckout from "react-stripe-checkout";
 import axios from 'axios';
 const Modal = ({modal,handleModal}) => {
+    const user = JSON.parse(localStorage.getItem('user'));
     axios.defaults.withCredentials = true;
     const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount} = useContext(CartContext);
     const individualTotalPrice = getItemAmount();
+    
     const makePayment = async (token) =>{
         try{
             const response = await axios.post('http://localhost:5000/alphaapi/pay',{
@@ -17,14 +19,13 @@ const Modal = ({modal,handleModal}) => {
                 token,
             })
             if(response.status === 200){
-                console.log('Your Payment Was successful');
+                alert('Your Payment Was successful');
             }
         }
         catch(error){
             console.log(error);
         }
     }
-
     return (
         <section className={`section  ${modal ? ('modal') : ('off')}`}>
             <div className="wrapper">
@@ -52,7 +53,7 @@ const Modal = ({modal,handleModal}) => {
                                             </div>
 
                                             <div className="top-right">
-                                                <img src={item.imageOne} alt={item.name} />
+                                                <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} />
                                             </div>
                                         </div>
 
@@ -83,15 +84,20 @@ const Modal = ({modal,handleModal}) => {
                                     
                                 </span>
                             </div>
-                            <StripeCheckout 
-                            stripeKey={process.env.REACT_APP_KEY} 
-                            token={makePayment} 
-                            name="Pay With Credit Card"
-                            billingAddress
-                            shippingAddress
-                            description={`Your total is $${getTotalAmount()}`}
-                            amount={getTotalAmount() * 100}
-                            ><button>Checkout</button></StripeCheckout>
+                            {user === null ? (
+                                <Link to='login'><button>Login to checkout</button></Link>
+                            ) : (
+                                <StripeCheckout 
+                                stripeKey={process.env.REACT_APP_KEY} 
+                                token={makePayment} 
+                                name="Pay With Credit Card"
+                                billingAddress
+                                shippingAddress
+                                description={`Your total is $${getTotalAmount()}`}
+                                amount={getTotalAmount() * 100}
+                                ><button>Checkout</button></StripeCheckout>
+                            )}
+                            
                             <button onClick={handleModal}>Cancel</button>
                         </div>
                         

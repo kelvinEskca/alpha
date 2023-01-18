@@ -597,6 +597,13 @@ main{
 }
 
 
+.new .boxes > h3{
+  color: #fff;
+  font-size: .9rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
 ::-webkit-scrollbar {
   width: 0;
   background-color: transparent; 
@@ -2051,6 +2058,10 @@ img{
     justify-content: space-between;
     max-width: 300px;
     min-width: 70px;
+  }
+
+  header .top .small-right{
+    width: 110px;
   }
 
   header .top .right ul{

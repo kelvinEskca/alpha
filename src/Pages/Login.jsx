@@ -3,11 +3,22 @@ import {Link,useNavigate} from 'react-router-dom';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import Modal from "../Components/Modal";
+import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 const Login = () => {
     axios.defaults.withCredentials = true;
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [modal,setModal] = useState(false)
+    const [mobile,setMobile] = useState(false)
+    const handleModal = () =>{
+        setModal(!modal);
+    }
+
+    const handleMobile = () =>{
+        setMobile(!mobile);
+    }
     const navigate = useNavigate();
 
     const handleSubmit = async (e)=>{
@@ -28,6 +39,7 @@ const Login = () => {
                 }
             }
             else{
+                alert(loginUser.statusText);
                 console.log(loginUser.message);
             }
         }
@@ -37,7 +49,7 @@ const Login = () => {
     }
     return (
         <>
-            <Header />
+            <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 <section className="section auth">
                     <div className="wrapper">
@@ -73,6 +85,10 @@ const Login = () => {
                         </div>
                     </div>
                 </section>
+
+                <Modal modal={modal} handleModal={handleModal} />
+
+                <MobileNav mobile={mobile} handleMobile={handleMobile} />
             </main>
 
             <Footer />

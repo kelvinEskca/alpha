@@ -87,7 +87,7 @@ const Home = () => {
                             <CategoryToggle toggleState={toggleState} toggleTab={toggleTab} />
                         </div>
                         <div className="boxes">
-                            <ImageCard/>
+                            <ImageCard toggleState={toggleState} toggleTab={toggleTab}/>
                         </div>
                     </div>
                 </section>
