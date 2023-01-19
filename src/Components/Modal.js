@@ -83,7 +83,7 @@ const Modal = ({modal,handleModal}) => {
                                 </span>
                             </div>
                             {user === null ? (
-                                <Link to='login'><button>Login to checkout</button></Link>
+                                <Link to='/login'><button className="loginbtn">Login to checkout</button></Link>
                             ) : (
                                 <button onClick={makePayment}>Checkout</button>
                             )}
