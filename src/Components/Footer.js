@@ -9,7 +9,7 @@ const Footer = () => {
         e.preventDefault();
         if(email !== ''){
             try{
-                const news = await axios.post('http://localhost:5000/alphaapi/newsletter',{
+                const news = await axios.post('https://helpful-bat-wig.cyclic.app/alphaapi/newsletter',{
                     email:email
                 });
                 if(news.status === 200){

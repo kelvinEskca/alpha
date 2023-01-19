@@ -13,7 +13,7 @@ const Dashboard = () => {
     useEffect(()=>{
         const getOrders = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/order/',{headers:{token:auth}});
+                const res = await axios.get('https://helpful-bat-wig.cyclic.app/alphaapi/order/',{headers:{token:auth}});
                 setOrders(res.data);
                 setLoading(false);
             }

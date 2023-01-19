@@ -24,7 +24,7 @@ const Register = () => {
         }
         else{
             try{
-                const userSubmit = await axios.post('http://localhost:5000/alphaapi/auth/register',{
+                const userSubmit = await axios.post('https://helpful-bat-wig.cyclic.app/alphaapi/auth/register',{
                     email:email,
                     fname:firstname,
                     lname:firstname,

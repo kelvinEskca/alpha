@@ -37,7 +37,7 @@ const Account = () => {
         const id = user._id;
         const grabOrders = async () =>{
             try{
-                const order = await axios.get(`http://localhost:5000/alphaapi/order/${id}`,{headers:{token:token}})
+                const order = await axios.get(`https://helpful-bat-wig.cyclic.app/alphaapi/order/${id}`,{headers:{token:token}})
                 if(order.status === 200){
                     setOrders(order.data);
                 }

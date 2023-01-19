@@ -11,7 +11,7 @@ const Customers = () => {
     useEffect(()=>{
         const getcustomers = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/users',{headers:{token:auth}});
+                const res = await axios.get('https://helpful-bat-wig.cyclic.app/alphaapi/users',{headers:{token:auth}});
                 setCustomers(res.data);
                 setLoading(false);
             }

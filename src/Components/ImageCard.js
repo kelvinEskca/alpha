@@ -12,7 +12,7 @@ const ImageCard = ({toggleState}) => {
             const gender = 'Female';
             const getproducts = async ()=>{
                 try{
-                    const res = await axios.get(`http://localhost:5000/alphaapi/product/female/${gender}`)
+                    const res = await axios.get(`https://helpful-bat-wig.cyclic.app/alphaapi/product/female/${gender}`)
                     setProducts(res.data);
                     setLoading(false);
                 }
@@ -27,7 +27,7 @@ const ImageCard = ({toggleState}) => {
             const gender = 'Male';
             const getproducts = async ()=>{
                 try{
-                    const res = await axios.get(`http://localhost:5000/alphaapi/product/male/${gender}`)
+                    const res = await axios.get(`https://helpful-bat-wig.cyclic.app/alphaapi/product/male/${gender}`)
                     setProducts(res.data);
                     setLoading(false);
                 }
@@ -41,7 +41,7 @@ const ImageCard = ({toggleState}) => {
         else{
             const getproducts = async ()=>{
                 try{
-                    const res = await axios.get(`http://localhost:5000/alphaapi/product`)
+                    const res = await axios.get(`https://helpful-bat-wig.cyclic.app/alphaapi/product`)
                     setProducts(res.data);
                     setLoading(false);
                 }
