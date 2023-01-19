@@ -1826,6 +1826,7 @@ img{
   border: none;
   border-radius: .5rem;
   cursor: pointer;
+  margin-top: 1rem;
 }
 
 .total-banner,.total-banner span{
@@ -1851,6 +1852,40 @@ img{
   color: #fff;
   font-weight: 400;
   font-size: .9rem;
+}
+
+.orders .product-image{
+  height: 500px;
+}
+
+.orders .product-image img{
+  width: 100%;
+  height: 100%;
+}
+
+.orders .boxes{
+  margin-top: 1rem;
+}
+
+.orders .products{
+  margin-bottom: 1rem;
+}
+
+.latest .text span{
+  flex-direction: column;
+}
+
+.orders .shipping-details{
+  margin-top: 1rem;
+}
+
+.orders .shipping-details .heading{
+  color: #fff;
+  font-weight: 300;
+  margin-bottom: .5rem;
+  width: 100%;
+  border-bottom: 1px solid #434242;
+  padding-bottom: .5rem;
 }
 
 @media screen and (min-width:376px){
@@ -2193,6 +2228,20 @@ img{
     gap: 1rem;
   }
 
+  .orders .boxes{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .orders .products-wrapper{
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1rem;
+  }
+
   .products-latest .box{
     margin: 0;
   }
@@ -2301,6 +2350,11 @@ img{
 
   .border-box{
     max-width: 100%;
+  }
+
+  .latest .text .column{
+    display: flex;
+    flex-direction: column;
   }
 }
 

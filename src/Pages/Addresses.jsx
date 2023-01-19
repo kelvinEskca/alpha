@@ -4,6 +4,8 @@ import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import AddressModal from "../Components/AddressModal";
+import Modal from "../Components/Modal";
+import MobileNav from "../Components/MobileNav";
 const Account = () => {
     const [addressModal,setAddressModal] = useState(false);
     const openModal = () =>{
@@ -11,9 +13,18 @@ const Account = () => {
     }
     const user = JSON.parse(localStorage.getItem('user'));
     const useraddress = JSON.parse(localStorage.getItem('address'));
+    const [modal,setModal] = useState(false);
+    const [mobile,setMobile] = useState(false);
+    const handleModal = () =>{
+        setModal(!modal);
+    }
+
+    const handleMobile = () =>{
+        setMobile(!mobile);
+    }
     return (
         <>
-            <Header />
+            <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 <section className="section welcome">
                     <div className="wrapper">
@@ -46,6 +57,10 @@ const Account = () => {
                 </section>
 
                 <AddressModal openModal={openModal} addressModal={addressModal} />
+
+                <Modal modal={modal} handleModal={handleModal} />
+
+                <MobileNav mobile={mobile} handleMobile={handleMobile} />
             </main>
             <Footer />
         </>
