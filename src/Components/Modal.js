@@ -1,25 +1,23 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import axios from 'axios';
 import ImageCard from '../Components/ImageCard';
 import Button from "./Button";
-import { useContext } from "react";
 import CartContext from "../CartContext";
-import StripeCheckout from "react-stripe-checkout";
-import axios from 'axios';
 const Modal = ({modal,handleModal}) => {
+    const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount} = useContext(CartContext);
     const user = JSON.parse(localStorage.getItem('user'));
     axios.defaults.withCredentials = true;
-    const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount} = useContext(CartContext);
     const individualTotalPrice = getItemAmount();
     
-    const makePayment = async (token) =>{
+    const makePayment = async () =>{
         try{
-            const response = await axios.post('http://localhost:5000/alphaapi/pay',{
-                items,
-                total:getTotalAmount(),
-                token,
+            const response = await axios.post('http://localhost:5000/alphaapi/pay/create-checkout-session',{
+                items:items,
+                userId:user._id
             })
-            if(response.status === 200){
-                alert('Your Payment Was successful');
+            if(response.data.url){
+                window.location.href = response.data.url;
             }
         }
         catch(error){
@@ -87,15 +85,7 @@ const Modal = ({modal,handleModal}) => {
                             {user === null ? (
                                 <Link to='login'><button>Login to checkout</button></Link>
                             ) : (
-                                <StripeCheckout 
-                                stripeKey={process.env.REACT_APP_KEY} 
-                                token={makePayment} 
-                                name="Pay With Credit Card"
-                                billingAddress
-                                shippingAddress
-                                description={`Your total is $${getTotalAmount()}`}
-                                amount={getTotalAmount() * 100}
-                                ><button>Checkout</button></StripeCheckout>
+                                <button onClick={makePayment}>Checkout</button>
                             )}
                             
                             <button onClick={handleModal}>Cancel</button>

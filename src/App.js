@@ -20,6 +20,8 @@ import Men from "./Pages/Men";
 import Women from "./Pages/Women";
 import PrivateUserRoute from "./Components/PrivateUserRoutes";
 import PrivateRoute from "./Components/AdminRoute";
+import Success from "./Components/Success";
+import NotFound from "./Components/NotFound";
 import { CartProvider } from "./CartContext";
 const App = () => {
   return (
@@ -44,6 +46,8 @@ const App = () => {
           <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}/>
           <Route path="/men" element={<Men />}/>
           <Route path="/women" element={<Women />}/>
+          <Route path="/success" element={<Success />}/>
+          <Route path="*" element={<NotFound />}/>
         </Routes>
       </Router>
     </CartProvider>

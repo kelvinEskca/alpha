@@ -31,8 +31,8 @@ const ProductModal = ({productModal,openModal}) => {
         const colorArray = formData.colors.split(',').map(color => color.trim());
         const data = new FormData();
         data.append("name", formData.name);
-        data.append("desc", sizesArray);
-        data.append("sizes", formData.sizes);
+        data.append("desc", formData.desc);
+        data.append("sizes", sizesArray);
         for (let i = 0; i < formData.images.length; i++) {
             data.append("image", formData.images[i]);
         }

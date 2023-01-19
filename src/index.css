@@ -1841,6 +1841,18 @@ img{
   margin-right: 1rem;
 }
 
+.success .wrapper,.success .boxes,.success .box{
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.success .heading{
+  color: #fff;
+  font-weight: 400;
+  font-size: .9rem;
+}
+
 @media screen and (min-width:376px){
   body{
     max-width: 100%;
