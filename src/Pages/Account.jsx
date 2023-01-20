@@ -57,7 +57,7 @@ const Account = () => {
                         <div className="boxes">
                             <div className="box">
                                 <h3 className="heading">Welcome Back, {user.fname}</h3>
-                                <Link to='/login'><button onClick={logout}>Log Out</button></Link>
+                                <button onClick={logout}>Log Out</button>
                             </div>
                         </div>
                     </div>

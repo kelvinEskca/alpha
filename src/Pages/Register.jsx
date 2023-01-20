@@ -30,7 +30,7 @@ const Register = () => {
                     lname:firstname,
                     password:password,
                 });
-                if(userSubmit.status === 200){
+                if(userSubmit.status === 201){
                     alert("Success");
                     navigate('/login');
                 }
