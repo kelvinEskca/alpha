@@ -4,6 +4,8 @@ import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
 import ProductModal from "../Components/ProductModal";
+import Modal from "../Components/Modal";
+import MobileNav from "../Components/MobileNav";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -50,11 +52,19 @@ const Dashboard = () => {
         }
     }
 
+    const [modal,setModal] = useState(false);
+    const [mobile,setMobile] = useState(false);
+    const handleModal = () =>{
+        setModal(!modal);
+    }
+    const handleMobile = () =>{
+        setMobile(!mobile);
+    }
 
     if(loading) return <h1>Loading</h1>;
     return (
         <>
-            <Header />
+            <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 <section className="section latest products-latest">
                     <div className="wrapper">
@@ -104,6 +114,8 @@ const Dashboard = () => {
                 </section>
 
                 <ProductModal openModal={openModal} productModal={productModal} />
+                <Modal modal={modal} handleModal={handleModal} />
+                <MobileNav mobile={mobile} handleMobile={handleMobile} />
             </main>
             <Footer />
         </>

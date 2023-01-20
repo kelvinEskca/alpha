@@ -1765,9 +1765,10 @@ img{
   width: 100%;
   background-color: #929294;
   color: #191919;
-  font-weight: 600;
+  font-weight: 400;
   font-size: .8rem;
   border: none;
+  font-family: 'GT';
 }
 
 .addressModal .checklabel{
@@ -2235,10 +2236,6 @@ img{
     top: 0;
     z-index: 10;
     transition: background-color .4s ease-in-out;
-  }
-
-  .welcome button{
-    width: 12rem;
   }
 
   .welcome .heading{
