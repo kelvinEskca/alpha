@@ -20,7 +20,7 @@ const Dashboard = () => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://helpful-bat-wig.cyclic.app/alphaapi/product')
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/product')
                 setProducts(res.data);
                 setLoading(false);
             }
@@ -34,7 +34,7 @@ const Dashboard = () => {
     const handleDelete = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`https://helpful-bat-wig.cyclic.app/alphaapi/product/delete/${id}`,{
+            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/product/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){

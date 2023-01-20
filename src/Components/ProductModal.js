@@ -42,7 +42,7 @@ const ProductModal = ({productModal,openModal}) => {
         data.append("quantity", formData.quantity);
         data.append("inStock", formData.inStock);
         try {
-            const res = await axios.post("https://helpful-bat-wig.cyclic.app/alphaapi/product", data,{headers:{token:token}});
+            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
             console.log(res);
             if(res.status === 200){
                 navigate('/products')

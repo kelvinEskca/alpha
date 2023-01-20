@@ -24,7 +24,7 @@ const Login = () => {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try{
-            const loginUser = await axios.post('https://helpful-bat-wig.cyclic.app/alphaapi/auth/login',{
+            const loginUser = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/auth/login',{
                 email:email,
                 password:password
             });

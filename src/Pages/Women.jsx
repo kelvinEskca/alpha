@@ -26,7 +26,7 @@ const Women = () => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://helpful-bat-wig.cyclic.app/alphaapi/product')
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/product')
                 setProducts(res.data);
                 setLoading(false);
             }
