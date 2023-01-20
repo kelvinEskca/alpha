@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;500;600;700&display=swap');
-
+@font-face {
+  font-family: "GT";
+  src: local("GT"),
+  url("./GT.woff") format("truetype");
+}
 *{
   padding: 0;
   margin: 0;
@@ -490,59 +494,83 @@ main{
   transform: scale(1.02);
 }
 
+.visit .text-box{
+  padding: 2.5rem;
+}
+
 .visit .text-box,.shop .text-box{
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   position: absolute;
   bottom: 2rem;
 }
 
 .visit .text-box .heading,.shop .text-box .heading{
-  font-weight: 700;
+  font-weight: 900;
   color: #fff;
   text-transform: uppercase;
   max-width: 10rem;
   text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
+  font-size: 1.5rem;
+  line-height:1.5rem;
+  text-shadow: .8rem .8rem 1.2rem rgba(0,0,0,.08);
+  pointer-events: none;
+  font-family: 'GT';
+  text-align: left;
+  margin-bottom: .5rem;
 }
 
 .visit .text-box .paragraph{
   color: #fff;
   font-size: .8rem;
-  margin-block: .5rem;
   max-width: 10rem;
-  text-align: center;
+  margin-bottom: .5rem;
+  text-align: left;
   font-weight: 400;
+  text-shadow: .8rem .8rem 1.2rem rgba(0,0,0,.08);
+  pointer-events: none;
 }
 
 .visit .text-box button,.shop .text-box button{
-  border-radius: 1.5rem;
+  border-radius: 6rem;
   margin-bottom: .3rem;
-  height: 2rem;
+  padding: 9px 18px;
   font-weight: 600;
-  background-color: #c8cdd173;
+  background-color: rgba(11, 33, 43, 0.5);
+  backdrop-filter: saturate(180%) blur(1rem);
   color: #fff;
+  font-size: .9rem;
+  width: fit-content;
+  height: fit-content;
+  transition: transform .4s ease-in-out,color .4s ease-in-out,background-color .4s ease-in-out;
+  font-family: 'GT';
+}
+
+.visit .text-box button:hover,.shop .text-box button:hover{
+  background-color: #fff;
+  color: #000;
+  transform: scale(1.04);
 }
 
 .hero .text-box button:nth-of-type(2){
   display: none;
 }
 
-.hero .text-box .heading{
-  max-width: 8rem;
-}
+
 
 .shop .box img{
   width: 100%;
-  border-radius: 1.3rem;
+  height: 100%;
+  border-radius: 1.5rem;
 }
 
 .shop .box{
-  border-radius: 1.3rem;
+  border-radius: 1.5rem;
   transition: transform .5s ease-in-out;
   cursor: pointer;
   position: relative;
+  background-color: #999;
+  opacity: .8;
 }
 
 .shop .box:hover{
@@ -558,18 +586,16 @@ main{
   align-items: flex-start;
   justify-content: flex-start;
   padding: 1rem;
-  padding-inline: 2rem;
+  padding-inline: 2.5rem;
 }
 
-.shop .text-box .heading{
-  max-width:6rem;
-  text-align: left;
-  margin-bottom: .5rem;
-  font-weight: 900;
+.left .text-box .heading{
+  text-align: right;
 }
+
 
 .shop .text-box button{
-  background-color: #c8cdd1ce;
+  background-color: rgba(11, 33, 43, 0.5);
 }
 
 .shop .text-box .paragraph{
@@ -752,9 +778,10 @@ main{
 .new .area .heading{
   color: #fff;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
   margin-bottom: .5rem;
+  font-family: 'GT';
 }
 
 .new .area .box{
@@ -861,8 +888,9 @@ footer .box .heading{
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: .8rem;
+  font-size: .95rem;
   margin-bottom: 1rem;
+  font-family: 'GT';
 }
 
 footer .box li{
@@ -889,12 +917,15 @@ footer .newsletter .heading{
   text-align: center;
   font-weight: 700;
   line-height: 1.5rem;
+  font-family: 'GT';
 }
 
 footer .newsletter button{
   width: 100%;
   font-weight: 700;
   height: 2.5rem;
+  font-family: 'GT';
+  font-size: .9rem;
 }
 
 footer .newsletter form{
@@ -979,7 +1010,8 @@ header .logo{
   color: #fff;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 1rem;
+  font-family: 'GT';
+  font-size: .9rem;
 }
 
 header .bottom-right{
@@ -1043,6 +1075,7 @@ header .bottom-right .small .badge .count{
 .auth button{
   width: 100%;
   font-weight: 700;
+  font-family: 'GT';
 }
 
 .auth span{
@@ -1066,9 +1099,10 @@ header .bottom-right .small .badge .count{
 .auth .heading{
   color: #fff;
   margin-bottom: 1.5rem;
-  font-weight: 501;
-  font-size: 1.3rem;
+  font-weight: 400;
+  font-size: 1.2rem;
   text-transform: uppercase;
+  font-family: 'GT';
 }
 
 .auth input{
@@ -1126,8 +1160,12 @@ header .bottom-right .small .badge .count{
   background-color: transparent;
   border: 2px solid #fff;
   color: #fff;
-  font-weight: 501;
+  font-weight: 400;
   text-transform: uppercase;
+  font-size: .8rem;
+  font-family: 'GT';
+  width: fit-content;
+  padding: 1rem;
 }
 
 .welcome .box{
@@ -1137,10 +1175,12 @@ header .bottom-right .small .badge .count{
 }
 
 .welcome .heading{
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #fff;
   font-weight: 400;
-  max-width: 200px;
+  max-width: 250px;
+  font-family: 'GT';
+  text-transform: uppercase;
 }
 
 .orders .orders-box{
@@ -1152,8 +1192,11 @@ header .bottom-right .small .badge .count{
 
 .orders .heading{
   color: #fff;
-  font-weight: 600;
-  font-size: 1.2rem;
+  font-weight: 400;
+  font-size: .9rem;
+  font-family: 'GT';
+  margin-bottom: .4rem;
+  text-transform: uppercase;
 }
 
 .orders .paragraph{
@@ -1166,6 +1209,8 @@ header .bottom-right .small .badge .count{
 .orders button{
   width: 12rem;
   font-weight: 600;
+  font-family: 'GT';
+  font-size: .8rem;
 }
 
 .orders .address{
@@ -1175,6 +1220,7 @@ header .bottom-right .small .badge .count{
 .orders .address .heading{
   font-size: 1rem;
   margin-bottom: .5rem;
+  font-family: 'GT';
 }
 
 .default .box{
@@ -1197,6 +1243,7 @@ header .bottom-right .small .badge .count{
   color: #fff;
   height: 2.5rem;
   max-width: 8rem;
+  font-family: 'GT';
 }
 
 
@@ -1206,6 +1253,7 @@ header .bottom-right .small .badge .count{
 
 .dash-default .heading{
   font-size: .9rem;
+  font-family: 'GT';
 }
 
 .dash-default .paragraph:nth-of-type(1){
@@ -1485,7 +1533,8 @@ img{
   font-size: .8rem;
   text-transform: uppercase;
   color: #fff;
-  font-weight: 600;
+  font-weight: 400;
+  font-family: 'GT';
 }
 
 .modal .box:nth-of-type(1) button{
@@ -1624,6 +1673,7 @@ img{
   font-weight: 500;
   font-size: .9rem;
   margin-left: .5rem;
+  font-family: 'GT';
 }
 
 .mobile-inner .center{
@@ -1637,6 +1687,7 @@ img{
   color:#fff;
   font-weight: 600;
   text-transform: uppercase;
+  font-family: 'GT';
 }
 
 .mobile-inner .list{
@@ -1892,6 +1943,15 @@ img{
   width: 100%;
 }
 
+.hero{
+  margin-bottom: 4rem;
+}
+
+.footer-visit{
+  margin-top: 4rem;
+}
+
+
 @media screen and (min-width:376px){
   body{
     max-width: 100%;
@@ -1994,7 +2054,7 @@ img{
   }
 
   .main .row .section{
-    width: 50%;
+    width: 48%;
   }
 
   .main .row .section .box img{
@@ -2008,7 +2068,7 @@ img{
   }
 
   .main .column .shop .box img{
-    height: 800px;
+    height: 100%;
   }
 
   .main .column .second{
@@ -2024,10 +2084,10 @@ img{
     height: 100%;
   }
 
-  .visit .cards .text-box .heading{
-    font-size: 2.5rem;
-    max-width: 15rem;
+  .visit .cards .text-box .heading,.shop .text-box .heading{
+    font-size: 2.2rem;
     line-height: 2.5rem;
+    text-align: left;
   }
 
   .visit .cards .text-box .paragraph{
@@ -2039,8 +2099,12 @@ img{
     height: auto;
   }
 
-  .section,footer{
-    padding-inline: 2rem;
+  .section,footer,.main .row{
+    padding-inline: 4rem;
+  }
+
+  .main .row section{
+    padding:0;
   }
 
   footer .rows{
@@ -2048,6 +2112,7 @@ img{
     align-items: flex-start;
     flex-direction: row-reverse;
     margin-top: 4rem;
+    max-width: 85%;
   }
 
   footer .rows .newsletter{
@@ -2094,7 +2159,7 @@ img{
   }
 
   header{
-    width: 95.85%;
+    width: 90%;
   }
 
   header .top .left{
@@ -2127,7 +2192,7 @@ img{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width:100px;
+    width:140px;
   }
 
   header .bottom .center a{
@@ -2135,6 +2200,7 @@ img{
     font-size: .85rem;
     font-weight: 501;
     text-transform: uppercase;
+    font-family: 'GT';
   }
 
   header .bottom-right{
@@ -2174,6 +2240,7 @@ img{
 
   .welcome .heading{
     max-width: 300px;
+    
   }
 
   .orders .boxes{
@@ -2359,6 +2426,20 @@ img{
   .latest .text .column{
     display: flex;
     flex-direction: column;
+  }
+
+  .visit .text-box button,.shop .text-box button{
+    font-size: 1rem;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .left .text-box .heading{
+    text-align: right;
+  }
+
+  .visit .text-box .heading,.shop .text-box .heading{
+    max-width: 15rem;
   }
 }
 

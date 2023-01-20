@@ -47,38 +47,6 @@ const Home = () => {
                     </div>
                 </section>
 
-                <div className="row">
-                    <section className="section shop">
-                        <div className="wrapper">
-                            <div className="boxes">
-                                <div className="box">
-                                    <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
-                                    <div className="text-box">
-                                        <h3 className="heading">Shop For Her</h3>
-                                        <Button btnText={'Shop Hoodies'} />
-                                        <Button btnText={'Shop Joggers'} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section className="section shop left">
-                        <div className="wrapper">
-                            <div className="boxes">
-                                <div className="box">
-                                    <img src="../images/Photo_Dec_15_2022_6_21_04_PM.jpg" alt="Photo_Dec_15_2022_6_21_04_PM" />
-                                    <div className="text-box">
-                                        <h3 className="heading">Shop For Him</h3>
-                                        <Button btnText={'Shop Hoodies'} />
-                                        <Button btnText={'Shop Joggers'} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-
                 <section className="section new">
                     <div className="wrapper">
                         <div className="area">
@@ -92,54 +60,36 @@ const Home = () => {
                     </div>
                 </section>
 
-                <div className="column">
-                        <section className="section shop">
-                            <div className="wrapper">
-                                <div className="boxes">
-                                    <div className="box">
-                                        <img src="../images/Ozone_38.webp" alt="Ozone_38" />
-                                        <div className="text-box">
-                                            <h3 className="heading">Seamless to a tee</h3>
-                                            <p className="paragraph">Explore your soon to be favs</p>
-                                            <Button btnText={'Shop Amplify'} />
-                                            <Button btnText={'Shop Now'} />
-                                        </div>
+                <div className="row">
+                    <section className="section shop">
+                        <div className="wrapper">
+                            <div className="boxes">
+                                <div className="box">
+                                    <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
+                                    <div className="text-box">
+                                        <h3 className="heading">For Her</h3>
+                                        <Button btnText={`Shop Bra's`} btntheme={'shorter'}/>
+                                        <Button btnText={'Shop Leggings'} btntheme={'longer'}/>
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </div>
+                    </section>
 
-                        <section className="section shop">
-                            <div className="wrapper">
-                                <div className="boxes">
-                                    <div className="box">
-                                        <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
-                                        <div className="text-box">
-                                            <h3 className="heading">Infinity</h3>
-                                            <p className="paragraph">Leading the way in mordern aesthetics</p>
-                                            <Button btnText={'Shop Women'} />
-                                            <Button btnText={'Shop Men'} />
-                                        </div>
+                    <section className="section shop left">
+                        <div className="wrapper">
+                            <div className="boxes">
+                                <div className="box">
+                                    <img src="../images/Photo_Dec_15_2022_6_21_04_PM.jpg" alt="Photo_Dec_15_2022_6_21_04_PM" />
+                                    <div className="text-box">
+                                        <h3 className="heading">For Him</h3>
+                                        <Button btnText={'Shop Tees'} btntheme={'shorter'}/>
+                                        <Button btnText={'Shop Joggers'} btntheme={'longer'}/>
                                     </div>
                                 </div>
                             </div>
-                        </section>
-
-                        <section className="section shop left second">
-                            <div className="wrapper">
-                                <div className="boxes">
-                                    <div className="box">
-                                        <img src="../images/Studio_Creative_76-port-2.webp" alt="Studio_Creative_76-port-2" />
-                                        <div className="text-box">
-                                            <h3 className="heading">Pump Covers</h3>
-                                            <p className="paragraph">If you know,You know...</p>
-                                            <Button btnText={'Shop Women'} />
-                                            <Button btnText={'Shop Men'} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        </div>
+                    </section>
                 </div>
 
                 <section className="section new">
@@ -154,7 +104,41 @@ const Home = () => {
                     </div>
                 </section>
 
-                <section className="section visit">
+                <div className="row">
+                    <section className="section shop">
+                        <div className="wrapper">
+                            <div className="boxes">
+                                <div className="box">
+                                    <img src="../images/Ozone_38.webp" alt="Ozone_38" />
+                                    <div className="text-box">
+                                        <h3 className="heading">Seamless to a tee</h3>
+                                        <p className="paragraph">Explore your soon to be favs</p>
+                                        <Button btnText={'Shop Amplify'} btntheme={'longer'} />
+                                        <Button btnText={'Shop Now'} btntheme={'shorter'} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="section shop">
+                        <div className="wrapper">
+                            <div className="boxes">
+                                <div className="box">
+                                    <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
+                                    <div className="text-box">
+                                        <h3 className="heading">Infinity</h3>
+                                        <p className="paragraph">Leading the way in mordern aesthetics</p>
+                                        <Button btnText={'Shop Women'} />
+                                        <Button btnText={'Shop Men'} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <section className="section visit footer-visit">
                     <div className="wrapper">
                         <div className="boxes">
                             <VideoCard video={clip[1].video} heading={clip[1].heading} paragraph={clip[1].paragraph} btn={clip[1].btn} btnTwo={clip[1].btnTwo} />

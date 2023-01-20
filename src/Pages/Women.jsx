@@ -13,6 +13,7 @@ const Women = () => {
     const [women,setWomen] = useState('')
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [isMounted, setIsMounted] = useState(false);
     const [selectedSize,setSelectedSize] = useState('');
     const {addToCart} = useContext(CartContext);
     const handleModal = () =>{
@@ -42,8 +43,11 @@ const Women = () => {
             })
             setWomen(search);
         }
-        filter();
-   },[women,products]);
+        if (!isMounted) {
+            filter();
+            setIsMounted(true);
+        }
+   },[isMounted,products]);
 
     const handleClick = (size,item)=>{
         setSelectedSize(size);

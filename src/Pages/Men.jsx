@@ -14,6 +14,7 @@ const Men = () => {
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     const [selectedSize,setSelectedSize] = useState('');
+    const [isMounted, setIsMounted] = useState(false);
     const {addToCart} = useContext(CartContext);
     const handleModal = () =>{
         setModal(!modal);
@@ -37,13 +38,17 @@ const Men = () => {
         getproducts();
         setLoading(false);
         const filter = () =>{
-            const search = products.filter(item=>{
+            const search = products.filter((item)=>{
                 return item.category.toString() === 'Male';
             })
             setMen(search);
         }
-        filter();
-   },[men,products]);
+      
+        if (!isMounted) {
+            filter();
+            setIsMounted(true);
+        }
+   },[isMounted,products]);
 
     const handleClick = (size,item)=>{
         setSelectedSize(size);
