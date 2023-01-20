@@ -18,7 +18,7 @@ const Account = () => {
     const navigate = useNavigate();
     const logout = () => {
         if(user){
-            localStorage.removeItem(user);
+            localStorage.removeItem("user");
             navigate('/login');
         }
         else{

@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
@@ -16,7 +16,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const logout = () => {
         if(user){
-            localStorage.removeItem(user);
+            localStorage.removeItem("user");
             navigate('/login');
         }
         else{
