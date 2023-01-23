@@ -27,7 +27,7 @@ const Men = () => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/product')
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/product')
                 setProducts(res.data);
                 setLoading(false);
             }

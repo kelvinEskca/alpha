@@ -24,7 +24,7 @@ const AddressModal = ({addressModal,openModal}) => {
         e.preventDefault();
         if(address !== ''){
             try{
-                const result = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/address',{
+                const result = await axios.post('https://api-production-f7f8.up.railway.app/alphaapi/address',{
                     fname:address.fname,
                     lname:address.lname,
                     email:user.email,

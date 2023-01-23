@@ -9,7 +9,7 @@ const Footer = () => {
         e.preventDefault();
         if(email !== ''){
             try{
-                const news = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/newsletter',{
+                const news = await axios.post('https://api-production-f7f8.up.railway.app/alphaapi/newsletter',{
                     email:email
                 });
                 if(news.status === 200){

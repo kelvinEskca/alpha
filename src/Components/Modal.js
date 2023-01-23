@@ -12,7 +12,7 @@ const Modal = ({modal,handleModal}) => {
     
     const makePayment = async () =>{
         try{
-            const response = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/pay/create-checkout-session',{
+            const response = await axios.post('https://api-production-f7f8.up.railway.app/alphaapi/pay/create-checkout-session',{
                 items:items,
                 userId:user._id
             })

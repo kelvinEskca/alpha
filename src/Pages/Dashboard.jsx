@@ -29,7 +29,7 @@ const Dashboard = () => {
     useEffect(()=>{
         const getusers = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/users/stats',{headers:{token:auth}});
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/users/stats',{headers:{token:auth}});
                 setUsers(res.data.users);
                 setLoading(false);
             }
@@ -41,7 +41,7 @@ const Dashboard = () => {
 
         const getcustomers = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/users/',{headers:{token:auth}});
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/users/',{headers:{token:auth}});
                 console.log(res.data)
                 setCustomers(res.data);
                 setLoading(false);
@@ -54,7 +54,7 @@ const Dashboard = () => {
 
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/users/stats',{headers:{token:auth}});
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/users/stats',{headers:{token:auth}});
                 setProducts(res.data.products);
                 setLoading(false);
             }
@@ -66,7 +66,7 @@ const Dashboard = () => {
 
         const getorders = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/users/stats',{headers:{token:auth}});
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/users/stats',{headers:{token:auth}});
                 setOrders(res.data.orders);
                 setLoading(false);
             }
