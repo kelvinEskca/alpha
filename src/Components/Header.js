@@ -27,9 +27,10 @@ const Header = ({handleModal,handleMobile}) => {
                                     <p className="paragraph">Shop Women's top pick</p>
                                 </div>
 
-                                <div className="right">
+                                <div className="right longer-right">
                                     <ul>
                                         <li><Link to='/products'>Products</Link></li>
+                                        <li><Link to='/category'>Category</Link></li>
                                         <li><Link to='/customers'>Customers</Link></li>
                                         <li><Link to='/orders'>Orders</Link></li>
                                         <li><Link to='/dashboard'>Account</Link></li>

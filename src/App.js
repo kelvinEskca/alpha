@@ -22,6 +22,7 @@ import PrivateUserRoute from "./Components/PrivateUserRoutes";
 import PrivateRoute from "./Components/AdminRoute";
 import Success from "./Components/Success";
 import NotFound from "./Components/NotFound";
+import Category from "./Pages/Category";
 import { CartProvider } from "./CartContext";
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/customers" element={<PrivateRoute><Customers /></PrivateRoute>}/>
           <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>}/>
           <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}/>
+          <Route path="/category" element={<PrivateRoute><Category /></PrivateRoute>}/>
           <Route path="/men" element={<Men />}/>
           <Route path="/women" element={<Women />}/>
           <Route path="/success" element={<Success />}/>

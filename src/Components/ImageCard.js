@@ -68,8 +68,8 @@ const ImageCard = ({toggleState}) => {
                     <div className="box" key={item.id}>
                         <div className="tag"><small></small></div>
                         <div className="image-box">
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0].originalname} className="imageOne" />
-                            <img src={`../images/${item.image[1].originalname}`} alt={item.image[1].originalname} className="imageTwo" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0].url} className="imageOne" />
+                            <img src={`${item.image[1].url}`} alt={item.image[1].url} className="imageTwo" />
     
                             <div className="quick-add">
                                 <div className="quick-add-top">
@@ -96,19 +96,19 @@ const ImageCard = ({toggleState}) => {
                         </div>
     
                         <div className="images-box">
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
     
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
                         </div>
                     </div>
                 )

@@ -1955,6 +1955,10 @@ img{
   margin-top: 4rem;
 }
 
+.border-container .widelogin{
+  width: 100%;
+}
+
 
 @media screen and (min-width:376px){
   body{
@@ -2178,6 +2182,10 @@ img{
     justify-content: space-between;
     max-width: 300px;
     min-width: 70px;
+  }
+
+  header .top .longer-right{
+    min-width: 358px;
   }
 
   header .top .small-right{
