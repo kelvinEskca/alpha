@@ -43,9 +43,9 @@ const ProductModal = ({productModal,openModal}) => {
         data.append("inStock", formData.inStock);
         try {
             const res = await axios.post("https://api-production-f7f8.up.railway.app/alphaapi/product", data,{headers:{token:token}});
-            console.log(res);
             if(res.status === 200){
-                navigate('/products')
+                alert(res.statusText);
+                navigate('/products');
             }
         } catch (err) {
         console.error(err);
