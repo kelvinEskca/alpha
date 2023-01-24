@@ -1281,7 +1281,7 @@ header .bottom-right .small .badge .count{
   align-items: center;
   justify-content:flex-start;
   background-color: #191919;
-  min-width: 40rem;
+  min-width: 45rem;
 }
 
 .latest .inner{
