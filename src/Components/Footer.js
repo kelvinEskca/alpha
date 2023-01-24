@@ -48,7 +48,7 @@ const Footer = () => {
                 </div>
 
                 <div className="two">
-                    <FooterBox linkThree={'/support'} linkTwo={'/summer'} linkOne={'/help'} heading={'Support'} textOne={'Help Center'} textTwo={'Summer'} textThree={'Track My Order'} />
+                    <FooterBox linkThree={'/track'} linkTwo={'/summer'} linkOne={'/help'} heading={'Support'} textOne={'Help Center'} textTwo={'Summer'} textThree={'Track My Order'} />
 
                     <FooterBox linkThree={'/shipping'} linkTwo={'/contact'} linkOne={'/about'} heading={'Info'} textOne={'About Us'} textTwo={'Contact Us'} textThree={'Shipping Info'} />
                 </div>

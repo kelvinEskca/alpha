@@ -21,7 +21,7 @@ const MobileNav = ({handleMobile,mobile}) => {
                             
                             <li><Link to='/help'>Help Center</Link></li>
                             <li><Link to='/shipping'>Shipping Info</Link></li>
-                            <li><Link to='/orders'>Track My Order</Link></li>
+                            <li><Link to='/track'>Track My Order</Link></li>
                             <li><Link to='/support'>Returns & Exchange</Link></li>
                             <li><Link to='/about'>About Us</Link></li>
                         </ul>
