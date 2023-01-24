@@ -5,8 +5,10 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 const Track = () => {
+    axios.defaults.withCredentials = true;
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
+    const [id,setId] = useState('');
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -14,17 +16,40 @@ const Track = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
-
     
+    
+    const auth = 'velonteusps';
+    const xml = `<TrackRequest USERID="${auth}"><TrackID ID="${id}"></TrackID></TrackRequest>`;
+    const encodedXml = encodeURIComponent(xml);
+    const url = "https://secure.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML=" + encodedXml;
+    const fetchData = async (e) =>{
+        e.preventDefault();
+        const result = await fetch(url, {
+            method: 'GET',
+            mode: 'no-cors',
+        });
+        const data = await result.text();
+        console.log(data,result);
+    }
+   
     return (
         <>
         <Header handleModal={handleModal} handleMobile={handleMobile}/>
-        <main className="main">
-            <section className="section">
+        <main className="main trackmain">
+            <section className="section tracksection">
                 <div className="wrapper">
                     <div className="boxes">
                         <div className="box">
+                            <form action="#" className="form" onSubmit={fetchData}>
+                                
+                                <label htmlFor="#">Tracking Number
+                                    <input type="text" name="tracknumber" onChange={(e)=>{setId(e.target.value)}} />
+                                </label>
 
+                                <label htmlFor="#">
+                                    <button>Track Your Order</button>
+                                </label>
+                            </form>
                         </div>
                     </div>
                 </div>

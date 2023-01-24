@@ -47,7 +47,7 @@ const App = () => {
           <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>}/>
           <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}/>
           <Route path="/category" element={<PrivateRoute><Category /></PrivateRoute>}/>
-          <Route path="/track" element={<PrivateRoute><Track /></PrivateRoute>}/>
+          <Route path="/track" element={<Track />}/>
           <Route path="/men" element={<Men />}/>
           <Route path="/women" element={<Women />}/>
           <Route path="/success" element={<Success />}/>

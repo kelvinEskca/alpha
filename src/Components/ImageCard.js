@@ -63,9 +63,9 @@ const ImageCard = ({toggleState}) => {
     if(loading) return <h3 className='heading'>Loading....</h3>
     return (
         products.length > 0 ? (
-            products.map((item)=>{
+            products.map((item,i)=>{
                 return (
-                    <div className="box" key={item.id}>
+                    <div className="box" key={i}>
                         <div className="tag"><small></small></div>
                         <div className="image-box">
                             <img src={`${item.image[0].url}`} alt={item.image[0].url} className="imageOne" />
