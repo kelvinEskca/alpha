@@ -272,6 +272,48 @@ const Details = () => {
                                 <button className="addbtn">Add to bag</button>
                             </div>
                         </div>
+
+                        <div className="grid-bottom">
+                            <span>
+                                <div className="top">
+                                    <p className="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto adipisci autem velit sed amet repudiandae ut, repellendus possimus perferendis doloremque!</p>
+                                </div>
+
+                                <div className="bottom">
+                                    <h3 className="heading">Description</h3>
+                                </div>
+                            </span>
+                           
+                            <span>
+                                <div className="top">
+                                    <p className="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto adipisci autem velit sed amet repudiandae ut, repellendus possimus perferendis doloremque!</p>
+                                </div>
+
+                                <div className="bottom">
+                                    <h3 className="heading">Description</h3>
+                                </div>
+                            </span>
+                            
+                            <span>
+                                <div className="top">
+                                    <p className="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto adipisci autem velit sed amet repudiandae ut, repellendus possimus perferendis doloremque!</p>
+                                </div>
+
+                                <div className="bottom">
+                                    <h3 className="heading">Description</h3>
+                                </div>
+                            </span>
+                           
+                            <span>
+                                <div className="top">
+                                    <p className="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto adipisci autem velit sed amet repudiandae ut, repellendus possimus perferendis doloremque!</p>
+                                </div>
+
+                                <div className="bottom">
+                                    <h3 className="heading">Description</h3>
+                                </div>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <section className="section new details-page">
