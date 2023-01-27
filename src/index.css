@@ -656,6 +656,10 @@ main{
   align-content: center;
 }
 
+.new .image-box a{
+  height: 100%;
+}
+
 .new .image-box:hover .quick-add{
   transform: translateY(81px);
 }
