@@ -316,7 +316,7 @@ const Details = () => {
                         </div>
                     </div>
                 </div>
-                <section className="section new details-page">
+                <section className="section new details-page desktop-details-page">
                     <div className="wrapper">
                         <div className="area">
                             <h3 className="heading">You May Also Like</h3>

@@ -2368,6 +2368,10 @@ img{
   cursor: pointer;
 }
 
+.desktop-details-page{
+  display: none;
+}
+
 @media screen and (min-width:376px){
   body{
     max-width: 100%;
@@ -2993,5 +2997,9 @@ img{
 
   .desktop-details .product-image img{
     margin-bottom: 1rem;
+  }
+
+  .desktop-details-page{
+    display: flex;
   }
 }
