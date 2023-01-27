@@ -17,7 +17,7 @@ const Details = () => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get(`http://localhost:5000/alphaapi/product/${id}`)
+                const res = await axios.get(`https://api-production-f7f8.up.railway.app/alphaapi/product/${id}`)
                 setProducts([res.data]);
                 setLoading(false);
             }
