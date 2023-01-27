@@ -25,6 +25,7 @@ import NotFound from "./Components/NotFound";
 import Category from "./Pages/Category";
 import { CartProvider } from "./CartContext";
 import Track from "./Pages/Track";
+import Details from "./Pages/Details";
 const App = () => {
   return (
     <CartProvider>
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/login" element={<Login />}/>
           <Route path="/forget" element={<Forgot />}/>
           <Route path="/register" element={<Register />}/>
+          <Route path="/details/:id" element={<Details />}/>
           <Route path="/account" element={<PrivateUserRoute><Account /></PrivateUserRoute>}/>
           <Route path="/addresses" element={<PrivateUserRoute><Addresses /></PrivateUserRoute>}/>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>

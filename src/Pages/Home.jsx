@@ -10,6 +10,7 @@ import { useState } from "react";
 import Modal from "../Components/Modal";
 import videos from "../videos";
 import { useEffect } from "react";
+import Loader from "../Components/Loader";
 const Home = () => {
     const [toggleState, setToggleState] = useState(1);
     const [modal,setModal] = useState(false);
@@ -34,7 +35,7 @@ const Home = () => {
         setLoading(false);
     },[]);
 
-    if(loading) return <h3 className="heading">Loading....</h3>;
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>

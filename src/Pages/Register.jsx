@@ -6,12 +6,14 @@ import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from 'axios';
+import Loader from "../Components/Loader";
 const Register = () => {
     axios.defaults.withCredentials = true;
     const [firstname,setFirstname] = useState('');
     const [lastname,setLastname] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -30,11 +32,14 @@ const Register = () => {
                     lname:firstname,
                     password:password,
                 });
+                setLoading(true);
                 if(userSubmit.status === 201){
                     alert("Success");
+                    setLoading(false);
                     navigate('/login');
                 }
                 else{
+                    setLoading(false);
                     alert(userSubmit.statusText)
                 }
             }
@@ -53,6 +58,7 @@ const Register = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} />

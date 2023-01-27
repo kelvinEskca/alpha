@@ -2,12 +2,14 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
+import Loader from "./Loader";
 
 const AddressModal = ({addressModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const [checkBox,setCheckBox] = useState(false);
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
+    const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
     //add address;
     const [address,setAddress] = useState({fname:"",lname:"",email:"", company:"",addressOne:"",addressTwo:"",city:"",country:"", province:"",phone:"",postalcode:""});
@@ -39,8 +41,10 @@ const AddressModal = ({addressModal,openModal}) => {
                     checkStatus:checkBox,
                     userId:user._id
                 },{ headers:{token:token} });
+                setLoading(true);
                 if(result.status === 200){
                     alert("Address updated successfuly");
+                    setLoading(false);
                     navigate('/account')
                     localStorage.setItem('address',JSON.stringify(result.data));
                 }
@@ -56,6 +60,7 @@ const AddressModal = ({addressModal,openModal}) => {
             alert('Ensure All inputs are filled!');
         }
     }
+    if(loading) return <Loader />;
     return (
         <section className={`section addressModal  ${addressModal ? ('modal') : ('off')}`} >
             <div className="wrapper">

@@ -7,6 +7,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from 'axios'
 import { useEffect } from "react";
+import Loader from "../Components/Loader";
 const Account = () => {
     axios.defaults.withCredentials = true;
     const [modal,setModal] = useState(false);
@@ -15,6 +16,7 @@ const Account = () => {
     const useraddress = JSON.parse(localStorage.getItem('address'));
     const [orders,setOrders] = useState([]);
     const token = localStorage.getItem('token');
+    const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
     const logout = () => {
         if(user){
@@ -37,8 +39,10 @@ const Account = () => {
         const id = user._id;
         const grabOrders = async () =>{
             try{
-                const order = await axios.get(`https://api-production-f7f8.up.railway.app/alphaapi/order/${id}`,{headers:{token:token}})
+                const order = await axios.get(`https://api-production-f7f8.up.railway.app/alphaapi/order/${id}`,{headers:{token:token}});
+                setLoading(true);
                 if(order.status === 200){
+                    setLoading(false);
                     setOrders(order.data);
                 }
             }
@@ -47,7 +51,8 @@ const Account = () => {
             }
         }
         grabOrders()
-    },[token,user])
+    },[token,user]);
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>

@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
 import ProductModal from "../Components/ProductModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
+import Loader from "../Components/Loader";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -61,7 +62,7 @@ const Dashboard = () => {
         setMobile(!mobile);
     }
 
-    if(loading) return <h1>Loading</h1>;
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
@@ -81,10 +82,13 @@ const Dashboard = () => {
                             ) : (
                                 products.map((item,i)=>{
                                     return(
+                                        
                                         <div className="products" key={i}>
-                                            <div className="product-image">
-                                                <img src={`${item.image[0].url}`} alt={item.image[0]} />
-                                            </div>
+                                            <Link to={`/details/${item._id}`}>
+                                                <div className="product-image">
+                                                    <img src={`${item.image[0].url}`} alt={item.image[0]} />
+                                                </div>
+                                            </Link>
 
                                             <div className="text">
                                                 <div className="column">
@@ -105,6 +109,7 @@ const Dashboard = () => {
 
                                             <button onClick={()=>handleDelete(item)}>Delete Product</button>
                                         </div>
+                                        
                                     )
                                 })
                             )}

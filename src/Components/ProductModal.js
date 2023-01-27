@@ -1,11 +1,14 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
+import Loader from "./Loader";
 const ProductModal = ({productModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
+    const [products,setProducts] = useState(null);
+    const [loading,setLoading] = useState(true);
     
     const [formData, setFormData] = useState({
         name: "",
@@ -51,7 +54,21 @@ const ProductModal = ({productModal,openModal}) => {
         console.error(err);
         }
     };
-    
+
+    useEffect(()=>{
+        const getproducts = async ()=>{
+            try{
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/category')
+                setProducts(res.data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getproducts();
+    },[]);
+    if(loading) return <Loader />;
     return (
         <section className={`section addressModal  ${productModal ? ('modal') : ('off')}`} >
             <div className="wrapper">
@@ -59,35 +76,57 @@ const ProductModal = ({productModal,openModal}) => {
                     <div className="box">
                         <form action="#" className="form" onSubmit={handleSubmit} encType="multipart/form-data">
                             <h3 className="heading">Add a new product</h3>
-                            <label htmlFor="#">
+                            <label htmlFor="#">Product Name
                                 <input type="text" name="name" placeholder="Product name" onChange={handleChange} value={formData.name}/>
                             </label>
 
-                            <label htmlFor="#">
+                            <label htmlFor="#">Product Description
                                 <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Product Description" onChange={handleChange} value={formData.desc}></textarea>
                             </label>
 
-                            <label htmlFor="#">
+                            <label htmlFor="#">Product Sizes
                                 <input type="text" name="sizes" placeholder="Sizes (comma separated)" onChange={handleChange} value={formData.sizes}/>
                             </label>
 
-                            <label htmlFor="#">
+                            <label htmlFor="#">Product Image
                                 <input type="file" name="images" placeholder="Images" onChange={handleImageChange} multiple/>
                             </label>
 
-                            <label htmlFor="#">
+                            <label htmlFor="#">Product Price
                                 <input type="text" name="price" placeholder="Price" onChange={handleChange} value={formData.price}/>
                             </label>
 
-                            <label htmlFor="#">
-                                <input type="text" name="category" placeholder="Category" onChange={handleChange} value={formData.category}/>
+                            <label htmlFor="#">Product Category
+                                <select name="category" placeholder="Category" onChange={handleChange} value={formData.category}>
+                                    {products.map((cat,i)=>{
+                                        return (
+                                            <>
+                                                <option value='Select Category' disabled>Select Category</option>
+                                                <option value={cat.name} key={cat._id}>{cat.name}</option>
+                                            </>
+                                        )
+                                    })}
+                                </select>
+                            </label>
+                            
+                            <label htmlFor="#">Product Subcategory
+                                <select name="subcategory" placeholder="SubCategory" onChange={handleChange} value={formData.subcategory}>
+                                    {products.map((cat,i)=>{
+                                        return (
+                                            <>
+                                                <option value='Select SubCategory' disabled>Select SubCategory</option>
+                                                <option value={cat.subcategory} key={cat._id}>{cat.subcategory}</option>
+                                            </>
+                                        )
+                                    })}
+                                </select>
                             </label>
 
-                            <label htmlFor="#">
+                            <label htmlFor="#">Product Colors
                                 <input type="text" name="colors" placeholder="Colors (comma separated)" onChange={handleChange} value={formData.colors}/>
                             </label>
 
-                            <label htmlFor="#">
+                            <label htmlFor="#">Product Quantity
                                 <input type="text" name="quantity" placeholder="Quantity" onChange={handleChange} value={formData.quantity}/>
                             </label>
 

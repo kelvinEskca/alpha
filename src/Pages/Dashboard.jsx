@@ -6,6 +6,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import { useEffect } from "react";
+import Loader from "../Components/Loader";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const auth = localStorage.getItem('token');
@@ -85,7 +86,7 @@ const Dashboard = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
-    if(loading) return <h1>Loading</h1>;
+    if(loading) return <Loader />;
     return (
         <>
             <Header />

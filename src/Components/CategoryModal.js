@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
+import Loader from "./Loader";
 const ProductModal = ({productModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -10,7 +11,7 @@ const ProductModal = ({productModal,openModal}) => {
     const [name,setName] = useState('');
     const [desc,setDesc] = useState('');
     const [subcategory,setSubcategory] = useState('');
-   
+    const [loading,setLoading] = useState(false);
     
     const handleSubmit = async e => {
         e.preventDefault();
@@ -25,15 +26,17 @@ const ProductModal = ({productModal,openModal}) => {
                     subcategory:subcategory
                 },{headers:{token:token}});
                 console.log(res);
+                setLoading(true);
                 if(res.status === 200){
-                    navigate('/category')
+                    setLoading(false);
+                    navigate('/category');
                 }
             } catch (err) {
             console.error(err);
             }
         }
     };
-    
+    if(loading) return <Loader />;
     return (
         <section className={`section addressModal  ${productModal ? ('modal') : ('off')}`} >
             <div className="wrapper">

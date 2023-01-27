@@ -6,12 +6,14 @@ import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
+import Loader from "../Components/Loader";
 const Login = () => {
     axios.defaults.withCredentials = true;
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
+    const [loading,setLoading] = useState(false);
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -31,10 +33,13 @@ const Login = () => {
             if(loginUser.status === 200){
                 localStorage.setItem("token", loginUser.data.accessToken);
                 localStorage.setItem("user",JSON.stringify(loginUser.data));
+                setLoading(true);
                 if(loginUser.data.isAdmin === false){
+                    setLoading(false);
                     navigate('/account');
                 }
                 else{
+                    setLoading(false);
                     navigate('/dashboard');
                 }
             }
@@ -47,6 +52,7 @@ const Login = () => {
             console.log(err);
         }
     }
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>

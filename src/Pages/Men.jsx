@@ -7,14 +7,13 @@ import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
+import Loader from "../Components/Loader";
 const Men = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
-    const [men,setMen] = useState('')
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     const [selectedSize,setSelectedSize] = useState('');
-    const [isMounted, setIsMounted] = useState(false);
     const {addToCart} = useContext(CartContext);
     const handleModal = () =>{
         setModal(!modal);
@@ -25,9 +24,10 @@ const Men = () => {
     }
 
     useEffect(()=>{
+        const gender = 'Male';
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/product')
+                const res = await axios.get(`https://api-production-f7f8.up.railway.app/alphaapi/product/male/${gender}`)
                 setProducts(res.data);
                 setLoading(false);
             }
@@ -37,25 +37,15 @@ const Men = () => {
         }
         getproducts();
         setLoading(false);
-        const filter = () =>{
-            const search = products.filter((item)=>{
-                return item.category.toString() === 'Male';
-            })
-            setMen(search);
-        }
-      
-        if (!isMounted) {
-            filter();
-            setIsMounted(true);
-        }
-   },[isMounted,products]);
+        
+   },[]);
 
     const handleClick = (size,item)=>{
         setSelectedSize(size);
         addToCart({...item, size});
     }
     
-   if(loading) return <h3 className='heading'>Loading....</h3>
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
@@ -78,14 +68,14 @@ const Men = () => {
                 <section className="section new gallery">
                     <div className="wrapper">
                         <div className="boxes">
-                        {men.length > 0 ? (
-                            men.map((item)=>{
+                        {products.length > 0 ? (
+                            products.map((item,i)=>{
                                 return (
-                                    <div className="box" key={item.id}>
+                                    <div className="box" key={i}>
                                         <div className="tag"><small></small></div>
                                         <div className="image-box">
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0].originalname} className="imageOne" />
-                                            <img src={`../images/${item.image[1].originalname}`} alt={item.image[1].originalname} className="imageTwo" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0].url} className="imageOne" />
+                                            <img src={`${item.image[1].url}`} alt={item.image[1].url} className="imageTwo" />
                     
                                             <div className="quick-add">
                                                 <div className="quick-add-top">
@@ -112,19 +102,19 @@ const Men = () => {
                                         </div>
                     
                                         <div className="images-box">
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
                     
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`../images/${item.image[0].originalname}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
                                         </div>
                                     </div>
                                 )

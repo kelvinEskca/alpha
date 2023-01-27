@@ -6,6 +6,7 @@ import axios from "axios";
 import CategoryModal from "../Components/CategoryModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
+import Loader from "../Components/Loader";
 const Category = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -61,12 +62,12 @@ const Category = () => {
         setMobile(!mobile);
     }
 
-    if(loading) return <h1>Loading</h1>;
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
-                <section className="section latest products-latest">
+                <section className="section latest products-latest category">
                     <div className="wrapper">
                         <div className="top">
                             <h3 className="heading">Available Category</h3>

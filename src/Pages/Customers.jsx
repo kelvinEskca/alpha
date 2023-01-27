@@ -4,6 +4,7 @@ import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
+import Loader from "../Components/Loader";
 const Customers = () => {
     axios.defaults.withCredentials = true;
     const auth = localStorage.getItem('token');
@@ -33,7 +34,7 @@ const Customers = () => {
         setMobile(!mobile);
     }
 
-    if(loading) return <h1>Loading</h1>;
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>

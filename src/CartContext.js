@@ -3,54 +3,55 @@ const CartContext = createContext();
 
 export function CartProvider({children}){
   const loadCartFromLocalStorage = () =>{
-      try {
-          const cart = JSON.parse(localStorage.getItem('cart'));
-          if (cart) {
-            return cart;
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      return [];
+    try {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      if (cart) {
+        return cart;
+      }
+    } 
+    catch (err) {
+      console.error(err);
+    }
+    return [];
   }
 
   const saveCartToLocalStorage = (items) => {
-      try {
-        localStorage.setItem('cart', JSON.stringify(items));
-      } catch (err) {
-        console.error(err);
-      }
+    try {
+      localStorage.setItem('cart', JSON.stringify(items));
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const [items,setItems] = useState(() => loadCartFromLocalStorage());
 
   useEffect(() => {
-      saveCartToLocalStorage(items);
+    saveCartToLocalStorage(items);
   }, [items]);
 
   
   const addToCart = (item) => {
-      setItems(prevCart => [...prevCart, item]);
+    setItems(prevCart => [...prevCart, item]);
   }
   
   const increaseQuantity = (itemId) => {
-      setItems(prevCart => prevCart.map(item => 
-          item.id === itemId ? {...item, qty: item.qty + 1} : item
-      ))
+    setItems(prevCart => prevCart.map(item => 
+      item.id === itemId ? {...item, qty: item.qty + 1} : item
+    ))
   }
   
   const reduceQuantity = (itemId) => {
-      setItems(prevCart => prevCart.map(item => {
-          if (item.id === itemId) {
-            if (item.qty > 1) {
-              return { ...item, qty: item.qty - 1 }
-            } else {
-              return null;
-            }
-          } else {
-            return item;
-          }
-      }).filter(item => item !== null))
+    setItems(prevCart => prevCart.map(item => {
+      if (item.id === itemId) {
+        if (item.qty > 1) {
+          return { ...item, qty: item.qty - 1 }
+        } else {
+          return null;
+        }
+      } else {
+        return item;
+      }
+    }).filter(item => item !== null))
   }
   
   const removeFromCart = (itemId) => {
