@@ -24,9 +24,12 @@ import Success from "./Components/Success";
 import NotFound from "./Components/NotFound";
 import Category from "./Pages/Category";
 import Return from "./Pages/Return";
+import Settings from "./Pages/Settings";
 import { CartProvider } from "./CartContext";
 import Track from "./Pages/Track";
 import Details from "./Pages/Details";
+import Admin from "./Pages/Admin";
+import AdminRegister from "./Pages/AdminRegister";
 const App = () => {
   return (
     <CartProvider>
@@ -41,8 +44,10 @@ const App = () => {
           <Route path="/help" element={<Help />}/>
           <Route path="/return" element={<Return />}/>
           <Route path="/login" element={<Login />}/>
+          <Route path="/admin" element={<Admin />}/>
           <Route path="/forget" element={<Forgot />}/>
           <Route path="/register" element={<Register />}/>
+          <Route path="/adminregister" element={<AdminRegister />}/>
           <Route path="/details/:id" element={<Details />}/>
           <Route path="/account" element={<PrivateUserRoute><Account /></PrivateUserRoute>}/>
           <Route path="/addresses" element={<PrivateUserRoute><Addresses /></PrivateUserRoute>}/>
@@ -50,6 +55,7 @@ const App = () => {
           <Route path="/customers" element={<PrivateRoute><Customers /></PrivateRoute>}/>
           <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>}/>
           <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}/>
+          <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>}/>
           <Route path="/category" element={<PrivateRoute><Category /></PrivateRoute>}/>
           <Route path="/track" element={<Track />}/>
           <Route path="/men" element={<Men />}/>

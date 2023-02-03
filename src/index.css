@@ -51,6 +51,7 @@ input,select,textarea{
   border-radius: .5rem;
   font-weight: 400;
   font-size: .85rem;
+  resize: none;
 }
 
 input:focus,input:active,select:active,select:focus,textarea:active,textarea:focus,label .rmsc .dropdown-container:active,label .rmsc .dropdown-container:focus{
@@ -2408,6 +2409,16 @@ img{
 
 .help-main{
   padding-top: 6.8rem;
+}
+
+.cards-latest .wrapper{
+  margin-bottom: 5rem;
+  border-bottom: 1px solid #c8cdd1;
+  padding-bottom: 1rem;
+}
+
+.latest .table{
+  margin-top: 0;
 }
 
 @media screen and (min-width:376px){

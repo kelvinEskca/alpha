@@ -20,7 +20,7 @@ const Dashboard = () => {
     const logout = () => {
         if(user){
             localStorage.removeItem("user");
-            navigate('/login');
+            navigate('/admin');
         }
         else{
             alert('User not logged in!!');

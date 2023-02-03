@@ -6,6 +6,7 @@ import Input from "../Components/Input";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
+import Loader from "../Components/Loader";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const [orders,setOrders] = useState(null);
@@ -35,7 +36,7 @@ const Dashboard = () => {
         setMobile(!mobile);
     }
 
-    if(loading) return <h1>Loading</h1>;
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
