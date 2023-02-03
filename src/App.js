@@ -23,6 +23,7 @@ import PrivateRoute from "./Components/AdminRoute";
 import Success from "./Components/Success";
 import NotFound from "./Components/NotFound";
 import Category from "./Pages/Category";
+import Return from "./Pages/Return";
 import { CartProvider } from "./CartContext";
 import Track from "./Pages/Track";
 import Details from "./Pages/Details";
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/shipping" element={<Shipping />}/>
           <Route path="/contact" element={<Contact />}/>
           <Route path="/help" element={<Help />}/>
+          <Route path="/return" element={<Return />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/forget" element={<Forgot />}/>
           <Route path="/register" element={<Register />}/>

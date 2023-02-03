@@ -278,7 +278,7 @@ main{
 }
 
 .support{
-  background-color: #32556e;
+  background-color: #191919;
 }
 
 .support .box{
@@ -320,7 +320,7 @@ main{
 .policy .box .heading{
   color: #000;
   font-weight: 501;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: .5rem;
 }
 
@@ -328,7 +328,7 @@ main{
   line-height: 1.3rem;
   color: #363636;
   font-weight: 400;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 .policy{
@@ -365,15 +365,20 @@ main{
   max-width: 100%;
 }
 
-.policy select{
+.policy input,.policy select,.policy textarea{
   width: 100%;
-  border: 1px solid #32556e;
+  border: 1px solid #191919;
   border-radius: .2rem;
   color: #000;
   padding: .8rem;
   margin-top: .4rem;
   font-weight: 400;
   font-size: .9rem;
+}
+
+.policy button{
+  font-family: 'GT';
+  font-size: .8rem;
 }
 
 .policy label{
@@ -396,7 +401,7 @@ main{
 }
 
 .support-footer .paragraph:nth-of-type(2){
-  color: #32556e;
+  color: #191919;
 }
 
 .help-main{
@@ -408,7 +413,7 @@ main{
   background-image: url(../public/images/aee8b30ca116d71e3a7bd022d5a13146bb0d361a.jpg);
   background-position: center;
   background-size: cover;
-  height: 70vh;
+  height: 40vh;
   background-color: #929294;
   background-blend-mode: multiply;
 }
@@ -432,7 +437,7 @@ main{
 .cant input{
   background-color: #fff;
   border: none;
-  color: #32556e;
+  color: #191919;
   border-radius: .2rem;
   padding: .5rem;
   font-size: 1rem;
@@ -441,7 +446,7 @@ main{
 }
 
 .cant button{
-  background-color: #32556e;
+  background-color: #191919;
   color: #fff;
   text-transform: capitalize;
   font-weight: 600;
@@ -460,7 +465,7 @@ main{
 }
 
 .help-main .policy .box{
-  border-top: 1px solid #32556e;
+  border-top: 1px solid #191919;
   padding-top: 1rem;
   min-height: 14rem;
   justify-content: center;
@@ -470,8 +475,27 @@ main{
   color: #191919;
 }
 
+.help-main .policy .box li{
+  font-weight: 400;
+  font-size: .8rem;
+  margin-bottom: 1rem;
+  list-style: disc;
+}
+
+.help-main .policy .box a{
+  color: #1f1fb4;
+  font-weight: 501;
+  font-size: .9rem;
+}
+
+.help-main .policy .box ul{
+  padding-inline: 1rem;
+  list-style: disc;
+}
+
 .help-main .policy .box .paragraph{
-  color: #4c7592;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
 .visit .cards{
@@ -479,7 +503,7 @@ main{
   border-radius: 2rem;
 }
 
-.visit .cards video{
+.visit .cards video,.visit .cards img{
   width: 100%;
   border-radius: 2rem;
   object-fit: cover;
@@ -557,12 +581,12 @@ main{
   display: none;
 }
 
-
-
 .shop .box img{
-  width: 100%;
-  height: 100%;
   border-radius: 1.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .shop .box{
@@ -572,15 +596,16 @@ main{
   position: relative;
   background-color: #999;
   opacity: .8;
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .shop .box:hover{
   transform: scale(1.02);
-}
-
-.shop .box{
-  align-items: flex-start;
-  justify-content: flex-start;
 }
 
 .shop .text-box{
@@ -1125,7 +1150,7 @@ header .bottom-right .small .badge .count{
   align-items: flex-start;
   justify-content:flex-start;
   padding: 1rem;
-  background-color: #32556e;
+  background-color: #191919;
   position: fixed;
   top: 0;
   z-index: 10;
@@ -1374,20 +1399,17 @@ header .bottom-right .small .badge .count{
 }
 
 .gallery .boxes{
-  overflow: none;
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
   gap: 1rem;
 }
 
 .gallery .boxes .box{
-  width: 300px;
+  width: 280px;
   margin: 0;
 }
 
 .gallery .image-box{
   width: auto;
-  height: 380px;
+  height: 200px;
 }
 
 .size-box{
@@ -1405,7 +1427,7 @@ header .bottom-right .small .badge .count{
 }
 
 .new .box{
-  min-height: 450px;
+  min-height: 400px;
 }
 
 .new .area .box{
@@ -1476,7 +1498,7 @@ header .bottom-right .small .badge .count{
 }
 
 .gallery .box .image-box{
-  min-height: 320px;
+  min-height: 280px;
 }
 
 img{
@@ -1955,7 +1977,7 @@ img{
 }
 
 .hero{
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 }
 
 .footer-visit{
@@ -2021,6 +2043,10 @@ img{
   height: 2px;
   background-color: #ccc;
   margin-bottom: .5rem;
+}
+
+.tracksection{
+  height: 100vh;
 }
 
 .detailss .box img,.desktop-details .center .box img{
@@ -2376,6 +2402,14 @@ img{
   display: none;
 }
 
+.main .row{
+  margin-block: 3rem;
+}
+
+.help-main{
+  padding-top: 6.8rem;
+}
+
 @media screen and (min-width:376px){
   body{
     max-width: 100%;
@@ -2503,17 +2537,17 @@ img{
 
   .help-main .policy .box{
     max-width: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .help-main .policy .box .heading{
-    max-width: 400px;
+    max-width: 900px;
   }
 
   .help-main .policy .box .paragraph{
-    max-width: 600px;
+    max-width: 900px;
   }
 
   .main .row{
@@ -2527,7 +2561,7 @@ img{
   }
 
   .main .row .section .box img{
-    height: 700px;
+    height: 100%;
   }
 
   .main .column{
@@ -2547,6 +2581,10 @@ img{
 
   .visit .cards,.about-hero .box{
     height: 650px;
+  }
+
+  .shop .cards{
+    height: 450px;
   }
 
   .visit .cards video,.about-hero .box video{
@@ -2569,7 +2607,7 @@ img{
   }
 
   .section,footer,.main .row{
-    padding-inline: 4rem;
+    padding-inline: 2.6rem;
   }
 
   .main .row section{
@@ -2699,7 +2737,7 @@ img{
     align-items: center;
     justify-content:space-between;
     padding: 1rem;
-    background-color: #32556e;
+    background-color: #191919;
     position: fixed;
     top: 0;
     z-index: 10;
@@ -2793,10 +2831,6 @@ img{
 
   .latest .top button{
     width: 14rem;
-  }
-
-  .gallery .boxes{
-    grid-template-columns: repeat(3,1fr);
   }
 
   .new .box:hover .size-box{
@@ -2912,6 +2946,10 @@ img{
   .desc-box{
     grid-template-columns: repeat(3,1fr);
   }
+
+  .support-head{
+    width: 100%;
+  }
 }
 
 @media screen and (min-width:1000px){
@@ -2919,8 +2957,8 @@ img{
     height: 650px;
   }
 
-  .gallery .boxes{
-    grid-template-columns: repeat(4,1fr);
+  .shop .cards{
+    height: 500px;
   }
 
   .row-sections,.detailss{
@@ -3005,5 +3043,29 @@ img{
 
   .desktop-details-page{
     display: flex;
+  }
+}
+
+@media screen and (min-width:1200px){
+  .section,footer,.main .row{
+    padding-inline: 8rem;
+  }
+
+  header{
+    width: 80%;
+  }
+
+  .support-head{
+    width:100%;
+  }
+}
+
+@media screen and (min-width:1400px){
+  header{
+    width: 83%;
+  }
+
+  .support-head{
+    width:100%;
   }
 }

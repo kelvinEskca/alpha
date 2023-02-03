@@ -2,7 +2,7 @@ const SupportFooter = () => {
     return (
         <>
             <div className="support-left">
-                <p className="paragraph">&copy; Alphalete Athletics</p>
+                <p className="paragraph">&copy; Velonte Athletics</p>
                 <p className="paragraph">Powered by Astrosoft</p>
             </div>
 

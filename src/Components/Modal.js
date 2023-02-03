@@ -93,7 +93,7 @@ const Modal = ({modal,handleModal}) => {
                         
                     )}
                     
-                    <div className="box">
+                    {/* <div className="box">
                         <h3 className="heading">Recommended Products</h3>
                         <div className="modal-box">
                             <ImageCard/>
@@ -110,7 +110,7 @@ const Modal = ({modal,handleModal}) => {
                             <ImageCard/>
                             <ImageCard/>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>

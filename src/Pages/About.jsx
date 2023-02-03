@@ -34,7 +34,7 @@ const About = () => {
                         <div className="boxes">
                             <div className="box">
                                 <h3 className="heading">HOW IT STARTED</h3>
-                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Alphalete was born.</p>
+                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Velonte was born.</p>
 
                                 <Link to='#'><Button btnText={'Watch My Story'} /></Link>
                             </div>
@@ -47,7 +47,7 @@ const About = () => {
                         <div className="boxes">
                             <div className="box">
                                 <h3 className="heading">HOW IT STARTED</h3>
-                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Alphalete was born.</p>
+                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Velonte was born.</p>
 
                                 <Link to='#'><Button btnText={'Watch My Story'} /></Link>
                             </div>
@@ -60,7 +60,7 @@ const About = () => {
                         <div className="boxes">
                             <div className="box">
                                 <h3 className="heading">HOW IT STARTED</h3>
-                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Alphalete was born.</p>
+                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, Velonte was born.</p>
 
                                 <Link to='#'><Button btnText={'Watch My Story'} /></Link>
                             </div>

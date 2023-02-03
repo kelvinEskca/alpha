@@ -62,10 +62,10 @@ const Home = () => {
                 </section>
 
                 <div className="row">
-                    <section className="section shop">
+                    <section className="section visit">
                         <div className="wrapper">
                             <div className="boxes">
-                                <div className="box">
+                                <div className="box cards">
                                     <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
                                     <div className="text-box">
                                         <h3 className="heading">For Her</h3>
@@ -77,10 +77,10 @@ const Home = () => {
                         </div>
                     </section>
 
-                    <section className="section shop left">
+                    <section className="section visit left">
                         <div className="wrapper">
                             <div className="boxes">
-                                <div className="box">
+                                <div className="cards box">
                                     <img src="../images/Photo_Dec_15_2022_6_21_04_PM.jpg" alt="Photo_Dec_15_2022_6_21_04_PM" />
                                     <div className="text-box">
                                         <h3 className="heading">For Him</h3>
@@ -93,7 +93,7 @@ const Home = () => {
                     </section>
                 </div>
 
-                <section className="section new">
+                {/* <section className="section new">
                     <div className="wrapper">
                         <div className="area">
                             <p className="paragraph">Shop</p>
@@ -137,9 +137,9 @@ const Home = () => {
                             </div>
                         </div>
                     </section>
-                </div>
+                </div> */}
 
-                <section className="section visit footer-visit">
+                <section className="section visit hero">
                     <div className="wrapper">
                         <div className="boxes">
                             <VideoCard video={clip[1].video} heading={clip[1].heading} paragraph={clip[1].paragraph} btn={clip[1].btn} btnTwo={clip[1].btnTwo} />

@@ -84,7 +84,7 @@ const Login = () => {
                                     </label>
 
                                     <label htmlFor="#" className="center-label">
-                                        <span>New to Alphalete <Link to='/register'>Create An Account</Link></span>
+                                        <span>New to Velonte <Link to='/register'>Create An Account</Link></span>
                                     </label>
                                 </form>
                             </div>

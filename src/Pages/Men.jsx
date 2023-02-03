@@ -50,10 +50,10 @@ const Men = () => {
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
-                <section className="section shop">
+                <section className="section visit hero shop">
                     <div className="wrapper">
                         <div className="boxes">
-                            <div className="box">
+                            <div className="box cards">
                                 <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
                                 <div className="text-box">
                                     <h3 className="heading">Shop For Him</h3>
@@ -65,7 +65,7 @@ const Men = () => {
                     </div>
                 </section>
 
-                <section className="section new gallery">
+                <section className="section new">
                     <div className="wrapper">
                         <div className="boxes">
                         {products.length > 0 ? (

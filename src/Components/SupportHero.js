@@ -4,7 +4,7 @@ const SupportHeader = ({link,linkto,heading}) => {
     return (
         <div className="box">
             <span>
-                <Link>Alphalete Athletrics US</Link>
+                <Link>Velonte Athletrics US</Link>
                 <p className="paragraph"></p>
                 <Link to={linkto}>{link}</Link>
             </span>

@@ -32,7 +32,7 @@ const Footer = () => {
         <footer className="footer">
             <div className="rows">
                 <div className="newsletter">
-                    <h3 className="heading">SIGN UP FOR ALPHALETE NEWSLETTER</h3>
+                    <h3 className="heading">SIGN UP FOR VELONTE NEWSLETTER</h3>
                     <form action="#" className="form" onSubmit={handleSubmit}>
                         <label htmlFor="#"><input type='email' placeholder='Your Email Address' onChange={(e)=>{setEmail(e.target.value)}}/></label>
                         <label htmlFor="#"><Button btnText={'Sign Up'}/></label>
@@ -48,7 +48,7 @@ const Footer = () => {
                 </div>
 
                 <div className="two">
-                    <FooterBox linkThree={'/track'} linkTwo={'/summer'} linkOne={'/help'} heading={'Support'} textOne={'Help Center'} textTwo={'Summer'} textThree={'Track My Order'} />
+                    <FooterBox linkThree={'/track'} linkTwo={'/summer'} linkOne={'/help'} heading={'Support'} linkFour={'/return'} textOne={'Help Center'} textTwo={'Summer'} textThree={'Track My Order'} textFour={'Return and Exchange'} />
 
                     <FooterBox linkThree={'/shipping'} linkTwo={'/contact'} linkOne={'/about'} heading={'Info'} textOne={'About Us'} textTwo={'Contact Us'} textThree={'Shipping Info'} />
                 </div>
@@ -58,7 +58,7 @@ const Footer = () => {
                 <span className="holder">
                     <p className="paragraph">&copy; 2023</p>
                     <p className="paragraph">|</p>
-                    <p className="paragraph">&copy;  Alphalete Athletics LLC</p>
+                    <p className="paragraph">&copy;  Velonte Athletics LLC</p>
                     <p className="paragraph">|</p>
                     <p className="paragraph">All Rights Reserved</p>
                 </span>
