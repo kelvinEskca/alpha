@@ -57,14 +57,14 @@ const Modal = ({modal,handleModal}) => {
 
                                         <div className="bottom">
                                             <div className="bottom-right">
-                                                <div className="smaller" onClick={()=>removeFromCart(item.id)}>
+                                                <div className="smaller" onClick={()=>removeFromCart(item._id)}>
                                                     <img src="../images/icons8-remove-24.png" alt="icons8-remove-24" />
                                                 </div>
 
                                                 <div className="smaller">
-                                                    <div className="left" onClick={()=>reduceQuantity(item.id,item)}><h3 className="heading">-</h3></div>
+                                                    <div className="left" onClick={()=>reduceQuantity(item._id,item)}><h3 className="heading">-</h3></div>
                                                     <div className="center"><h3 className="heading">{item.qty}</h3></div>
-                                                    <div className="right" onClick={()=>increaseQuantity(item.id,item)}><h3 className="heading">+</h3></div>
+                                                    <div className="right" onClick={()=>increaseQuantity(item._id,item)}><h3 className="heading">+</h3></div>
                                                 </div>
 
                                                 <div className="smaller">

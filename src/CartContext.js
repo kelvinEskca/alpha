@@ -36,13 +36,13 @@ export function CartProvider({children}){
   
   const increaseQuantity = (itemId) => {
     setItems(prevCart => prevCart.map(item => 
-      item.id === itemId ? {...item, qty: item.qty + 1} : item
+      item._id === itemId ? {...item, qty: item.qty + 1} : item
     ))
   }
   
   const reduceQuantity = (itemId) => {
     setItems(prevCart => prevCart.map(item => {
-      if (item.id === itemId) {
+      if (item._id === itemId) {
         if (item.qty > 1) {
           return { ...item, qty: item.qty - 1 }
         } else {
@@ -55,11 +55,11 @@ export function CartProvider({children}){
   }
   
   const removeFromCart = (itemId) => {
-      setItems(prevCart => prevCart.filter(item => item.id !== itemId))
+    setItems(prevCart => prevCart.filter(item => item._id !== itemId))
   }
 
   const getTotalAmount = () => {
-      return items.reduce((acc, item) => acc + item.price * item.qty, 0)
+    return items.reduce((acc, item) => acc + item.price * item.qty, 0)
   }
 
   const getItemAmount = () => {

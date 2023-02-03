@@ -13,7 +13,7 @@ const Women = () => {
     const [mobile,setMobile] = useState(false)
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
-    const [selectedSize,setSelectedSize] = useState('');
+    const [selectedSizes, setSelectedSizes] = useState({});
     const {addToCart} = useContext(CartContext);
     const handleModal = () =>{
         setModal(!modal);
@@ -39,10 +39,10 @@ const Women = () => {
         setLoading(false);
    },[]);
 
-    const handleClick = (size,item)=>{
-        setSelectedSize(size);
-        addToCart({...item, size});
-    }
+    const handleClick = (size, item) => {
+        setSelectedSizes({ ...selectedSizes, [item._id]: size });
+        addToCart({ ...item, size });
+    };
     
     if(loading) return <Loader />;
     return (
@@ -83,7 +83,9 @@ const Women = () => {
                     
                                                 <div className="quick-add-bottom">
                                                     {item.sizes.map((size,i)=>{
-                                                        return (<div className="size" key={i}><small className={`${size === selectedSize ? 'sizeActive' : ''}`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                        return (<div className="size" key={i}><small className={`${
+                                                            size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                        }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
                                                     })}
                                                 </div>
                                             </div>
@@ -96,7 +98,9 @@ const Women = () => {
                     
                                         <div className="size-box">
                                             {item.sizes.map((size,i)=>{
-                                                return (<div className="size" key={i}><small>{size}</small></div>)
+                                                return (<div className="size" key={i}><small className={`${
+                                                    size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
                                             })}
                                         </div>
                     
