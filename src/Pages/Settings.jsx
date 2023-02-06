@@ -221,6 +221,16 @@ const Settings = () => {
                                                     <h3 className="heading">Subtitle:</h3>
                                                     <h3 className="heading">{item.subtitle}</h3>
                                                 </div>
+
+                                                <div className="column">
+                                                    <h3 className="heading">CTA:</h3>
+                                                    <h3 className="heading">{item.cta}</h3>
+                                                </div>
+
+                                                <div className="column">
+                                                    <h3 className="heading">Visibility:</h3>
+                                                    <h3 className="heading">{item.active}</h3>
+                                                </div>
                                             </div>
 
                                             <button onClick={()=>handleDeleteHero(item)}>Delete Hero</button>
@@ -310,6 +320,16 @@ const Settings = () => {
                                                 <div className="column">
                                                     <h3 className="heading">Subtitle:</h3>
                                                     <h3 className="heading">{item.subtitle}</h3>
+                                                </div>
+
+                                                <div className="column">
+                                                    <h3 className="heading">CTA:</h3>
+                                                    <h3 className="heading">{item.cta}</h3>
+                                                </div>
+
+                                                <div className="column">
+                                                    <h3 className="heading">Visibility:</h3>
+                                                    <h3 className="heading">{item.active}</h3>
                                                 </div>
                                             </div>
 
