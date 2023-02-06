@@ -27,7 +27,7 @@ const Women = () => {
         const getproducts = async ()=>{
             const gender = 'Female';
             try{
-                const res = await axios.get(`https://api-production-f7f8.up.railway.app/alphaapi/product/female/${gender}`)
+                const res = await axios.get(`https://alphaapi-production.up.railway.app/alphaapi/product/female/${gender}`)
                 setProducts(res.data);
                 setLoading(false);
             }

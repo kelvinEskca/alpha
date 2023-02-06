@@ -30,7 +30,7 @@ const CardModal = ({cardModal,openCard}) => {
             data.append("image", formData.images[i]);
         }
         try {
-            const res = await axios.post("https://api-production-f7f8.up.railway.app/alphaapi/card", data,{headers:{token:token}});
+            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/card", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 navigate('/settings');
@@ -52,14 +52,14 @@ const CardModal = ({cardModal,openCard}) => {
                             </label>
 
                             <label htmlFor="#">Card Subtitle
-                                <textarea name="subtitle" id="subtitle" cols="30" rows="10" placeholder="Card Subtitle" onChange={handleChange} value={formData.title}></textarea>
+                                <textarea name="subtitle" id="subtitle" cols="30" rows="10" placeholder="Card Subtitle" onChange={handleChange} value={formData.subtitle}></textarea>
                             </label>
 
                             <label htmlFor="#">Card CTA
                                 <input type="text" name="cta" placeholder="CTA" onChange={handleChange} value={formData.cta}/>
                             </label>
 
-                            <label htmlFor="#">Card mage
+                            <label htmlFor="#">Card Image
                                 <input type="file" name="image" placeholder="Image" onChange={handleImageChange} multiple/>
                             </label>
 

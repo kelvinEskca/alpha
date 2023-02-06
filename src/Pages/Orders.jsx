@@ -16,7 +16,7 @@ const Dashboard = () => {
     useEffect(()=>{
         const getOrders = async ()=>{
             try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/order/',{headers:{token:auth}});
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/order/',{headers:{token:auth}});
                 setOrders(res.data);
                 setLoading(false);
             }

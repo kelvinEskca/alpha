@@ -45,7 +45,7 @@ const ProductModal = ({productModal,openModal}) => {
         data.append("quantity", formData.quantity);
         data.append("inStock", formData.inStock);
         try {
-            const res = await axios.post("https://api-production-f7f8.up.railway.app/alphaapi/product", data,{headers:{token:token}});
+            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 navigate('/products');
@@ -58,7 +58,7 @@ const ProductModal = ({productModal,openModal}) => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/category')
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/category')
                 setProducts(res.data);
                 setLoading(false);
             }

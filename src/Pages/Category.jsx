@@ -23,7 +23,7 @@ const Category = () => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/category')
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/category')
                 setProducts(res.data);
                 setLoading(false);
             }
@@ -37,7 +37,7 @@ const Category = () => {
     const handleDelete = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/category/delete/${id}`,{
+            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/category/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){

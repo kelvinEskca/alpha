@@ -39,7 +39,7 @@ const Account = () => {
         const id = user._id;
         const grabOrders = async () =>{
             try{
-                const order = await axios.get(`https://api-production-f7f8.up.railway.app/alphaapi/order/${id}`,{headers:{token:token}});
+                const order = await axios.get(`https://alphaapi-production.up.railway.app/alphaapi/order/${id}`,{headers:{token:token}});
                 setLoading(true);
                 if(order.status === 200){
                     setLoading(false);

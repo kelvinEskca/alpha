@@ -30,7 +30,7 @@ const FooterModal = ({footerModal,openFooterCard}) => {
             data.append("video", formData.videos[i]);
         }
         try {
-            const res = await axios.post("https://api-production-f7f8.up.railway.app/alphaapi/footer", data,{headers:{token:token}});
+            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/footer", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 navigate('/settings');

@@ -4,7 +4,7 @@ import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
 import HeroModal from "../Components/HeroModal";
-import FooterModal from "../Components/FooterModal";
+//import FooterModal from "../Components/FooterModal";
 import CardModal from "../Components/CardModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
@@ -14,10 +14,10 @@ const Settings = () => {
     const token = localStorage.getItem('token');
     const [cards,setCards] = useState([]);
     const [hero,setHero] = useState([]);
-    const [footer,setFooter] = useState([]);
+    //const [footer,setFooter] = useState([]);
     const [loading,setLoading] = useState(true);
     const [heroModal,setHeroModal] = useState(false);
-    const [footerModal,setFooterModal] = useState(false);
+    //const [footerModal,setFooterModal] = useState(false);
     const [cardModal,setCardModal] = useState(false);
     
     const navigate = useNavigate();
@@ -30,14 +30,14 @@ const Settings = () => {
         setCardModal(!cardModal);
     }
 
-    const openFooterCard = () => {
-        setFooterModal(!footerModal);
-    }
+    // const openFooterCard = () => {
+    //     setFooterModal(!footerModal);
+    // }
 
     useEffect(()=>{
         const getCards = async ()=>{
             try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/card')
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/card')
                 setCards(res.data);
                 setLoading(false);
             }
@@ -49,7 +49,7 @@ const Settings = () => {
 
         const getHero = async ()=>{
             try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/hero')
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/hero')
                 setHero(res.data);
                 setLoading(false);
             }
@@ -58,24 +58,12 @@ const Settings = () => {
             }
         }
         getHero();
-
-        const getFooter = async ()=>{
-            try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/footer')
-                setFooter(res.data);
-                setLoading(false);
-            }
-            catch(err){
-                console.log(err);
-            }
-        }
-        getFooter();
     },[]);
 
     const handleDelete = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/card/delete/${id}`,{
+            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/card/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -94,7 +82,7 @@ const Settings = () => {
     const handleShow = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/card/edit/${id}`,{
+            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/card/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -113,7 +101,7 @@ const Settings = () => {
     const handleDeleteHero = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/hero/delete/${id}`,{
+            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/hero/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -132,7 +120,7 @@ const Settings = () => {
     const handleShowHero = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/hero/edit/${id}`,{
+            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/hero/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -148,43 +136,43 @@ const Settings = () => {
         }
     }
 
-    const handleDeleteFooter = async (i) =>{
-        const id = i._id;
-        try{
-            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/footer/delete/${id}`,{
-                id:id
-            },{ headers:{token:token} });
-            if(res.status === 200){
-                alert(res.statusText);
-                navigate('/settings');
-            }
-            else{
-                alert(res.statusText);
-            }
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
+    // const handleDeleteFooter = async (i) =>{
+    //     const id = i._id;
+    //     try{
+    //         const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/footer/delete/${id}`,{
+    //             id:id
+    //         },{ headers:{token:token} });
+    //         if(res.status === 200){
+    //             alert(res.statusText);
+    //             navigate('/settings');
+    //         }
+    //         else{
+    //             alert(res.statusText);
+    //         }
+    //     }
+    //     catch(err){
+    //         console.log(err);
+    //     }
+    // }
 
-    const handleShowFooter = async (i) =>{
-        const id = i._id;
-        try{
-            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/footer/edit/${id}`,{
-                active:true
-            },{ headers:{token:token} });
-            if(res.status === 200){
-                alert(res.statusText);
-                navigate('/settings');
-            }
-            else{
-                alert(res.statusText);
-            }
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
+    // const handleShowFooter = async (i) =>{
+    //     const id = i._id;
+    //     try{
+    //         const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/footer/edit/${id}`,{
+    //             active:true
+    //         },{ headers:{token:token} });
+    //         if(res.status === 200){
+    //             alert(res.statusText);
+    //             navigate('/settings');
+    //         }
+    //         else{
+    //             alert(res.statusText);
+    //         }
+    //     }
+    //     catch(err){
+    //         console.log(err);
+    //     }
+    // }
 
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
@@ -246,7 +234,7 @@ const Settings = () => {
                         </div>
                     </div>
 
-                    <div className="wrapper">
+                    {/* <div className="wrapper">
                         <div className="top">
                             <h3 className="heading">Footer Settings</h3>
                             <button onClick={openFooterCard}>Add Banner +</button>
@@ -289,7 +277,7 @@ const Settings = () => {
                             )}
                             
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="wrapper">
                         <div className="top">
@@ -338,7 +326,7 @@ const Settings = () => {
                 </section>
 
                 <HeroModal openModal={openModal} heroModal={heroModal} />
-                <FooterModal openFooterCard={openFooterCard} footerModal={footerModal} />
+                {/* <FooterModal openFooterCard={openFooterCard} footerModal={footerModal} /> */}
                 <CardModal openCard={openCard} cardModal={cardModal} />
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />

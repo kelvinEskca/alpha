@@ -14,7 +14,7 @@ const Customers = () => {
     useEffect(()=>{
         const getcustomers = async ()=>{
             try{
-                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/users',{headers:{token:auth}});
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/users',{headers:{token:auth}});
                 setCustomers(res.data);
                 setLoading(false);
             }

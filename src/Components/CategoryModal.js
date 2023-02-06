@@ -20,7 +20,7 @@ const ProductModal = ({productModal,openModal}) => {
         }
         else{
             try {
-                const res = await axios.post("https://api-production-f7f8.up.railway.app/alphaapi/category",{
+                const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/category",{
                     name:name,
                     desc:desc,
                     subcategory:subcategory

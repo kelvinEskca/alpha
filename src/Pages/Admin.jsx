@@ -26,7 +26,7 @@ const Admin = () => {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try{
-            const loginUser = await axios.post('https://api-production-f7f8.up.railway.app/alphaapi/auth/admin',{
+            const loginUser = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/auth/admin',{
                 email:email,
                 password:password
             });
