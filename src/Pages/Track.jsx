@@ -9,6 +9,8 @@ const Track = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
     const [id,setId] = useState('');
+    const [order,setOrder] = useState('');
+    const [email,setEmail] = useState('');
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -18,7 +20,7 @@ const Track = () => {
     }
     
     
-    const auth = 'velonteusps';
+    const auth = '150VELON3377';
     const xml = `<TrackRequest USERID="${auth}"><TrackID ID="${id}"></TrackID></TrackRequest>`;
     const encodedXml = encodeURIComponent(xml);
     const url = "https://secure.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML=" + encodedXml;
@@ -41,7 +43,18 @@ const Track = () => {
                     <div className="boxes">
                         <div className="box">
                             <form action="#" className="form" onSubmit={fetchData}>
-                                
+                                <label htmlFor="#">Order Number
+                                    <input type="text" name="ordernumber" onChange={(e)=>{setOrder(e.target.value)}} />
+                                </label>
+
+                                <label htmlFor="#">Email Address
+                                    <input type="text" name="email" onChange={(e)=>{setEmail(e.target.value)}} />
+                                </label>
+
+                                <div className="or">
+                                    <p className="paragraph">Or</p>
+                                </div>
+
                                 <label htmlFor="#">Tracking Number
                                     <input type="text" name="tracknumber" onChange={(e)=>{setId(e.target.value)}} />
                                 </label>

@@ -89,7 +89,7 @@ const Dashboard = () => {
     if(loading) return <Loader />;
     return (
         <>
-            <Header />
+            <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 <section className="section welcome">
                     <div className="wrapper">

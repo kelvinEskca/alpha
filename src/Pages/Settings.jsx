@@ -37,7 +37,7 @@ const Settings = () => {
     useEffect(()=>{
         const getCards = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/card')
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/card')
                 setCards(res.data);
                 setLoading(false);
             }
@@ -49,7 +49,7 @@ const Settings = () => {
 
         const getHero = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/hero')
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/hero')
                 setHero(res.data);
                 setLoading(false);
             }
@@ -61,7 +61,7 @@ const Settings = () => {
 
         const getFooter = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/footer')
+                const res = await axios.get('https://api-production-f7f8.up.railway.app/alphaapi/footer')
                 setFooter(res.data);
                 setLoading(false);
             }
@@ -75,7 +75,7 @@ const Settings = () => {
     const handleDelete = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/card/delete/${id}`,{
+            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/card/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -94,7 +94,7 @@ const Settings = () => {
     const handleShow = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/card/edit/${id}`,{
+            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/card/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -113,7 +113,7 @@ const Settings = () => {
     const handleDeleteHero = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/hero/delete/${id}`,{
+            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/hero/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -132,7 +132,7 @@ const Settings = () => {
     const handleShowHero = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/hero/edit/${id}`,{
+            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/hero/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -151,7 +151,7 @@ const Settings = () => {
     const handleDeleteFooter = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/footer/delete/${id}`,{
+            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/footer/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -170,7 +170,7 @@ const Settings = () => {
     const handleShowFooter = async (i) =>{
         const id = i._id;
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/footer/edit/${id}`,{
+            const res = await axios.post(`https://api-production-f7f8.up.railway.app/alphaapi/footer/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){

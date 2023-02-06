@@ -139,13 +139,13 @@ const Home = () => {
                     </section>
                 </div> */}
 
-                <section className="section visit hero">
+                {/* <section className="section visit hero">
                     <div className="wrapper">
                         <div className="boxes">
                             <VideoCard video={clip[1].video} heading={clip[1].heading} paragraph={clip[1].paragraph} btn={clip[1].btn} btnTwo={clip[1].btnTwo} />
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 <Modal modal={modal} handleModal={handleModal} />
 
