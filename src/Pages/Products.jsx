@@ -107,6 +107,10 @@ const Dashboard = () => {
                                                 <span><h3 className="heading">Category:{item.category}</h3></span>
                                             </div>
 
+                                            <div className="text">
+                                                <span><h3 className="heading">Instock: {item.inStock ? "True" : "False"}</h3></span>
+                                            </div>
+
                                             <button onClick={()=>handleDelete(item)}>Delete Product</button>
                                         </div>
                                         
