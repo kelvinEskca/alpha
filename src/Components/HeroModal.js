@@ -36,7 +36,7 @@ const HeroModal = ({heroModal,openModal}) => {
             data.append("video", formData.videos[i]);
         }
         try {
-            const res = await axios.post("http://localhost:5000/alphaapi/hero", data,{headers:{token:token}});
+            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/hero", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 setIsSubmitting(false);
