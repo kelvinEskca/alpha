@@ -205,12 +205,10 @@ const Settings = () => {
                                     return(
                                         
                                         <div className="cards" key={i}>
-                                            <Link to={`/details/${item._id}`}>
-                                                <div className="product-image">
-                                                    <img src={`${item.video[0].url}`} alt={item.video[0]} />
-                                                </div>
-                                            </Link>
-
+                                            <div className="product-image">
+                                                <img src={`${item.video[0].url}`} alt={item.video[0]} />
+                                            </div>
+                                           
                                             <div className="text">
                                                 <div className="column">
                                                     <h3 className="heading">Title:</h3>

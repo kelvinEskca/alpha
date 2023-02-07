@@ -17,6 +17,7 @@ const ProductModal = ({productModal,openModal}) => {
         images: [],
         price: "",
         category: "",
+        subcategory: "",
         colors: [],
         quantity: "",
         inStock: ""
@@ -31,7 +32,6 @@ const ProductModal = ({productModal,openModal}) => {
     const handleSubmit = async e => {
         e.preventDefault();
         const sizesArray = formData.sizes.split(',').map(size => size.trim());
-        const colorArray = formData.colors.split(',').map(color => color.trim());
         const data = new FormData();
         data.append("name", formData.name);
         data.append("desc", formData.desc);
@@ -41,7 +41,7 @@ const ProductModal = ({productModal,openModal}) => {
         }
         data.append("price", formData.price);
         data.append("category", formData.category);
-        data.append("colors", colorArray);
+        data.append("subcategory", formData.subcategory);
         data.append("quantity", formData.quantity);
         data.append("inStock", formData.inStock);
         try {
@@ -122,10 +122,6 @@ const ProductModal = ({productModal,openModal}) => {
                                 </select>
                             </label>
 
-                            <label htmlFor="#">Product Colors
-                                <input type="text" name="colors" placeholder="Colors (comma separated)" onChange={handleChange} value={formData.colors}/>
-                            </label>
-
                             <label htmlFor="#">Product Quantity
                                 <input type="text" name="quantity" placeholder="Quantity" onChange={handleChange} value={formData.quantity}/>
                             </label>
@@ -139,7 +135,7 @@ const ProductModal = ({productModal,openModal}) => {
                             </label>
 
                             <label htmlFor="#">
-                                <button onClick={openModal}>Cancel</button>
+                                <button type="button" onClick={openModal}>Cancel</button>
                             </label>
                         </form>
                     </div>

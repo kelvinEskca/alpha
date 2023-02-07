@@ -29,14 +29,14 @@ const HeroModal = ({heroModal,openModal}) => {
         const data = new FormData();
         data.append("title", formData.title);
         data.append("subtitle", formData.subtitle);
-        data.cta("subtitle", formData.cta);
-        data.ctatwo("ctatwo", formData.ctatwo);
-        data.category("category", formData.category);
+        data.append("cta", formData.cta);
+        data.append("ctatwo", formData.ctatwo);
+        data.append("category", formData.category);
         for (let i = 0; i < formData.videos.length; i++) {
             data.append("video", formData.videos[i]);
         }
         try {
-            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/hero", data,{headers:{token:token}});
+            const res = await axios.post("http://localhost:5000/alphaapi/hero", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 setIsSubmitting(false);
