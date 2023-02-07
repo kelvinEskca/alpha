@@ -8,6 +8,7 @@ const ProductModal = ({productModal,openModal}) => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const [products,setProducts] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [loading,setLoading] = useState(true);
     
     const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ const ProductModal = ({productModal,openModal}) => {
         price: "",
         category: "",
         subcategory: "",
-        colors: [],
+        color: "",
         quantity: "",
         inStock: ""
     });
@@ -31,6 +32,7 @@ const ProductModal = ({productModal,openModal}) => {
     
     const handleSubmit = async e => {
         e.preventDefault();
+        setIsSubmitting(true);
         const sizesArray = formData.sizes.split(',').map(size => size.trim());
         const data = new FormData();
         data.append("name", formData.name);
@@ -43,11 +45,13 @@ const ProductModal = ({productModal,openModal}) => {
         data.append("category", formData.category);
         data.append("subcategory", formData.subcategory);
         data.append("quantity", formData.quantity);
+        data.append("colorName", formData.color);
         data.append("inStock", formData.inStock);
         try {
             const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
+                setIsSubmitting(false);
                 navigate('/products');
             }
         } catch (err) {
@@ -88,6 +92,10 @@ const ProductModal = ({productModal,openModal}) => {
                                 <input type="text" name="sizes" placeholder="Sizes (comma separated)" onChange={handleChange} value={formData.sizes}/>
                             </label>
 
+                            <label htmlFor="#">Product Color
+                                <input type="text" name="colorName" placeholder="Product Color" onChange={handleChange} value={formData.color}/>
+                            </label>
+
                             <label htmlFor="#">Product Image
                                 <input type="file" name="images" placeholder="Images" onChange={handleImageChange} multiple/>
                             </label>
@@ -98,10 +106,10 @@ const ProductModal = ({productModal,openModal}) => {
 
                             <label htmlFor="#">Product Category
                                 <select name="category" placeholder="Category" onChange={handleChange} value={formData.category}>
+                                    <option value="" disabled>Select An Option</option>
                                     {products.map((cat,i)=>{
                                         return (
                                             <>
-                                                <option value='Select Category' disabled>Select Category</option>
                                                 <option value={cat.name} key={cat._id}>{cat.name}</option>
                                             </>
                                         )
@@ -111,10 +119,10 @@ const ProductModal = ({productModal,openModal}) => {
                             
                             <label htmlFor="#">Product Subcategory
                                 <select name="subcategory" placeholder="SubCategory" onChange={handleChange} value={formData.subcategory}>
+                                    <option value="" disabled>Select An Option</option>
                                     {products.map((cat,i)=>{
                                         return (
                                             <>
-                                                <option value='Select SubCategory' disabled>Select SubCategory</option>
                                                 <option value={cat.subcategory} key={cat._id}>{cat.subcategory}</option>
                                             </>
                                         )
@@ -131,7 +139,7 @@ const ProductModal = ({productModal,openModal}) => {
                             </label>
 
                             <label htmlFor="#">
-                                <Button btnText={'Add Product'} />
+                                <Button btnText={isSubmitting ? 'Uploading..' : 'Add Product'} />
                             </label>
 
                             <label htmlFor="#">

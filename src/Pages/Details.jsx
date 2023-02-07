@@ -7,11 +7,14 @@ import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import ImageCard from "../Components/ImageCard";
 import Loader from "../Components/Loader";
+import ColorModal from "../Components/ColorModal";
 const Details = () => {
     axios.defaults.withCredentials = true;
     const [products,setProducts] = useState([]);
+    const [colors,setColors] = useState([]);
     const [loading,setLoading] = useState(true);
     const [modal,setModal] = useState(false);
+    const [colorModal,setColorModal] = useState(false);
     const [mobile,setMobile] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
     const {id} = useParams();
@@ -27,12 +30,29 @@ const Details = () => {
             }
         }
         getproducts();
+
+        const getColor = async ()=>{
+            try{
+                const res = await axios.get(`https://alphaapi-production.up.railway.app/alphaapi/color/${id}`)
+                setColors(res.data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getColor();
     },[id]);
+
     const handleMobile = () =>{
         setMobile(!mobile);
     }
     const handleModal = () =>{
         setModal(!modal);
+    }
+
+    const openModal = () =>{
+        setColorModal(!colorModal);
     }
 
     if(loading) return <Loader />;
@@ -57,7 +77,7 @@ const Details = () => {
                     </div>
                 </section>
 
-                {user.isAdmin ? (
+                {user && user.isAdmin ? (
                     <>
                         {products.map((item,i)=>{
                             return (
@@ -77,12 +97,12 @@ const Details = () => {
 
                                             <div className="row-top">
                                                 <div className="color-box">
-                                                    <h3 className="heading">19 colors | Mocha</h3>
+                                                    <h3 className="heading">{colors && colors.length} color (s) | {item.category}</h3>
                                                     <div className="color-rounds">
-                                                        {item.colors.map((color,i)=>{
+                                                        {colors.map((color,i)=>{
                                                             return (
                                                                 <div className="color-image">
-                                                                    <img src={`${color.image.url}`} alt={color.image.url} />
+                                                                    <img src={`${color.image[0].url}`} alt={color.image.url} />
                                                                 </div>
                                                             )
                                                         })}
@@ -121,7 +141,7 @@ const Details = () => {
                                                 </div>
                                             </div>
 
-                                            <button className="addbtn">Upload Colors</button>
+                                            <button type="button" className="addbtn" onClick={openModal}>Upload Colors</button>
                                         </div>
                                     </section>
                                 </div>
@@ -163,12 +183,12 @@ const Details = () => {
                                             <div className="right">
                                                 <div className="row-top">
                                                     <div className="color-box">
-                                                        <h3 className="heading">19 colors | Mocha</h3>
+                                                        <h3 className="heading">{colors && colors.length} color (s) | {item.category}</h3>
                                                         <div className="color-rounds">
-                                                            {item.colors.map((color,i)=>{
+                                                            {colors.map((color,i)=>{
                                                                 return (
                                                                     <div className="color-image">
-                                                                        <img src={`${color.image.url}`} alt={color.image.url} />
+                                                                        <img src={`${color.image[0].url}`} alt={color.image.url} />
                                                                     </div>
                                                                 )
                                                             })}
@@ -194,7 +214,7 @@ const Details = () => {
                                                     </div>
                                                 </div>
 
-                                                <button className="addbtn">Upload Colors</button>
+                                                <button type="button" className="addbtn" onClick={openModal}>Upload Colors</button>
                                             </div>
                                         </div>
 
@@ -235,12 +255,12 @@ const Details = () => {
 
                                             <div className="row-top">
                                                 <div className="color-box">
-                                                    <h3 className="heading">19 colors | Mocha</h3>
+                                                    <h3 className="heading">{colors && colors.length} color (s) | {item.category}</h3>
                                                     <div className="color-rounds">
-                                                        {item.colors.map((color,i)=>{
+                                                        {colors.map((color,i)=>{
                                                             return (
                                                                 <div className="color-image">
-                                                                    <img src={`${color.image.url}`} alt={color.image.url} />
+                                                                    <img src={`${color.image[0].url}`} alt={color.image.url} />
                                                                 </div>
                                                             )
                                                         })}
@@ -251,7 +271,7 @@ const Details = () => {
 
                                                 <div className="sizes-box">
                                                     <div className="top">
-                                                        <h3 className="heading">Size</h3>
+                                                        <h3 className="heading">Select Size</h3>
                                                     </div>
 
                                                     <div className="size-box">
@@ -332,40 +352,39 @@ const Details = () => {
                                             </div>
 
                                             <div className="right">
-                                                <div className="row-top">
-                                                    <div className="color-box">
-                                                        <h3 className="heading">19 colors | Mocha</h3>
-                                                        <div className="color-rounds">
-                                                            {item.colors.map((color,i)=>{
-                                                                return (
-                                                                    <div className="color-image">
-                                                                        <img src={`${color.image.url}`} alt={color.image.url} />
-                                                                    </div>
-                                                                )
-                                                            })}
-                                                            
-                                                        </div>
+                                                <div className="color-box">
+                                                    <h3 className="heading">{colors && colors.length} color (s) | {item.category}</h3>
+                                                    <div className="color-rounds">
+                                                        {colors.map((color,i)=>{
+                                                            return (
+                                                                <div className="color-image">
+                                                                    <img src={`${color.image[0].url}`} alt={color.image.url} />
+                                                                </div>
+                                                            )
+                                                        })}
                                                         
                                                     </div>
+                                                    
+                                                </div>
 
-                                                    <div className="sizes-box">
-                                                        <div className="top">
-                                                            <h3 className="heading">Size</h3>
-                                                        </div>
+                                                <div className="sizes-box">
+                                                    <div className="top">
+                                                        <h3 className="heading">Select Size</h3>
+                                                    </div>
 
-                                                        <div className="size-box">
-                                                            {item.sizes.map((size,i)=>{
-                                                                return(
-                                                                    <div className="size">
-                                                                        <small>{size}</small>
-                                                                    </div>
-                                                                )
-                                                            })}
-                                                        </div>
+                                                    <div className="size-box">
+                                                        {item.sizes.map((size,i)=>{
+                                                            return(
+                                                                <div className="size">
+                                                                    <small>{size}</small>
+                                                                </div>
+                                                            )
+                                                        })}
                                                     </div>
                                                 </div>
 
-                                                <button className="addbtn">Upload Colors</button>
+                                                <button className="sizebtn">Select Size</button>
+                                                <button className="addbtn">Add to bag</button>
                                             </div>
                                         </div>
 
@@ -399,9 +418,8 @@ const Details = () => {
                 )}
 
                 
-                
+                <ColorModal openModal={openModal} colorModal={colorModal} />
                 <Modal modal={modal} handleModal={handleModal} />
-
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
             </main>
             <Footer />

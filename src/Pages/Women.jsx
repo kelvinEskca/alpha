@@ -8,6 +8,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
+import { Link } from "react-router-dom";
 const Women = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
@@ -15,12 +16,36 @@ const Women = () => {
     const [loading,setLoading] = useState(true);
     const [selectedSizes, setSelectedSizes] = useState({});
     const {addToCart} = useContext(CartContext);
+
+    const [size,setSize] = useState('');
+    const [gender,setGender] = useState('');
+    const [proType,setProType] = useState('');
+    const [openItem, setOpenItem] = useState("");
+
+
     const handleModal = () =>{
         setModal(!modal);
     }
 
     const handleMobile = () =>{
         setMobile(!mobile);
+    }
+
+    const openModal = (item) =>{
+        if (item === openItem) {
+            setOpenItem("");
+        } else {
+            setOpenItem(item);
+        }
+        if(item === "gender"){
+            setGender("gender");
+        }
+        else if(item === "size"){
+            setSize("size");
+        }
+        else if(item === "product"){
+            setProType("product");
+        }
     }
 
     useEffect(()=>{
@@ -73,8 +98,10 @@ const Women = () => {
                                     <div className="box" key={i}>
                                         <div className="tag"><small></small></div>
                                         <div className="image-box">
-                                            <img src={`${item.image[0].url}`} alt={item.image[0].url} className="imageOne" />
-                                            <img src={`${item.image[1].url}`} alt={item.image[1].url} className="imageTwo" />
+                                            <Link to={`details/${item._id}`}>
+                                                <img src={`${item.image[0].url}`} alt={item.image[0].url} className="imageOne" />
+                                                <img src={`${item.image[1].url}`} alt={item.image[1].url} className="imageTwo" />
+                                            </Link>
                     
                                             <div className="quick-add">
                                                 <div className="quick-add-top">
@@ -103,26 +130,57 @@ const Women = () => {
                                                 }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
                                             })}
                                         </div>
-                    
-                                        <div className="images-box">
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                    
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                        </div>
                                     </div>
                                 )
                             })
                         ):(<h3>No Products</h3>)}
+                            {products.length > 0 ? (
+                                products.map((item,i)=>{
+                                    return (
+                                        <div className="desktop-details inner-deskt-details">
+                                            <div className="desktop-details-top">
+                                                <div className="grid-bottom inner-page-bottom">
+                                                    <span className={openItem === "gender" ? ("high") : ("")}>
+                                                        <div className="top">
+                                                            <Link to='/men'><p className="paragraph">Male</p></Link>
+                                                            <Link to='women'><p className="paragraph">Female</p></Link>
+                                                        </div>
+
+                                                        <div className="bottom" onClick={()=>openModal("gender")}>
+                                                            <h3 className="heading">Product Gender</h3>
+                                                        </div>
+                                                    </span>
+
+                                                    <span className={openItem === "size" ? ("high") : ("")}>
+                                                        <div className="top">
+                                                        {item.sizes.map((size)=>{
+                                                            return <p className="paragraph">{size}</p>
+                                                        })}  
+                                                            
+                                                        </div>
+
+                                                        <div className="bottom"onClick={()=>openModal("size")}>
+                                                            <h3 className="heading">Product Size</h3>
+                                                        </div>
+                                                    </span>
+
+                                                    <span className={openItem === "product" ? ("high") : ("")}>
+                                                        <div className="top">
+                                                            <p className="paragraph">{item.subcategory}</p>
+                                                        </div>
+
+                                                        <div className="bottom" onClick={()=>openModal("product")}>
+                                                            <h3 className="heading">Product Type</h3>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            ) : (
+                                ""
+                            )}
                         </div>
                     </div>
                 </section>

@@ -14,9 +14,11 @@ const Register = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [loading,setLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const handleSubmit = async (e) =>{
         e.preventDefault();
+        setIsSubmitting(true);
         console.log(email,firstname,lastname,password);
         if(email === ''  || firstname === '' || lastname === ''  || password === ''){
             alert('Please ensure all fields are filled');
@@ -36,6 +38,7 @@ const Register = () => {
                 if(userSubmit.status === 201){
                     alert("Success");
                     setLoading(false);
+                    setIsSubmitting(false)
                     navigate('/login');
                 }
                 else{
@@ -94,7 +97,7 @@ const Register = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                        <Button btnText={'Create My Account'} />
+                                        <Button btnText={isSubmitting ? 'Processing..' : 'Create My Account'}  />
                                     </label>
 
                                     <label htmlFor="#" className="center-label">

@@ -14,6 +14,7 @@ const Login = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
     const [loading,setLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -25,6 +26,7 @@ const Login = () => {
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        setIsSubmitting(true)
         try{
             const loginUser = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/auth/login',{
                 email:email,
@@ -36,6 +38,7 @@ const Login = () => {
                 setLoading(true);
                 if(loginUser.data.isAdmin === false){
                     setLoading(false);
+                    setIsSubmitting(false);
                     navigate('/account');
                 }
                 else{
@@ -80,7 +83,7 @@ const Login = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                        <Button btnText={'Log In'} />
+                                        <Button btnText={isSubmitting ? 'Processing..' : 'Log In'}  />
                                     </label>
 
                                     <label htmlFor="#" className="center-label">

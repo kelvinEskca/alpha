@@ -117,22 +117,6 @@ const ImageCard = ({toggleState}) => {
                                     }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
                                 })}
                             </div>
-        
-                            <div className="images-box">
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-        
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                                <img src={`${item.image[0].url}`} alt={item.image[0]} className="imageOne" />
-                            </div>
                         </div>
                     )
                 }

@@ -6,6 +6,7 @@ import Loader from "./Loader";
 const ProductModal = ({productModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     
     const [name,setName] = useState('');
@@ -15,6 +16,7 @@ const ProductModal = ({productModal,openModal}) => {
     
     const handleSubmit = async e => {
         e.preventDefault();
+        setIsSubmitting(true);
         if(name === ''  || desc === '' || subcategory === ''){
             alert('Please ensure all fields are filled');
         }
@@ -29,6 +31,7 @@ const ProductModal = ({productModal,openModal}) => {
                 setLoading(true);
                 if(res.status === 200){
                     setLoading(false);
+                    setIsSubmitting(false);
                     navigate('/category');
                 }
             } catch (err) {
@@ -57,7 +60,7 @@ const ProductModal = ({productModal,openModal}) => {
                             </label>
 
                             <label htmlFor="#">
-                                <Button btnText={'Add Category'} />
+                            <Button btnText={isSubmitting ? 'Uploading..' : 'Add Category'} />
                             </label>
 
                             <label htmlFor="#">

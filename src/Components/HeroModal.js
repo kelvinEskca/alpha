@@ -14,13 +14,14 @@ const HeroModal = ({heroModal,openModal}) => {
         cta:"",
         ctatwo:"",
         category:"",
-        videos: [],
+        video: '',
     });
     const handleChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
     const handleVideoChange = e => {
-        setFormData({ ...formData, videos: e.target.files });
+        setFormData({ ...formData, video: e.target.files.name });
+        console.log(formData.video);
     };
     
     const handleSubmit = async e => {
@@ -32,9 +33,8 @@ const HeroModal = ({heroModal,openModal}) => {
         data.append("cta", formData.cta);
         data.append("ctatwo", formData.ctatwo);
         data.append("category", formData.category);
-        for (let i = 0; i < formData.videos.length; i++) {
-            data.append("video", formData.videos[i]);
-        }
+        data.append("video", formData.video);
+        
         try {
             const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/hero", data,{headers:{token:token}});
             if(res.status === 200){
@@ -46,7 +46,6 @@ const HeroModal = ({heroModal,openModal}) => {
         console.error(err);
         }
     };
-
     return (
         <section className={`section addressModal  ${heroModal ? ('modal') : ('off')}`} >
             <div className="wrapper">
@@ -71,7 +70,7 @@ const HeroModal = ({heroModal,openModal}) => {
                             </label>
 
                             <label htmlFor="#">Hero Video
-                                <input type="file" name="video" placeholder="Video" onChange={handleVideoChange} multiple/>
+                                <input type="file" name="video" placeholder="Video" onChange={handleVideoChange}/>
                             </label>
 
                             <label htmlFor="#">Content Category
