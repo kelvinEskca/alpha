@@ -61,7 +61,7 @@ const ProductModal = ({productModal,openModal}) => {
                             </label>
 
                             <label htmlFor="#">
-                                <button onClick={openModal}>Cancel</button>
+                                <button type="button" onClick={openModal}>Cancel</button>
                             </label>
                         </form>
                     </div>

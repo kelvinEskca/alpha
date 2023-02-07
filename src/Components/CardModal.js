@@ -5,12 +5,15 @@ import axios from "axios";
 const CardModal = ({cardModal,openCard}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     
     const [formData, setFormData] = useState({
         title: "",
         subtitle: "",
         cta: "",
+        ctatwo: "",
+        category: "",
         images: [],
     });
     const handleChange = e => {
@@ -22,10 +25,13 @@ const CardModal = ({cardModal,openCard}) => {
     
     const handleSubmit = async e => {
         e.preventDefault();
+        setIsSubmitting(true);
         const data = new FormData();
         data.append("title", formData.title);
         data.append("subtitle", formData.subtitle);
         data.append("cta", formData.cta);
+        data.append("ctatwo", formData.ctatwo);
+        data.append("category", formData.category);
         for (let i = 0; i < formData.images.length; i++) {
             data.append("image", formData.images[i]);
         }
@@ -33,6 +39,7 @@ const CardModal = ({cardModal,openCard}) => {
             const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/card", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
+                setIsSubmitting(false);
                 navigate('/settings');
             }
         } catch (err) {
@@ -59,16 +66,24 @@ const CardModal = ({cardModal,openCard}) => {
                                 <input type="text" name="cta" placeholder="CTA" onChange={handleChange} value={formData.cta}/>
                             </label>
 
+                            <label htmlFor="#">Card CTA 2 (Optional)
+                                <input type="text" name="ctatwo" placeholder="CTA Two" onChange={handleChange} value={formData.ctatwo}/>
+                            </label>
+
+                            <label htmlFor="#">Content Category
+                                <input type="text" name="category" placeholder="Category" onChange={handleChange} value={formData.category}/>
+                            </label>
+
                             <label htmlFor="#">Card Image
                                 <input type="file" name="image" placeholder="Image" onChange={handleImageChange} multiple/>
                             </label>
 
                             <label htmlFor="#">
-                                <Button btnText={'Add Section'} />
+                                <Button btnText={isSubmitting ? 'Uploading..' : 'Add Section'} />
                             </label>
 
                             <label htmlFor="#">
-                                <button onClick={openCard}>Cancel</button>
+                                <button type="button" onClick={openCard}>Cancel</button>
                             </label>
                         </form>
                     </div>

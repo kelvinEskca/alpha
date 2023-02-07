@@ -5,12 +5,15 @@ import axios from "axios";
 const HeroModal = ({heroModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     
     const [formData, setFormData] = useState({
         title: "",
         subtitle: "",
         cta:"",
+        ctatwo:"",
+        category:"",
         videos: [],
     });
     const handleChange = e => {
@@ -22,10 +25,13 @@ const HeroModal = ({heroModal,openModal}) => {
     
     const handleSubmit = async e => {
         e.preventDefault();
+        setIsSubmitting(true);
         const data = new FormData();
         data.append("title", formData.title);
         data.append("subtitle", formData.subtitle);
         data.cta("subtitle", formData.cta);
+        data.ctatwo("ctatwo", formData.ctatwo);
+        data.category("category", formData.category);
         for (let i = 0; i < formData.videos.length; i++) {
             data.append("video", formData.videos[i]);
         }
@@ -33,6 +39,7 @@ const HeroModal = ({heroModal,openModal}) => {
             const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/hero", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
+                setIsSubmitting(false);
                 navigate('/settings');
             }
         } catch (err) {
@@ -59,17 +66,24 @@ const HeroModal = ({heroModal,openModal}) => {
                                 <input type="text" name="cta" placeholder="CTA" onChange={handleChange} value={formData.cta}/>
                             </label>
 
+                            <label htmlFor="#">Hero CTA 2 (Optional)
+                                <input type="text" name="ctatwo" placeholder="CTA Two" onChange={handleChange} value={formData.ctatwo}/>
+                            </label>
+
                             <label htmlFor="#">Hero Video
                                 <input type="file" name="video" placeholder="Video" onChange={handleVideoChange} multiple/>
                             </label>
 
-
-                            <label htmlFor="#">
-                                <Button btnText={'Add Section'} />
+                            <label htmlFor="#">Content Category
+                                <input type="text" name="category" placeholder="Category" onChange={handleChange} value={formData.category}/>
                             </label>
 
                             <label htmlFor="#">
-                                <button onClick={openModal}>Cancel</button>
+                                <Button btnText={isSubmitting ? 'Uploading..' : 'Add Section'} />
+                            </label>
+
+                            <label htmlFor="#">
+                                <button type="button" onClick={openModal}>Cancel</button>
                             </label>
                         </form>
                     </div>

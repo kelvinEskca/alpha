@@ -229,7 +229,7 @@ const Settings = () => {
 
                                                 <div className="column">
                                                     <h3 className="heading">Visibility:</h3>
-                                                    <h3 className="heading">{item.active}</h3>
+                                                    <h3 className="heading">{item.active ? "Active" : "Inactive"}</h3>
                                                 </div>
                                             </div>
 
@@ -329,7 +329,7 @@ const Settings = () => {
 
                                                 <div className="column">
                                                     <h3 className="heading">Visibility:</h3>
-                                                    <h3 className="heading">{item.active}</h3>
+                                                    <h3 className="heading">{item.active ? "Active" : "Inactive"}</h3>
                                                 </div>
                                             </div>
 

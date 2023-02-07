@@ -2434,6 +2434,10 @@ img{
   margin-bottom: 1rem;
 }
 
+.visit .cards{
+  border: none;
+}
+
 .cards img{
   width: 100%;
 }

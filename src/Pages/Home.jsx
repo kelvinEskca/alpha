@@ -11,12 +11,15 @@ import Modal from "../Components/Modal";
 import videos from "../videos";
 import { useEffect } from "react";
 import Loader from "../Components/Loader";
+import axios from "axios";
 const Home = () => {
     const [toggleState, setToggleState] = useState(1);
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
     const [clip,setClip] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [cards,setCards] = useState([]);
+    const [hero,setHero] = useState([]);
 
     const toggleTab = (index) =>{
         setToggleState(index);
@@ -33,6 +36,32 @@ const Home = () => {
     useEffect(()=>{
         setClip(videos)
         setLoading(false);
+    },[]);
+
+    useEffect(()=>{
+        const getCards = async ()=>{
+            try{
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/card')
+                setCards(res.data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getCards();
+
+        const getHero = async ()=>{
+            try{
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/hero')
+                setHero(res.data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getHero();
     },[]);
 
     if(loading) return <Loader />;
@@ -62,35 +91,30 @@ const Home = () => {
                 </section>
 
                 <div className="row">
-                    <section className="section visit">
-                        <div className="wrapper">
-                            <div className="boxes">
-                                <div className="box cards">
-                                    <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
+                    {cards.map((item, i) => {
+                        if (item.active === true) {
+                        return (
+                            <>
+                            <section className="section visit">
+                                <div className="wrapper">
+                                <div className="boxes">
+                                    <div className="box cards">
+                                    <img src={`${item.image[0].url}`} alt={item.image[0]} />
                                     <div className="text-box">
-                                        <h3 className="heading">For Her</h3>
-                                        <Button btnText={`Shop Bra's`} btntheme={'shorter'}/>
-                                        <Button btnText={'Shop Leggings'} btntheme={'longer'}/>
+                                        <h3 className="heading">{item.title}</h3>
+                                        <Button btnText={item.cta} btntheme={"shorter"} />
+                                        <Button btnText={item.cta} btntheme={"longer"} />
+                                    </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section className="section visit left">
-                        <div className="wrapper">
-                            <div className="boxes">
-                                <div className="cards box">
-                                    <img src="../images/Photo_Dec_15_2022_6_21_04_PM.jpg" alt="Photo_Dec_15_2022_6_21_04_PM" />
-                                    <div className="text-box">
-                                        <h3 className="heading">For Him</h3>
-                                        <Button btnText={'Shop Tees'} btntheme={'shorter'}/>
-                                        <Button btnText={'Shop Joggers'} btntheme={'longer'}/>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </section>
+                            </section>
+                            </>
+                        );
+                        }
+                        return null;
+                    })}
+                    {cards.some(item => item.active === true) ? null : <div></div>}
                 </div>
 
                 {/* <section className="section new">
