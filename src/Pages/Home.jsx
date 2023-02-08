@@ -8,7 +8,6 @@ import Header from "../Components/Header";
 import MobileNav from "../Components/MobileNav";
 import { useState } from "react";
 import Modal from "../Components/Modal";
-import videos from "../videos";
 import { useEffect } from "react";
 import Loader from "../Components/Loader";
 import axios from "axios";
@@ -16,7 +15,6 @@ const Home = () => {
     const [toggleState, setToggleState] = useState(1);
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
-    const [clip,setClip] = useState([]);
     const [loading,setLoading] = useState(true);
     const [cards,setCards] = useState([]);
     const [hero,setHero] = useState([]);
@@ -31,12 +29,7 @@ const Home = () => {
 
     const handleMobile = () =>{
         setMobile(!mobile);
-    }
-
-    useEffect(()=>{
-        setClip(videos)
-        setLoading(false);
-    },[]);
+    };
 
     useEffect(()=>{
         const getCards = async ()=>{
@@ -69,13 +62,23 @@ const Home = () => {
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
-                <section className="section visit hero">
-                    <div className="wrapper">
-                        <div className="boxes">
-                            <VideoCard video={clip[0].video} heading={clip[0].heading} paragraph={clip[0].paragraph} btn={clip[0].btn} btnTwo={clip[0].btnTwo} />
-                        </div>
-                    </div>
-                </section>
+
+                {hero.map((item,i)=>{
+                    if(item.active === true){
+                        return(
+                            <section className="section visit hero">
+                                <div className="wrapper">
+                                    <div className="boxes">
+                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} />
+                                    </div>
+                                </div>
+                            </section>
+                        )
+                    }
+                    return null
+                })}
+                {hero.some(item => item.active === true) ? null : <div></div>}
+                
 
                 <section className="section new">
                     <div className="wrapper">

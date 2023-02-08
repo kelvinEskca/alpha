@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
@@ -205,10 +205,11 @@ const Settings = () => {
                                     return(
                                         
                                         <div className="cards" key={i}>
-                                            <div className="product-image">
-                                                <img src={`${item.video[0].url}`} alt={item.video[0]} />
-                                            </div>
                                            
+                                            <div className="product-image">
+                                                <img src={`${item.image[0] && item.image[0].url}`} alt={item.image[0]} />
+                                            </div>
+                                            
                                             <div className="text">
                                                 <div className="column">
                                                     <h3 className="heading">Title:</h3>
@@ -231,8 +232,8 @@ const Settings = () => {
                                                 </div>
                                             </div>
 
-                                            <button onClick={()=>handleDeleteHero(item)}>Delete Hero</button>
-                                            <button onClick={()=>handleShowHero(item)}>Show/Hide Hero</button>
+                                            <button onClick={()=>handleDeleteHero(item)}>Delete Card</button>
+                                            <button onClick={()=>handleShowHero(item)}>Show/Hide Card</button>
                                         </div>
                                         
                                     )
@@ -303,12 +304,11 @@ const Settings = () => {
                                     return(
                                         
                                         <div className="cards" key={i}>
-                                            <Link to={`/details/${item._id}`}>
-                                                <div className="product-image">
-                                                    <img src={`${item.image[0].url}`} alt={item.image[0]} />
-                                                </div>
-                                            </Link>
-
+                                        
+                                            <div className="product-image">
+                                                <img src={`${item.image[0].url}`} alt={item.image[0]} />
+                                            </div>
+                                            
                                             <div className="text">
                                                 <div className="column">
                                                     <h3 className="heading">Title:</h3>

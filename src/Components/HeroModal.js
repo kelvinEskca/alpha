@@ -21,6 +21,7 @@ const HeroModal = ({heroModal,openModal}) => {
     };
     const handleImageChange = e => {
         setFormData({ ...formData, images: e.target.files });
+        console.log(formData.images)
     };
     
     const handleSubmit = async e => {

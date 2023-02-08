@@ -267,7 +267,7 @@ form{
   transform: scale(1.04);
 }
 
-.about-hero video{
+.about-hero img{
   width: 100%;
   border-radius: 2rem;
   object-fit: cover;
@@ -504,7 +504,7 @@ main{
   border-radius: 2rem;
 }
 
-.visit .cards video,.visit .cards img{
+.visit .cards img,.visit .cards img{
   width: 100%;
   border-radius: 2rem;
   object-fit: cover;
@@ -2691,7 +2691,7 @@ img{
     height: 450px;
   }
 
-  .visit .cards video,.about-hero .box video{
+  .visit .cards img,.about-hero .box img{
     height: 100%;
   }
 
@@ -3034,7 +3034,7 @@ img{
     gap: 1rem;
   }
 
-  .dash-latest .boxes{
+  .dash-latest .boxes,.customers-latest .boxes{
     display: flex;
     flex-direction: row;
   }
