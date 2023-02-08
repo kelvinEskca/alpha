@@ -17,9 +17,9 @@ const Men = () => {
     const [selectedSizes, setSelectedSizes] = useState({});
     const [hero,setHero] = useState([]);
 
-    const [size,setSize] = useState('');
-    const [gender,setGender] = useState('');
-    const [proType,setProType] = useState('');
+    const [setSize] = useState('');
+    const [setGender] = useState('');
+    const [setProType] = useState('');
     const [openItem, setOpenItem] = useState("");
 
     const {addToCart} = useContext(CartContext);
@@ -93,12 +93,12 @@ const Men = () => {
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 {hero.map((item,i)=>{
-                    if(item.active === true && item.category === 'Male'){
+                    if(item.active === true){
                         return(
                             <section className="section visit hero">
                                 <div className="wrapper">
                                     <div className="boxes">
-                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} category={item.category} />
+                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} cat={item.category} />
                                     </div>
                                 </div>
                             </section>

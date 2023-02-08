@@ -64,12 +64,12 @@ const Home = () => {
             <main className="main">
 
                 {hero.map((item,i)=>{
-                    if(item.active === true){
+                    if(item.active === true && item.category === 'Home'){
                         return(
                             <section className="section visit hero">
                                 <div className="wrapper">
                                     <div className="boxes">
-                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} category={item.category} />
+                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} cat={item.category} />
                                     </div>
                                 </div>
                             </section>

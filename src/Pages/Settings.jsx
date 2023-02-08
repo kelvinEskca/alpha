@@ -212,6 +212,11 @@ const Settings = () => {
                                             
                                             <div className="text">
                                                 <div className="column">
+                                                    <h3 className="heading">Display Section:</h3>
+                                                    <h3 className="heading">{item.category} Section</h3>
+                                                </div>
+
+                                                <div className="column">
                                                     <h3 className="heading">Title:</h3>
                                                     <h3 className="heading">{item.title}</h3>
                                                 </div>
@@ -233,7 +238,7 @@ const Settings = () => {
                                             </div>
 
                                             <button onClick={()=>handleDeleteHero(item)}>Delete Card</button>
-                                            <button onClick={()=>handleShowHero(item)}>Show/Hide Card</button>
+                                            <button onClick={()=>handleShowHero(item)}>{item.active ? "Hide Card" : "Show Card"}</button>
                                         </div>
                                         
                                     )
