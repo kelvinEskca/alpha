@@ -138,7 +138,7 @@ const Dashboard = () => {
                     </div>
                 </section>
 
-                <section className="section latest">
+                <section className="section latest dash-latest">
                     <div className="wrapper">
                         <h3 className="heading">Latest Customers</h3>
                         <div className="boxes">

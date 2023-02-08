@@ -1274,7 +1274,6 @@ header .bottom-right .small .badge .count{
   font-family: 'GT';
 }
 
-
 .default img{
   width: 24px;
 }
@@ -1289,7 +1288,9 @@ header .bottom-right .small .badge .count{
 }
 
 .dash-default .boxes{
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
+  gap: 1rem;
 }
 
 .latest .wrapper > .heading{
@@ -1297,6 +1298,8 @@ header .bottom-right .small .badge .count{
   font-weight: 400;
   font-size: 1.2rem;
   text-transform: uppercase;
+  font-family: 'GT';
+  margin-bottom: 1rem;
 }
 
 .latest .table{
@@ -2876,7 +2879,7 @@ img{
   }
 
   .dash-default .boxes{
-    margin-top: 1rem;
+    margin-block: 2rem;
   }
 
   .dash-default .box{
@@ -3029,6 +3032,11 @@ img{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
     gap: 1rem;
+  }
+
+  .dash-latest .boxes{
+    display: flex;
+    flex-direction: row;
   }
 
   .latest .text .column{
