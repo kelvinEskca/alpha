@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { useContext } from "react";
 import CartContext from "../CartContext";
-import Button from "../Components/Button";
+import VideoCard from '../Components/VideoCard';
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Modal from "../Components/Modal";
@@ -15,6 +15,7 @@ const Men = () => {
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     const [selectedSizes, setSelectedSizes] = useState({});
+    const [hero,setHero] = useState([]);
 
     const [size,setSize] = useState('');
     const [gender,setGender] = useState('');
@@ -60,6 +61,17 @@ const Men = () => {
             }
         }
         getproducts();
+        const getHero = async ()=>{
+            try{
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/hero')
+                setHero(res.data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getHero();
         setLoading(false);
         
    },[]);
@@ -80,20 +92,21 @@ const Men = () => {
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
-                <section className="section visit hero shop">
-                    <div className="wrapper">
-                        <div className="boxes">
-                            <div className="box cards">
-                                <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
-                                <div className="text-box">
-                                    <h3 className="heading">Shop For Him</h3>
-                                    <Button btnText={'Shop Hoodies'} />
-                                    <Button btnText={'Shop Joggers'} />
+                {hero.map((item,i)=>{
+                    if(item.active === true && item.category === 'Male'){
+                        return(
+                            <section className="section visit hero">
+                                <div className="wrapper">
+                                    <div className="boxes">
+                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} category={item.category} />
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                            </section>
+                        )
+                    }
+                    return null
+                })}
+                {hero.some(item => item.active === true) ? null : <div></div>}
 
                 <section className="section new">
                     <div className="wrapper">
@@ -104,7 +117,7 @@ const Men = () => {
                                     <div className="box" key={i}>
                                         <div className="tag"><small></small></div>
                                         <div className="image-box">
-                                            <Link to={`details/${item._id}`}>
+                                            <Link to={`/details/${item._id}`}>
                                                 <img src={`${item.image[0].url}`} alt={item.image[0].url} className="imageOne" />
                                                 <img src={`${item.image[1].url}`} alt={item.image[1].url} className="imageTwo" />
                                             </Link>
