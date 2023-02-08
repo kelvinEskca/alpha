@@ -237,8 +237,17 @@ const Settings = () => {
                                                 </div>
                                             </div>
 
-                                            <button onClick={()=>handleDeleteHero(item)}>Delete Card</button>
-                                            <button onClick={()=>handleShowHero(item)}>{item.active ? "Hide Card" : "Show Card"}</button>
+                                            {item.active ? (
+                                                <button onClick={()=>handleDeleteHero(item)}>Delete Card</button>
+                                            ) : (
+                                                <>
+                                                    <button onClick={()=>handleDeleteHero(item)}>Delete Card</button>
+                                                    <button onClick={()=>handleShowHero(item)}>Show Card</button>
+                                                </>
+                                            )}
+
+                                            
+                                            
                                         </div>
                                         
                                     )
@@ -336,8 +345,14 @@ const Settings = () => {
                                                 </div>
                                             </div>
 
-                                            <button onClick={()=>handleDelete(item)}>Delete Card</button>
-                                            <button onClick={()=>handleShow(item)}>Show/Hide Card</button>
+                                            {item.active ? (
+                                                <button onClick={()=>handleDelete(item)}>Delete Card</button>
+                                            ) : (
+                                                <>
+                                                    <button onClick={()=>handleDelete(item)}>Delete Card</button>
+                                                    <button onClick={()=>handleShow(item)}>Show Card</button>
+                                                </>
+                                            )}
                                         </div>
                                         
                                     )
