@@ -578,10 +578,6 @@ main{
   transform: scale(1.04);
 }
 
-.hero .text-box button:nth-of-type(2){
-  display: none;
-}
-
 .shop .box img{
   border-radius: 1.5rem;
   position: absolute;
