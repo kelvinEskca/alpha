@@ -93,7 +93,7 @@ const Men = () => {
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 {hero.map((item,i)=>{
-                    if(item.active === true){
+                    if(item.active === true && item.category === "Male"){
                         return(
                             <section className="section visit hero">
                                 <div className="wrapper">
