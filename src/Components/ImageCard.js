@@ -4,6 +4,7 @@ import { useContext } from "react";
 import CartContext from "../CartContext";
 import axios from "axios";
 import Loader from "./Loader";
+import SlideShow from "../Components/SlideShow";
 const ImageCard = ({toggleState}) => {
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
@@ -81,13 +82,18 @@ const ImageCard = ({toggleState}) => {
         products.length > 0 ? (
             products.map((item,i)=>{
                 if (item.inStock === true){
+                    const {image} = item;   
+                    let url = [];                 
+                    image.map((img)=>{
+                        return url.push(img.url);
+                    })
+                    console.log(url);
                     return (
                         <div className="box" key={i}>
                             <div className="tag"><small></small></div>
                             <div className="image-box">
                                 <Link to={`details/${item._id}`}>
-                                    <img src={`${item.image[0].url}`} alt={item.image[0].url} className="imageOne" />
-                                    <img src={`${item.image[1].url}`} alt={item.image[1].url} className="imageTwo" />
+                                    <SlideShow url={url} />
                                 </Link>
         
                                 <div className="quick-add">
