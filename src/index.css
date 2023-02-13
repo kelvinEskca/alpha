@@ -16,6 +16,11 @@ body{
   font-weight: 300;
   font-size: 1rem;
   position: relative;
+  overscroll-behavior: none;
+}
+
+canvas {
+  display: block;
 }
 
 h1,h2,h3,p,li,ol,ul,a,label,input,textarea,select,form,div,small,span,b{

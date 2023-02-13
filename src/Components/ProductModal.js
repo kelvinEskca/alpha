@@ -19,7 +19,7 @@ const ProductModal = ({productModal,openModal}) => {
         price: "",
         category: "",
         subcategory: "",
-        color: "",
+        colorName: "",
         quantity: "",
         inStock: ""
     });
@@ -92,8 +92,8 @@ const ProductModal = ({productModal,openModal}) => {
                                 <input type="text" name="sizes" placeholder="Sizes (comma separated)" onChange={handleChange} value={formData.sizes}/>
                             </label>
 
-                            <label htmlFor="#">Product Color
-                                <input type="text" name="colorName" placeholder="Product Color" onChange={handleChange} value={formData.color}/>
+                            <label htmlFor="#">Product Color Name
+                                <input type="text" name="colorName" placeholder="Product Color" onChange={handleChange} value={formData.colorName}/>
                             </label>
 
                             <label htmlFor="#">Product Image
