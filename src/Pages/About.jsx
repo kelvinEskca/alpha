@@ -1,13 +1,18 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import {Link} from 'react-router-dom';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
+import axios from "axios";
+import Loader from "../Components/Loader";
+import VideoCard from "../Components/VideoCard";
 const About = () => {
-    const [modal,setModal] = useState(false)
-    const [mobile,setMobile] = useState(false)
+    const [modal,setModal] = useState(false);
+    const [mobile,setMobile] = useState(false);
+    const [hero,setHero] = useState([]);
+    const [loading,setLoading] = useState(true);
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -15,19 +20,40 @@ const About = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
+
+    useEffect(()=>{
+        const getHero = async ()=>{
+            try{
+                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/hero')
+                setHero(res.data);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getHero();
+    },[]);
+    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
-                <section className="section about-hero">
-                    <div className="wrapper">
-                        <div className="boxes">
-                            <div className="box">
-                                <video src="../images/homevid.mp4"  loop muted autoPlay></video>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {hero.map((item,i)=>{
+                    if(item.active === true && item.category === 'Home'){
+                        return(
+                            <section className="section visit hero">
+                                <div className="wrapper">
+                                    <div className="boxes">
+                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} cat={item.category} />
+                                    </div>
+                                </div>
+                            </section>
+                        )
+                    }
+                    return null
+                })}
+                {hero.some(item => item.active === true) ? null : <div></div>}
 
                 <section className="section how">
                     <div className="wrapper">

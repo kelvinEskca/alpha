@@ -40,7 +40,7 @@ const SupportHeader = ({handleModal,handleMobile}) => {
                             </nav>
 
                             <nav className="bottom">
-                                <Link to='/'><h3 className="logo">Velonte</h3></Link>
+                                <Link to='/'><img src="../images/logo2.png" alt="logo" className="logo"/></Link>
                                 <div className="bottom-right">
                                     <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" /></div>
                                     <div className="small" onClick={handleMobile}><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu"  /></div>
@@ -67,7 +67,7 @@ const SupportHeader = ({handleModal,handleMobile}) => {
                             </nav>
 
                             <nav className="bottom">
-                                <Link to='/'><h3 className="logo">Velonte</h3></Link>
+                                <Link to='/'><img src="../images/logo2.png" alt="logo" className="logo"/></Link>
                                 <div className="bottom-right">
                                     <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" /></div>
                                     <div className="small" onClick={handleMobile}><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu"  /></div>
@@ -102,7 +102,7 @@ const SupportHeader = ({handleModal,handleMobile}) => {
                 </nav>
 
                 <nav className="bottom">
-                    <Link to='/'><h3 className="logo">Velonte</h3></Link>
+                    <Link to='/'><img src="../images/logo2.png" alt="logo" className="logo"/></Link>
                     <div className="center">
                         <Link to='/women'>Women</Link>
                         <Link to='/men'>Men</Link>
