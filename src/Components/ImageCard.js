@@ -71,9 +71,9 @@ const ImageCard = ({toggleState}) => {
         
     },[toggleState]);
 
-    const handleClick = (size, item) => {
+    const handleClick = (item,size) => {
         setSelectedSizes({ ...selectedSizes, [item._id]: size });
-        addToCart({ ...item, size });
+        addToCart({...item,size});
     };
     
 
@@ -105,7 +105,7 @@ const ImageCard = ({toggleState}) => {
                                         {item.sizes.map((size,i)=>{
                                             return (<div className="size" key={i}><small className={`${
                                                 size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                            }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                            }`} onClick={()=>handleClick(item,size)}>{size}</small></div>)
                                         })}
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@ const ImageCard = ({toggleState}) => {
                                 {item.sizes.map((size,i)=>{
                                     return (<div className="size" key={i}><small className={`${
                                         size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                    }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                    }`} onClick={()=>handleClick(item,size)}>{size}</small></div>)
                                 })}
                             </div>
                         </div>

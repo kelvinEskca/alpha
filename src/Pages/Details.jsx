@@ -1,5 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import CartContext from "../CartContext";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Modal from "../Components/Modal";
@@ -17,6 +19,8 @@ const Details = () => {
     const [colorModal,setColorModal] = useState(false);
     const [mobile,setMobile] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
+    const [selectedSizes, setSelectedSizes] = useState({});
+    const {addToCart} = useContext(CartContext);
     const {id} = useParams();
     useEffect(()=>{
         const getproducts = async ()=>{
@@ -54,6 +58,11 @@ const Details = () => {
     const openModal = () =>{
         setColorModal(!colorModal);
     }
+
+    const handleClick = (size, item) => {
+        setSelectedSizes({ ...selectedSizes, [item._id]: size });
+        addToCart({ ...item, size });
+    };
 
     if(loading) return <Loader />;
     return (  
@@ -269,7 +278,9 @@ const Details = () => {
                                                         {colors.map((color,i)=>{
                                                             return (
                                                                 <div className="color-image">
-                                                                    <img src={`${color.image[0].url}`} alt={color.image.url} />
+                                                                    {color.image.map((img,i)=>{
+                                                                        return <img src={img.url} alt={img.url} />
+                                                                    })}
                                                                 </div>
                                                             )
                                                         })}
@@ -286,7 +297,7 @@ const Details = () => {
                                                     <div className="size-box">
                                                         {item.sizes.map((size,i)=>{
                                                             return(
-                                                                <div className="size">
+                                                                <div className="size" onClick={()=>handleClick(size,item)}>
                                                                     <small>{size}</small>
                                                                 </div>
                                                             )
@@ -385,7 +396,7 @@ const Details = () => {
                                                     <div className="size-box">
                                                         {item.sizes.map((size,i)=>{
                                                             return(
-                                                                <div className="size">
+                                                                <div className="size" onClick={()=>handleClick(size,item)}>
                                                                     <small>{size}</small>
                                                                 </div>
                                                             )

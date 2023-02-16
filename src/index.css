@@ -4,6 +4,11 @@
   src: local("GT"),
   url("./GT.woff") format("truetype");
 }
+@font-face {
+  font-family: "Beau";
+  src: local("Beau"),
+  url("./beau.ttf") format("truetype");
+}
 *{
   padding: 0;
   margin: 0;
@@ -685,6 +690,7 @@ main{
 
 .new .image-box a{
   height: 100%;
+  width: 100%;
 }
 
 .new .image-box:hover .quick-add{
@@ -1696,7 +1702,7 @@ img{
   font-weight: 500;
   font-size: .9rem;
   margin-left: .5rem;
-  font-family: 'GT';
+  font-family: 'Beau';
 }
 
 .mobile-inner .center{
@@ -2313,12 +2319,8 @@ img{
   justify-content: center;
 }
 
-.loadercontainer .spinners,.loadercontainer .spinner-block{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.loadercontainer img{
+  width: 200px;
 }
 
 /* spinner style */
@@ -2408,8 +2410,7 @@ img{
 
 .desktop-details .grid-bottom .heading{
   font-weight: 400;
-  font-size: .65rem;
-  padding-right: 1rem;
+  font-size: .55rem;
   margin-bottom: 0;
   border-right: 2px solid #434242;
 }
@@ -2808,7 +2809,7 @@ img{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width:140px;
+    width:100px;
   }
 
   header .bottom .center a{
@@ -2816,7 +2817,7 @@ img{
     font-size: .85rem;
     font-weight: 501;
     text-transform: uppercase;
-    font-family: 'GT';
+    font-family: 'Beau';
   }
 
   header .bottom-right{
@@ -3069,6 +3070,10 @@ img{
 
   .cards-latest{
     min-height:100vh;
+  }
+
+  .desktop-details .grid-bottom .heading{
+    font-size: .65rem;
   }
 }
 

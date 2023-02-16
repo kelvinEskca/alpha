@@ -14,16 +14,28 @@ const MobileNav = ({handleMobile,mobile}) => {
                         <h3 className="heading">Welcome Back, {user.fname}!</h3>
                         <ul className="list">
                             {user.isAdmin ? (
-                                <li><Link to='/dashboard'>Account</Link></li>
+                                <>
+                                    <li><Link to='/dashboard'>Account</Link></li>
+                                    <li><Link to='/products'>Products</Link></li>
+                                    <li><Link to='/category'>Category</Link></li>
+                                    <li><Link to='/customers'>Customers</Link></li>
+                                    <li><Link to='/orders'>Orders</Link></li>
+                                    <li><Link to='/dashboard'>Account</Link></li>
+                                    <li><Link to='/settings'>Settings</Link></li>
+                                </>
                             ) : (
+                                <>
                                 <li><Link to='/account'>Account</Link></li>
+                                <li><Link to='/addresses'>Address</Link></li>
+                                <li><Link to='/help'>Help Center</Link></li>
+                                <li><Link to='/shipping'>Shipping Info</Link></li>
+                                <li><Link to='/track'>Track My Order</Link></li>
+                                <li><Link to='/support'>Returns & Exchange</Link></li>
+                                <li><Link to='/about'>About Us</Link></li>
+                                </>
                             )}
                             
-                            <li><Link to='/help'>Help Center</Link></li>
-                            <li><Link to='/shipping'>Shipping Info</Link></li>
-                            <li><Link to='/track'>Track My Order</Link></li>
-                            <li><Link to='/support'>Returns & Exchange</Link></li>
-                            <li><Link to='/about'>About Us</Link></li>
+                            
                         </ul>
                     </div>
                 ) : (

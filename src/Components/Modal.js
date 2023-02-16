@@ -61,9 +61,9 @@ const Modal = ({modal,handleModal}) => {
                                                 </div>
 
                                                 <div className="smaller">
-                                                    <div className="left" onClick={()=>reduceQuantity(item._id,item)}><h3 className="heading">-</h3></div>
+                                                    <div className="left" onClick={()=>reduceQuantity(item._id)}><h3 className="heading">-</h3></div>
                                                     <div className="center"><h3 className="heading">{item.qty}</h3></div>
-                                                    <div className="right" onClick={()=>increaseQuantity(item._id,item)}><h3 className="heading">+</h3></div>
+                                                    <div className="right" onClick={()=>increaseQuantity(item._id)}><h3 className="heading">+</h3></div>
                                                 </div>
 
                                                 <div className="smaller">

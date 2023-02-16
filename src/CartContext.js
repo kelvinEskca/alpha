@@ -30,7 +30,7 @@ export function CartProvider({children}){
   }, [items]);
 
   
-  const addToCart = (item) => {
+  const addToCart = (item,size) => {
     setItems(prevCart => [...prevCart, item]);
   }
   
@@ -63,9 +63,8 @@ export function CartProvider({children}){
   }
 
   const getItemAmount = () => {
-      return items.map(item => item.price * item.qty);
+    return items.map(item => item.price * item.qty);
   }
-
 
   return(
     <CartContext.Provider value={{items,addToCart,removeFromCart,increaseQuantity,reduceQuantity,getTotalAmount,getItemAmount}}>{children}</CartContext.Provider>
