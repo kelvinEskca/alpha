@@ -2083,6 +2083,18 @@ img{
   min-height: 450px;
 }
 
+.detailss .product-image img{
+  margin-bottom: 1rem;
+}
+
+
+.detailss .mobile-center{
+  height:400px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+
 .dot{
   width: 7px;
   height: 7px;

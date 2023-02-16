@@ -63,15 +63,20 @@ const Details = () => {
                 <section className="section detailss">
                     <div className="wrapper">
                         <div className="boxes">
-                            {products.map((item,i)=>{
-                                return (
-                                    <div className="box" key={item._id}>
-                                        <div className="product-image">
-                                            <img src={`${item.image[0].url}`} alt={item.image[0]} />
+                            <div className="mobile-center">
+                                {products.map((item,i)=>{
+                                    return (
+                                        <div className="box" key={item._id}>
+                                            <div className="product-image">
+                                                {item.image.map((img,i)=>{
+                                                    return <img src={img.url} alt={img.url} />
+                                                })}
+                                                
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
+                            </div>
                            
                         </div>
                     </div>
@@ -102,7 +107,9 @@ const Details = () => {
                                                         {colors.map((color,i)=>{
                                                             return (
                                                                 <div className="color-image">
-                                                                    <img src={`${color.image[0].url}`} alt={color.image.url} />
+                                                                    {color.image.map((img,i)=>{
+                                                                        return <img src={img.url} alt={img.url} />
+                                                                    })}
                                                                 </div>
                                                             )
                                                         })}
@@ -169,11 +176,11 @@ const Details = () => {
                                                     return (
                                                         <div className="box" key={item._id}>
                                                             <div className="product-image">
-                                                                <img src={`${item.image[0].url}`} alt={item.image[0]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
+
+                                                            {item.image.map((img,i)=>{
+                                                                return <img src={img.url} alt={img.url} />
+                                                            })}
+                                                                
                                                             </div>
                                                         </div>
                                                     )
@@ -188,7 +195,9 @@ const Details = () => {
                                                             {colors.map((color,i)=>{
                                                                 return (
                                                                     <div className="color-image">
-                                                                        <img src={`${color.image[0].url}`} alt={color.image.url} />
+                                                                        {color.image.map((img,i)=>{
+                                                                            return <img src={img.url} alt={img.url} />
+                                                                        })}
                                                                     </div>
                                                                 )
                                                             })}
@@ -340,11 +349,10 @@ const Details = () => {
                                                     return (
                                                         <div className="box" key={item._id}>
                                                             <div className="product-image">
-                                                                <img src={`${item.image[0].url}`} alt={item.image[0]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
-                                                                <img src={`${item.image[1].url}`} alt={item.image[1]} />
+                                                            {item.image.map((img,i)=>{
+                                                                return <img src={img.url} alt={img.url} />
+                                                            })}
+                                                                                
                                                             </div>
                                                         </div>
                                                     )
@@ -358,7 +366,9 @@ const Details = () => {
                                                         {colors.map((color,i)=>{
                                                             return (
                                                                 <div className="color-image">
-                                                                    <img src={`${color.image[0].url}`} alt={color.image.url} />
+                                                                    {color.image.map((img,i)=>{
+                                                                        return <img src={img.url} alt={img.url} />
+                                                                    })}
                                                                 </div>
                                                             )
                                                         })}
