@@ -2509,11 +2509,16 @@ img{
   cursor: pointer;
   border: 2px solid #c5965a;
   display: flex;
-  width: 10rem;
+  width: 100%;
   height: 2rem;
   align-items: center;
   justify-content: center;
   border-radius: .2rem;
+}
+
+.inner-deskt-details .grid-bottom .high .top a{
+  margin-bottom: .5rem;
+  width: 100%;
 }
 
 @media screen and (min-width:376px){
