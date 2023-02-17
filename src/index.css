@@ -1702,7 +1702,7 @@ img{
   font-weight: 500;
   font-size: .9rem;
   margin-left: .5rem;
-  font-family: 'Beau';
+  font-family: 'GT';
 }
 
 .mobile-inner .center{
@@ -2814,7 +2814,7 @@ img{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width:100px;
+    width:150px;
   }
 
   header .bottom .center a{
@@ -2822,7 +2822,7 @@ img{
     font-size: .85rem;
     font-weight: 501;
     text-transform: uppercase;
-    font-family: 'Beau';
+    font-family: 'GT';
   }
 
   header .bottom-right{
