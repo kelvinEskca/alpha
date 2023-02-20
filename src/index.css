@@ -22,6 +22,7 @@ body{
   font-size: 1rem;
   position: relative;
   overscroll-behavior: none;
+  overflow-x: hidden;
 }
 
 canvas {
@@ -2380,9 +2381,8 @@ img{
   border: 1px solid #716f6d;
   border-top-left-radius: .5rem;
   border-top-right-radius: .5rem;
-  max-width: 80%;
   left: 50%;
-  margin-left: -40%;
+  margin-left: -50%;
   position: fixed;
   bottom: 0;
   z-index: 1000;
@@ -3079,6 +3079,11 @@ img{
   .desktop-details .grid-bottom .heading{
     font-size: .65rem;
   }
+
+  .desktop-details .grid-bottom{
+    width: 90%;
+    margin-left: -45%;
+  }
 }
 
 @media screen and (min-width:1000px){
@@ -3200,6 +3205,11 @@ img{
 
   header{
     width: 80%;
+  }
+
+  .desktop-details .grid-bottom{
+    width: 80%;
+    margin-left: -40%;
   }
 
   .support-head{
