@@ -17,6 +17,7 @@ const Dashboard = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
+    const [deletingId,setDeletingId] = useState('');
 
     const openModal = () =>{
         setProductModal(!productModal);
@@ -73,12 +74,9 @@ const Dashboard = () => {
         try {
             const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
             if(res.status === 200){
-                setProducts(prevProducts => {
-                    const updatedProducts = [...prevProducts, res.data];
-                    console.log('previous products', prevProducts);
-                    console.log('updated products', updatedProducts);
-                    return updatedProducts;
-                });
+                const newProduct = res.data.product;
+                setProducts([...products, newProduct]);
+                console.log(products);
                 setIsSuccessModalOpen(true);
                 setAlertText("Product Added Successfully!");
                 setIsSubmitting(false);
@@ -97,6 +95,7 @@ const Dashboard = () => {
 
     const handleDelete = async (i) =>{
         const id = i._id;
+        setDeletingId(id); 
         setIsSubmitting(true);
         try{
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/product/delete/${id}`,{
@@ -184,7 +183,7 @@ const Dashboard = () => {
                                                 <span><h3 className="heading">Instock: {item.inStock ? "True" : "False"}</h3></span>
                                             </div>
 
-                                            <button onClick={()=>handleDelete(item)}>{isSubmitting ? 'Deleting..' : 'Delete Product'}</button>
+                                            <button onClick={()=>handleDelete(item)}>{deletingId === item._id ? (isSubmitting ? 'Deleting..' : 'Delete Product') : 'Delete Product'}</button>
                                         </div>
                                         
                                     )
