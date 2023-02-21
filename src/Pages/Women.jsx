@@ -180,7 +180,7 @@ const Women = () => {
                                             <div className="box" key={i}>
                                                 <div className="tag"><small></small></div>
                                                 <div className="image-box">
-                                                    <Link to={`details/${item._id}`}>
+                                                    <Link to={`/details/${item._id}`}>
                                                         <SlideShow url={url} />
                                                     </Link>
                             
