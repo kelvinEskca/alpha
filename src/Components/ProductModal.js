@@ -45,7 +45,7 @@ const ProductModal = ({productModal,openModal}) => {
         data.append("category", formData.category);
         data.append("subcategory", formData.subcategory);
         data.append("quantity", formData.quantity);
-        data.append("colorName", formData.color);
+        data.append("colorName", formData.colorName);
         data.append("inStock", formData.inStock);
         try {
             const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});

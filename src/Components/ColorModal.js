@@ -46,7 +46,6 @@ const ColorModal = ({colorModal,openModal}) => {
         console.log(data);
     };
 
-
     return (
         <section className={`section addressModal  ${colorModal ? ('modal') : ('off')}`} >
             <div className="wrapper">

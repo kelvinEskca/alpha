@@ -15,7 +15,7 @@ const ImageCard = ({toggleState}) => {
             const gender = 'Female';
             const getproducts = async ()=>{
                 try{
-                    const res = await axios.get(`https://alphaapi-production.up.railway.app/alphaapi/product/female/${gender}`)
+                    const res = await axios.get(`https://alphaapi-production.up.railway.app/alphaapi/product/female/${gender}`);
                     setProducts(res.data);
                     if(res){
                         setLoading(false);
@@ -87,7 +87,6 @@ const ImageCard = ({toggleState}) => {
                     image.map((img)=>{
                         return url.push(img.url);
                     })
-                    console.log(url);
                     return (
                         <div className="box" key={i}>
                             <div className="tag"><small></small></div>
