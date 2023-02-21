@@ -23,6 +23,7 @@ const Modal = ({modal,handleModal}) => {
             console.log(error);
         }
     }
+
     return (
         <section className={`section  ${modal ? ('modal') : ('off')}`}>
             <div className="wrapper">
@@ -51,20 +52,21 @@ const Modal = ({modal,handleModal}) => {
                                             </div>
 
                                             <div className="top-right">
-                                                <img src={`${item.image[0].url}`} alt={item.image[0]} />
+                                                {item.color.length > 0 ? (<img src={`${item.color}`} alt={item.color} />) : (<img src={`${item.image[0].url}`} alt={item.image[0]} />)}
+                                                
                                             </div>
                                         </div>
 
                                         <div className="bottom">
                                             <div className="bottom-right">
-                                                <div className="smaller" onClick={()=>removeFromCart(item._id)}>
+                                                <div className="smaller" onClick={()=>removeFromCart(item._id,item.color,item.size)}>
                                                     <img src="../images/icons8-remove-24.png" alt="icons8-remove-24" />
                                                 </div>
 
                                                 <div className="smaller">
-                                                    <div className="left" onClick={()=>reduceQuantity(item._id)}><h3 className="heading">-</h3></div>
+                                                    <div className="left" onClick={()=>reduceQuantity(item._id,item.color,item.size)}><h3 className="heading">-</h3></div>
                                                     <div className="center"><h3 className="heading">{item.qty}</h3></div>
-                                                    <div className="right" onClick={()=>increaseQuantity(item._id)}><h3 className="heading">+</h3></div>
+                                                    <div className="right" onClick={()=>increaseQuantity(item._id,item.color,item.size)}><h3 className="heading">+</h3></div>
                                                 </div>
 
                                                 <div className="smaller">

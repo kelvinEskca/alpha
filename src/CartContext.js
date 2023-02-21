@@ -30,33 +30,55 @@ export function CartProvider({children}){
   }, [items]);
 
   
-  const addToCart = (item,size) => {
-    setItems(prevCart => [...prevCart, item]);
-  }
+  const addToCart = (item) => {
+    const index = items.findIndex(
+      (i) => i.name === item.name && i.size === item.size && i.color === item.color
+    );
+    if (index !== -1) {
+      const newItems = [...items];
+      newItems[index].qty += item.qty;
+      setItems(newItems);
+    } else {
+      setItems((prevCart) => [...prevCart, { ...item }]);
+    }
+  };
   
-  const increaseQuantity = (itemId) => {
-    setItems(prevCart => prevCart.map(item => 
-      item._id === itemId ? {...item, qty: item.qty + 1} : item
-    ))
-  }
-  
-  const reduceQuantity = (itemId) => {
+  const increaseQuantity = (itemId,color,size) => {
     setItems(prevCart => prevCart.map(item => {
-      if (item._id === itemId) {
+      if (item._id === itemId && item.size === size && item.color === color) {
+        return { ...item, qty: item.qty + 1 };
+      } else {
+        return item;
+      }
+    }));
+    console.log(color,size);
+  }
+  
+  const reduceQuantity = (itemId,color,size) => {
+    setItems(prevCart => prevCart.map(item => {
+      if (item._id === itemId && item.size === size && item.color === color) {
         if (item.qty > 1) {
-          return { ...item, qty: item.qty - 1 }
+          return { ...item, qty: item.qty - 1 };
         } else {
           return null;
         }
       } else {
         return item;
       }
-    }).filter(item => item !== null))
+    }).filter(item => item !== null));
   }
   
-  const removeFromCart = (itemId) => {
-    setItems(prevCart => prevCart.filter(item => item._id !== itemId))
-  }
+  const removeFromCart = (itemId, color, size) => {
+    setItems(prevCart =>
+      prevCart.filter(
+        item =>
+          item._id !== itemId ||
+          item.color !== color ||
+          item.size !== size
+      )
+    );
+  };
+  
 
   const getTotalAmount = () => {
     return items.reduce((acc, item) => acc + item.price * item.qty, 0)

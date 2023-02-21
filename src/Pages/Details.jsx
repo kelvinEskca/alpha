@@ -21,7 +21,9 @@ const Details = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [selectedSizes, setSelectedSizes] = useState({});
   const [selectColor, setSelectColor] = useState([]);
+  const [selectColorName, setSelectColorName] = useState([]);
   const { addToCart } = useContext(CartContext);
+ 
   const { id } = useParams();
   useEffect(() => {
     const getproducts = async () => {
@@ -64,15 +66,15 @@ const Details = () => {
 
   const handleClick = (size, item) => {
     setSelectedSizes({ ...selectedSizes, [item._id]: size });
-    addToCart({ ...item, size });
+    addToCart({ ...item, size, color: selectColor,colorName:selectColorName });
   };
 
-  const handleColorUpdate = (color) => {
+  const handleColorUpdate = (color,colorName) => {
     setSelectColor(color);
+    setSelectColorName(colorName);
+    console.log(colorName);
   };
-
-  console.log(selectColor);
-
+  
   if (loading) return <Loader />;
   return (
     <>
@@ -114,7 +116,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
-                          <small>{item.colorName}</small>
+                          {selectColorName.length > 0 ? (<small>{selectColorName}</small>) : (<small>{item.colorName}</small>)}
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -125,7 +127,7 @@ const Details = () => {
                         <div className="color-box">
                           <h3 className="heading">
                             {colors && colors.length} color (s) |{" "}
-                            {item.colorName}
+                            {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                           </h3>
                           <div className="color-rounds">
                             {colors.map((color, i) => {
@@ -137,7 +139,7 @@ const Details = () => {
                                         src={img.url}
                                         alt={img.url}
                                         onClick={() =>
-                                          handleColorUpdate(img.url)
+                                          handleColorUpdate(img.url,color.colorName)
                                         }
                                       />
                                     );
@@ -201,7 +203,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
-                          <small>{item.colorName}</small>
+                          {selectColorName.length > 0 ? (<small>{selectColorName}</small>) : (<small>{item.colorName}</small>)}
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -231,7 +233,7 @@ const Details = () => {
                           <div className="color-box">
                             <h3 className="heading">
                               {colors && colors.length} color (s) |{" "}
-                              {item.colorName}
+                             {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                             </h3>
                             <div className="color-rounds">
                               {colors.map((color, i) => {
@@ -243,7 +245,7 @@ const Details = () => {
                                           src={img.url}
                                           alt={img.url}
                                           onClick={() =>
-                                            handleColorUpdate(img.url)
+                                            handleColorUpdate(img.url,color.colorName)
                                           }
                                         />
                                       );
@@ -309,7 +311,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
-                          <small>{item.colorName}</small>
+                          {selectColorName.length > 0 ? (<small>{selectColorName}</small>) : (<small>{item.colorName}</small>)}
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -320,7 +322,7 @@ const Details = () => {
                         <div className="color-box">
                           <h3 className="heading">
                             {colors && colors.length} color (s) |{" "}
-                            {item.colorName}
+                           {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                           </h3>
                           <div className="color-rounds">
                             {colors.map((color, i) => {
@@ -332,7 +334,7 @@ const Details = () => {
                                         src={img.url}
                                         alt={img.url}
                                         onClick={() =>
-                                          handleColorUpdate(img.url)
+                                          handleColorUpdate(img.url,color.colorName)
                                         }
                                       />
                                     );
@@ -405,7 +407,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
-                          <small>{item.colorName}</small>
+                          {selectColorName.length > 0 ? (<small>{selectColorName}</small>) : (<small>{item.colorName}</small>)}
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -434,7 +436,7 @@ const Details = () => {
                         <div className="color-box">
                           <h3 className="heading">
                             {colors && colors.length} color (s) |{" "}
-                            {item.colorName}
+                           {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                           </h3>
                           <div className="color-rounds">
                             {colors.map((color, i) => {
@@ -446,7 +448,7 @@ const Details = () => {
                                         src={img.url}
                                         alt={img.url}
                                         onClick={() =>
-                                          handleColorUpdate(img.url)
+                                          handleColorUpdate(img.url,color.colorName)
                                         }
                                       />
                                     );
@@ -513,6 +515,7 @@ const Details = () => {
         <ColorModal openModal={openModal} colorModal={colorModal} />
         <Modal modal={modal} handleModal={handleModal} />
         <MobileNav mobile={mobile} handleMobile={handleMobile} />
+        
       </main>
       <Footer />
     </>

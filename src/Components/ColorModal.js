@@ -2,11 +2,14 @@ import React,{useState} from "react";
 import { useNavigate,useParams } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
+import AlertModal from "./AlertModal";
 const ColorModal = ({colorModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     const {id} = useParams();
     
     const [formData, setFormData] = useState({
@@ -31,11 +34,11 @@ const ColorModal = ({colorModal,openModal}) => {
         for (let i = 0; i < formData.images.length; i++) {
             data.append("image", formData.images[i]);
         }
-      
         try {
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/color`, data,{headers:{token:token}});
             if(res.status === 200){
-                alert(res.statusText);
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Deleted Successfully!");
                 setIsSubmitting(false);
                 navigate(`/details/${id}`);
             }
@@ -47,7 +50,8 @@ const ColorModal = ({colorModal,openModal}) => {
     };
 
     return (
-        <section className={`section addressModal  ${colorModal ? ('modal') : ('off')}`} >
+        <>
+            <section className={`section addressModal  ${colorModal ? ('modal') : ('off')}`} >
             <div className="wrapper">
                 <div className="boxes" >
                     <div className="box">
@@ -73,6 +77,9 @@ const ColorModal = ({colorModal,openModal}) => {
                 </div>
             </div>
         </section>
+
+        <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+        </>
     );
 }
  
