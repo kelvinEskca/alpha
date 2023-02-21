@@ -1385,10 +1385,21 @@ header .bottom-right .small .badge .count{
 }
 
 .latest .text{
-  margin-top: 1rem;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.latest .column{
+  margin-bottom: 1rem;
+  flex-direction: column;
+}
+
+.latest .column .heading:nth-of-type(1){
+  font-size: .9rem;
+  font-weight:800;
+  color: #fff;
 }
 
 .latest .text .column,.latest .text span{
@@ -2689,6 +2700,10 @@ img{
     grid-column-end: 4;
   }
 
+  .latest .column{
+    grid-template-columns: repeat(1,1fr);
+  }
+  
   .visit .cards,.about-hero .box{
     height: 650px;
   }

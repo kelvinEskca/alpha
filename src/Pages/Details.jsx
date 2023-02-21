@@ -114,6 +114,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
+                          <small>{item.colorName}</small>
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -124,7 +125,7 @@ const Details = () => {
                         <div className="color-box">
                           <h3 className="heading">
                             {colors && colors.length} color (s) |{" "}
-                            {item.category}
+                            {item.colorName}
                           </h3>
                           <div className="color-rounds">
                             {colors.map((color, i) => {
@@ -200,6 +201,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
+                          <small>{item.colorName}</small>
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -229,7 +231,7 @@ const Details = () => {
                           <div className="color-box">
                             <h3 className="heading">
                               {colors && colors.length} color (s) |{" "}
-                              {item.category}
+                              {item.colorName}
                             </h3>
                             <div className="color-rounds">
                               {colors.map((color, i) => {
@@ -307,6 +309,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
+                          <small>{item.colorName}</small>
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -317,7 +320,7 @@ const Details = () => {
                         <div className="color-box">
                           <h3 className="heading">
                             {colors && colors.length} color (s) |{" "}
-                            {item.category}
+                            {item.colorName}
                           </h3>
                           <div className="color-rounds">
                             {colors.map((color, i) => {
@@ -402,6 +405,7 @@ const Details = () => {
                           <h3 className="heading">{item.name}</h3>
                           <p className="paragraph">{item.desc}</p>
                           <small>{item.category}</small>
+                          <small>{item.colorName}</small>
                         </div>
                         <div className="right">
                           <h3 className="heading red">${item.price}</h3>
@@ -430,7 +434,7 @@ const Details = () => {
                         <div className="color-box">
                           <h3 className="heading">
                             {colors && colors.length} color (s) |{" "}
-                            {item.category}
+                            {item.colorName}
                           </h3>
                           <div className="color-rounds">
                             {colors.map((color, i) => {

@@ -49,7 +49,7 @@ const ProductModal = ({productModal,openModal}) => {
         data.append("inStock", formData.inStock);
         try {
             const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
-            if(res.status === 200){
+            if(res.statusText === "Ok"){
                 alert(res.statusText);
                 setIsSubmitting(false);
                 navigate('/products');
