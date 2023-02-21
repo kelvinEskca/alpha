@@ -66,13 +66,17 @@ const Details = () => {
 
   const handleClick = (size, item) => {
     setSelectedSizes({ ...selectedSizes, [item._id]: size });
-    addToCart({ ...item, size, color: selectColor,colorName:selectColorName });
+    // addToCart({ ...item, size, color: selectColor,colorName:selectColorName });
   };
+
+  const addToBag = (size,item) => {
+    // setSelectedSizes({ ...selectedSizes, [item._id]: size });
+    addToCart({ ...item, size, color: selectColor,colorName:selectColorName });
+  }
 
   const handleColorUpdate = (color,colorName) => {
     setSelectColor(color);
     setSelectColorName(colorName);
-    console.log(colorName);
   };
   
   if (loading) return <Loader />;
@@ -357,7 +361,8 @@ const Details = () => {
                                   className="size"
                                   onClick={() => handleClick(size, item)}
                                 >
-                                  <small>{size}</small>
+                                  <small className={`${
+                                  size === selectedSizes[item._id] ? 'sizeActive' : ''}`}>{size}</small>
                                 </div>
                               );
                             })}
@@ -377,9 +382,7 @@ const Details = () => {
                           </div>
                         </div>
                       </div>
-
-                      <button className="sizebtn">Select Size</button>
-                      <button className="addbtn">Add to bag</button>
+                      <button className={selectedSizes.length > 0 ? ("addbtnactive") : ("addbtn")} onClick={() => addToBag(selectedSizes[item._id], item)}>Add to bag</button>
                     </div>
                   );
                 })}
@@ -471,15 +474,14 @@ const Details = () => {
                                   className="size"
                                   onClick={() => handleClick(size, item)}
                                 >
-                                  <small>{size}</small>
+                                  <small className={`${
+                                  size === selectedSizes[item._id] ? 'sizeActive' : ''}`}>{size}</small>
                                 </div>
                               );
                             })}
                           </div>
                         </div>
-
-                        <button className="sizebtn">Select Size</button>
-                        <button className="addbtn">Add to bag</button>
+                        <button className={selectedSizes > 0 ? ("addbtnactive") : ("addbtn")} onClick={() => addToBag(selectedSizes[item._id], item)}>Add to bag</button>
                       </div>
                     </div>
 

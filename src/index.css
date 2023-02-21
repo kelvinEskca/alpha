@@ -765,6 +765,18 @@ main{
   border-radius: .2rem;
 }
 
+.size-box .size .sizeActive{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #48e271;
+  border-radius: .5rem;
+  color: #000;
+  border: none;
+}
+
 .modal .modal-box .image-box:hover img:nth-of-type(2){
   display: block;
 }
@@ -2206,7 +2218,7 @@ img{
   border-radius: .3rem;
   padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(40px,1px));
   gap: .3rem;
   height: auto;
   overflow-y: auto;
@@ -2297,6 +2309,11 @@ img{
 
 .details .addbtn,.desktop-details .addbtn{
   background-color: #c8cdd1;
+  color: #191919;
+}
+
+.details .addbtnactive,.desktop-details .addbtnactive{
+  background-color: #48e271;
   color: #191919;
 }
 
