@@ -2531,6 +2531,53 @@ img{
   width: 100%;
 }
 
+.alert-modal{
+  background-color: #49e472;
+  border: 1px solid #0b6b2591;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  position: fixed;
+  bottom: -100rem;
+  left: 50%;
+  z-index: 100;
+  border-radius: .3rem;
+  backdrop-filter: blur(100px);
+  transition: bottom .4s ease-in-out;
+  margin-left:-150px;
+}
+
+.show-alert{
+  bottom: 5rem;
+}
+
+.alert-modal h2{
+  font-size: .8rem;
+  font-family:'GT';
+  font-weight: 400;
+  text-align: center;
+  color: #191919;
+}
+
+.alert-modal p{
+  font-weight: 300;
+  font-family: 'GT';
+  font-size: .8rem;
+  text-align: center;
+  max-width: 300px;
+  line-height: 1rem;
+}
+
+.alert-modal button{
+  margin-top: 1rem;
+  font-family: 'GT';
+  font-weight: 300;
+  font-size: .8rem;
+}
+
 @media screen and (min-width:376px){
   body{
     max-width: 100%;

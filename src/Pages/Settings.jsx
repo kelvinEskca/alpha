@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
@@ -9,6 +8,7 @@ import CardModal from "../Components/CardModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
+import AlertModal from "../Components/AlertModal";
 const Settings = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -19,8 +19,9 @@ const Settings = () => {
     const [heroModal,setHeroModal] = useState(false);
     //const [footerModal,setFooterModal] = useState(false);
     const [cardModal,setCardModal] = useState(false);
-    
-    const navigate = useNavigate();
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const openModal = () =>{
         setHeroModal(!heroModal);
@@ -62,16 +63,22 @@ const Settings = () => {
 
     const handleDelete = async (i) =>{
         const id = i._id;
+        setIsSubmitting(true);
         try{
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/card/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
-                alert(res.statusText);
-                navigate('/settings');
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Deleted Successfully!");
+                setIsSubmitting(false);
+                setCards(cards.filter(card => card._id !== id));
             }
             else{
                 alert(res.statusText);
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Not Deleted Successfully!");
+                setIsSubmitting(false);
             }
         }
         catch(err){
@@ -81,16 +88,20 @@ const Settings = () => {
 
     const handleShow = async (i) =>{
         const id = i._id;
+        setIsSubmitting(true);
         try{
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/card/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
-                alert(res.statusText);
-                navigate('/settings');
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Uploaded Successfully!");
+                setIsSubmitting(false);
             }
             else{
-                alert(res.statusText);
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Uploaded Failed!");
+                setIsSubmitting(false);
             }
         }
         catch(err){
@@ -100,16 +111,21 @@ const Settings = () => {
 
     const handleDeleteHero = async (i) =>{
         const id = i._id;
+        setIsSubmitting(true);
         try{
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/hero/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
-                alert(res.statusText);
-                navigate('/settings');
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Deleted Successfully!");
+                setIsSubmitting(false);
+                setHero(hero.filter(item => item._id !== id));
             }
             else{
-                alert(res.statusText);
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Not Deleted Successfully!");
+                setIsSubmitting(false);
             }
         }
         catch(err){
@@ -119,16 +135,20 @@ const Settings = () => {
 
     const handleShowHero = async (i) =>{
         const id = i._id;
+        setIsSubmitting(true);
         try{
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/hero/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
-                alert(res.statusText);
-                navigate('/settings');
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Uploaded Successfully!");
+                setIsSubmitting(true);
             }
             else{
-                alert(res.statusText);
+                setIsSuccessModalOpen(true);
+                setAlertText("Card Uploaded Failed!");
+                setIsSubmitting(true);
             }
         }
         catch(err){
@@ -238,10 +258,10 @@ const Settings = () => {
                                             </div>
 
                                             {item.active ? (
-                                                <button onClick={()=>handleDeleteHero(item)}>Delete Card</button>
+                                                <button onClick={()=>handleDeleteHero(item)}>{isSubmitting ? 'Deleting..' : 'Delete Card'}</button>
                                             ) : (
                                                 <>
-                                                    <button onClick={()=>handleDeleteHero(item)}>Delete Card</button>
+                                                    <button onClick={()=>handleDeleteHero(item)}>{isSubmitting ? 'Deleting..' : 'Delete Card'}</button>
                                                     <button onClick={()=>handleShowHero(item)}>Show Card</button>
                                                 </>
                                             )}
@@ -368,6 +388,7 @@ const Settings = () => {
                 <CardModal openCard={openCard} cardModal={cardModal} />
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
             <Footer />
         </>

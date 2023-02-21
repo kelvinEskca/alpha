@@ -1,64 +1,12 @@
 import React,{useState,useEffect} from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
 import Loader from "./Loader";
-const ProductModal = ({productModal,openModal}) => {
+const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleChange,handleImageChange,formData}) => {
     axios.defaults.withCredentials = true;
-    const token = localStorage.getItem('token');
-    const navigate = useNavigate();
     const [products,setProducts] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [loading,setLoading] = useState(true);
     
-    const [formData, setFormData] = useState({
-        name: "",
-        desc: "",
-        sizes: [],
-        images: [],
-        price: "",
-        category: "",
-        subcategory: "",
-        colorName: "",
-        quantity: "",
-        inStock: ""
-    });
-    const handleChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-    const handleImageChange = e => {
-        setFormData({ ...formData, images: e.target.files });
-    };
-    
-    const handleSubmit = async e => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        const sizesArray = formData.sizes.split(',').map(size => size.trim());
-        const data = new FormData();
-        data.append("name", formData.name);
-        data.append("desc", formData.desc);
-        data.append("sizes", sizesArray);
-        for (let i = 0; i < formData.images.length; i++) {
-            data.append("image", formData.images[i]);
-        }
-        data.append("price", formData.price);
-        data.append("category", formData.category);
-        data.append("subcategory", formData.subcategory);
-        data.append("quantity", formData.quantity);
-        data.append("colorName", formData.colorName);
-        data.append("inStock", formData.inStock);
-        try {
-            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
-            if(res.statusText === "Ok"){
-                alert(res.statusText);
-                setIsSubmitting(false);
-                navigate('/products');
-            }
-        } catch (err) {
-        console.error(err);
-        }
-    };
-
     useEffect(()=>{
         const getproducts = async ()=>{
             try{

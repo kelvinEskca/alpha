@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
@@ -7,45 +7,116 @@ import ProductModal from "../Components/ProductModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
+import AlertModal from "../Components/AlertModal";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
-    const [products,setProducts] = useState(null);
+    const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     const [productModal,setProductModal] = useState(false);
-    
-    const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
 
     const openModal = () =>{
         setProductModal(!productModal);
     }
 
-    useEffect(()=>{
-        const getproducts = async ()=>{
-            try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/product')
-                setProducts(res.data);
-                setLoading(false);
-            }
-            catch(err){
-                console.log(err);
-            }
+    const getproducts = async ()=>{
+        try{
+            const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/product')
+            setProducts(res.data);
+            setLoading(false);
         }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+    const [formData, setFormData] = useState({
+        name: "",
+        desc: "",
+        sizes: [],
+        images: [],
+        price: "",
+        category: "",
+        subcategory: "",
+        colorName: "",
+        quantity: "",
+        inStock: ""
+    });
+
+    const handleChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    const handleImageChange = e => {
+        setFormData({ ...formData, images: e.target.files });
+    };
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        const sizesArray = formData.sizes.split(',').map(size => size.trim());
+        const data = new FormData();
+        data.append("name", formData.name);
+        data.append("desc", formData.desc);
+        data.append("sizes", sizesArray);
+        for (let i = 0; i < formData.images.length; i++) {
+            data.append("image", formData.images[i]);
+        }
+        data.append("price", formData.price);
+        data.append("category", formData.category);
+        data.append("subcategory", formData.subcategory);
+        data.append("quantity", formData.quantity);
+        data.append("colorName", formData.colorName);
+        data.append("inStock", formData.inStock);
+        try {
+            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
+            if(res.status === 200){
+                setProducts(prevProducts => {
+                    const updatedProducts = [...prevProducts, res.data];
+                    console.log('previous products', prevProducts);
+                    console.log('updated products', updatedProducts);
+                    return updatedProducts;
+                });
+                setIsSuccessModalOpen(true);
+                setAlertText("Product Added Successfully!");
+                setIsSubmitting(false);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+            }
+        } catch (err) {
+        console.error(err);
+        }
+    };
+
+    useEffect(()=>{
         getproducts();
     },[]);
 
     const handleDelete = async (i) =>{
         const id = i._id;
+        setIsSubmitting(true);
         try{
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/product/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
-                alert(res.statusText);
-                navigate('/dashboard');
+                setIsSuccessModalOpen(true);
+                setAlertText("Product Deleted Successfully!");
+                setProducts(products.filter(product => product._id !== id));
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+                setIsSubmitting(false);
             }
             else{
-                alert(res.statusText);
+                setIsSuccessModalOpen(true);
+                setAlertText("Error Deleting Product!");
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
             }
         }
         catch(err){
@@ -86,7 +157,9 @@ const Dashboard = () => {
                                         <div className="products" key={i}>
                                             <Link to={`/details/${item._id}`}>
                                                 <div className="product-image">
-                                                    <img src={`${item.image[0].url}`} alt={item.image[0]} />
+                                                    {item.image && item.image.length > 0 && (
+                                                        <img src={`${item.image[0].url}`} alt={item.image[0].url} />
+                                                    )}
                                                 </div>
                                             </Link>
 
@@ -111,7 +184,7 @@ const Dashboard = () => {
                                                 <span><h3 className="heading">Instock: {item.inStock ? "True" : "False"}</h3></span>
                                             </div>
 
-                                            <button onClick={()=>handleDelete(item)}>Delete Product</button>
+                                            <button onClick={()=>handleDelete(item)}>{isSubmitting ? 'Deleting..' : 'Delete Product'}</button>
                                         </div>
                                         
                                     )
@@ -122,9 +195,10 @@ const Dashboard = () => {
                     </div>
                 </section>
 
-                <ProductModal openModal={openModal} productModal={productModal} />
+                <ProductModal openModal={openModal} productModal={productModal} isSubmitting={isSubmitting} handleSubmit={handleSubmit} formData={formData} handleChange={handleChange} handleImageChange={handleImageChange} />
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
             <Footer />
         </>
