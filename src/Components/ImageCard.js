@@ -5,11 +5,14 @@ import CartContext from "../CartContext";
 import axios from "axios";
 import Loader from "./Loader";
 import SlideShow from "../Components/SlideShow";
+import AlertModal from "./AlertModal";
 const ImageCard = ({toggleState}) => {
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     const [selectedSizes, setSelectedSizes] = useState({});
     const {addToCart} = useContext(CartContext);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     useEffect(()=>{
         if(toggleState === 1){
             const gender = 'Female';
@@ -72,14 +75,20 @@ const ImageCard = ({toggleState}) => {
     },[toggleState]);
 
     const handleClick = (item,size) => {
-        setSelectedSizes({ ...selectedSizes, [item._id]: size });
+        setSelectedSizes({...selectedSizes, [item._id]: size });
         addToCart({...item,size});
+        setIsSuccessModalOpen(true);
+        setAlertText("Item added to cart!");
+        setTimeout(() => {
+            setIsSuccessModalOpen(false);
+        }, 5000);
     };
     
 
     if(loading) return <Loader />
     return (
-        products.length > 0 ? (
+        <>
+        {products.length > 0 ? (
             products.map((item,i)=>{
                 if (item.inStock === true){
                     const {image} = item;   
@@ -127,7 +136,10 @@ const ImageCard = ({toggleState}) => {
                 }
                 return null
             })
-        ):(<h3>No Products</h3>)
+        ):(<h3>No Products</h3>)}
+
+        <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+        </>
     );
 }
  

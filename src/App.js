@@ -30,6 +30,7 @@ import Track from "./Pages/Track";
 import Details from "./Pages/Details";
 import Admin from "./Pages/Admin";
 import AdminRegister from "./Pages/AdminRegister";
+import PublicRoute from "./Components/PublicRoute";
 const App = () => {
   return (
     <CartProvider>
@@ -43,11 +44,11 @@ const App = () => {
           <Route path="/contact" element={<Contact />}/>
           <Route path="/help" element={<Help />}/>
           <Route path="/return" element={<Return />}/>
-          <Route path="/login" element={<Login />}/>
-          <Route path="/admin" element={<Admin />}/>
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>}/>
+          <Route path="/admin" element={<PublicRoute><Admin /></PublicRoute>}/>
           <Route path="/forget" element={<Forgot />}/>
-          <Route path="/register" element={<Register />}/>
-          <Route path="/adminregister" element={<AdminRegister />}/>
+          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>}/>
+          <Route path="/adminregister" element={<PublicRoute><AdminRegister /></PublicRoute>}/>
           <Route path="/details/:id" element={<Details />}/>
           <Route path="/account" element={<PrivateUserRoute><Account /></PrivateUserRoute>}/>
           <Route path="/addresses" element={<PrivateUserRoute><Addresses /></PrivateUserRoute>}/>

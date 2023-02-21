@@ -52,7 +52,12 @@ const Modal = ({modal,handleModal}) => {
                                             </div>
 
                                             <div className="top-right">
-                                                {item.color.length > 0 ? (<img src={`${item.color}`} alt={item.color} />) : (<img src={`${item.image[0].url}`} alt={item.image[0]} />)}
+                                            { 'color' in item && item.color !== "" ? (
+                                            <img src={`${item.color}`} alt={item.color} />
+                                            ) : (
+                                            <img src={`${item.image[0].url}`} alt={item.image[0]} />
+                                            )}
+
                                                 
                                             </div>
                                         </div>

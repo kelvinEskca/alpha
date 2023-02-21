@@ -10,6 +10,7 @@ import axios from "axios";
 import ImageCard from "../Components/ImageCard";
 import Loader from "../Components/Loader";
 import ColorModal from "../Components/ColorModal";
+import AlertModal from "../Components/AlertModal";
 const Details = () => {
   axios.defaults.withCredentials = true;
   const [products, setProducts] = useState([]);
@@ -23,6 +24,8 @@ const Details = () => {
   const [selectColor, setSelectColor] = useState([]);
   const [selectColorName, setSelectColorName] = useState([]);
   const { addToCart } = useContext(CartContext);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [alertText,setAlertText] = useState('');
  
   const { id } = useParams();
   useEffect(() => {
@@ -71,13 +74,37 @@ const Details = () => {
 
   const addToBag = (size,item) => {
     // setSelectedSizes({ ...selectedSizes, [item._id]: size });
-    addToCart({...item, size, color: selectColor,colorName:selectColorName });
+    if (!size) {
+      setIsSuccessModalOpen(true);
+      setAlertText("Please Select a size!");
+      setTimeout(() => {
+        setIsSuccessModalOpen(false);
+      }, 5000);
+      return; // stop executing the function
+    }
+    if(selectColorName.length === 0){
+      addToCart({...item, size, color: selectColor,colorName:item.colorName });
+      setIsSuccessModalOpen(true);
+      setAlertText("Item added to cart!");
+      setTimeout(() => {
+        setIsSuccessModalOpen(false);
+      }, 5000);
+    }
+    else{
+      addToCart({...item, size, color: selectColor,colorName:selectColorName });
+      setIsSuccessModalOpen(true);
+      setAlertText("Item added to cart!");
+      setTimeout(() => {
+        setIsSuccessModalOpen(false);
+      }, 5000);
+    }
   }
 
   const handleColorUpdate = (color,colorName) => {
     setSelectColor(color);
     setSelectColorName(colorName);
   };
+
   
   if (loading) return <Loader />;
   return (
@@ -517,7 +544,7 @@ const Details = () => {
         <ColorModal openModal={openModal} colorModal={colorModal} />
         <Modal modal={modal} handleModal={handleModal} />
         <MobileNav mobile={mobile} handleMobile={handleMobile} />
-        
+        <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
       </main>
       <Footer />
     </>

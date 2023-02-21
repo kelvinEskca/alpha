@@ -72,6 +72,9 @@ const Settings = () => {
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Deleted Successfully!");
                 setIsSubmitting(false);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
                 setCards(cards.filter(card => card._id !== id));
             }
             else{
@@ -79,6 +82,9 @@ const Settings = () => {
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Not Deleted Successfully!");
                 setIsSubmitting(false);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
             }
         }
         catch(err){
@@ -97,6 +103,9 @@ const Settings = () => {
                 const newProduct = res.data.product;
                 setCards([...cards, newProduct]);
                 setIsSuccessModalOpen(true);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
                 setAlertText("Card Uploaded Successfully!");
                 setIsSubmitting(false);
             }
@@ -104,6 +113,9 @@ const Settings = () => {
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Uploaded Failed!");
                 setIsSubmitting(false);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
             }
         }
         catch(err){
@@ -123,11 +135,17 @@ const Settings = () => {
                 setAlertText("Card Deleted Successfully!");
                 setIsSubmitting(false);
                 setHero(hero.filter(item => item._id !== id));
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
             }
             else{
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Not Deleted Successfully!");
                 setIsSubmitting(false);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
             }
         }
         catch(err){
@@ -148,11 +166,17 @@ const Settings = () => {
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Uploaded Successfully!");
                 setIsSubmitting(true);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
             }
             else{
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Uploaded Failed!");
                 setIsSubmitting(true);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                  }, 5000);
             }
         }
         catch(err){

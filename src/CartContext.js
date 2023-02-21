@@ -31,6 +31,7 @@ export function CartProvider({children}){
 
   
   const addToCart = (item) => {
+    console.log(item);
     const index = items.findIndex(
       (i) => i.name === item.name && i.size === item.size && i.color === item.color
     );
