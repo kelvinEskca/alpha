@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import axios from "axios";
@@ -7,14 +6,17 @@ import CategoryModal from "../Components/CategoryModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
+import AlertModal from "../Components/AlertModal";
 const Category = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     const [products,setProducts] = useState(null);
     const [loading,setLoading] = useState(true);
     const [productModal,setProductModal] = useState(false);
-    
-    const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
+    const [deletingId,setDeletingId] = useState('');
 
     const openModal = () =>{
         setProductModal(!productModal);
@@ -36,16 +38,28 @@ const Category = () => {
 
     const handleDelete = async (i) =>{
         const id = i._id;
+        setDeletingId(id); 
+        setIsSubmitting(true);
         try{
             const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/category/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
-                alert(res.statusText);
-                navigate('/dashboard');
+                setIsSuccessModalOpen(true);
+                setAlertText("Category Deleted Successfully!");
+                setProducts(products.filter(product => product._id !== id));
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+                setIsSubmitting(false);
             }
             else{
-                alert(res.statusText);
+                setAlertText("Category Not Deleted Successfully!");
+                setIsSuccessModalOpen(true);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+                setIsSubmitting(false);
             }
         }
         catch(err){
@@ -99,7 +113,7 @@ const Category = () => {
                                                 </div>
                                             </div>
 
-                                            <button onClick={()=>handleDelete(item)}>Delete Category</button>
+                                            <button onClick={()=>handleDelete(item)}>{deletingId === item._id ? (isSubmitting ? 'Deleting..' : 'Delete Category'): 'Delete Category'}</button>
                                         </div>
                                     )
                                 })
@@ -112,6 +126,7 @@ const Category = () => {
                 <CategoryModal openModal={openModal} productModal={productModal} />
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
             <Footer />
         </>

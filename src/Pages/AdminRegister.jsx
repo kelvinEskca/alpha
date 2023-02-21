@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import {Link,useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
@@ -7,6 +7,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from 'axios';
 import Loader from "../Components/Loader";
+import AlertModal from "../Components/AlertModal";
 const AdminRegister = () => {
     axios.defaults.withCredentials = true;
     const [firstname,setFirstname] = useState('');
@@ -15,11 +16,11 @@ const AdminRegister = () => {
     const [password,setPassword] = useState('');
     const [loading,setLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const navigate = useNavigate();
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setIsSubmitting(true)
-        console.log(email,firstname,lastname,password);
         if(email === ''  || firstname === '' || lastname === ''  || password === ''){
             alert('Please ensure all fields are filled');
         }
@@ -38,14 +39,15 @@ const AdminRegister = () => {
                 setLoading(true);
                 
                 if(userSubmit.status === 201){
-                    alert("Success");
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Admin Registration Successful!");
                     setLoading(false);
                     setIsSubmitting(false);
-                    navigate('/admin');
                 }
                 else{
                     setLoading(false);
-                    alert(userSubmit.statusText)
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Admin Registration Failed!");
                 }
             }
             catch(err){
@@ -114,6 +116,8 @@ const AdminRegister = () => {
                 <Modal modal={modal} handleModal={handleModal} />
 
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
 
             <Footer />

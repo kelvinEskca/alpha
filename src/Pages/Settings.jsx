@@ -94,6 +94,8 @@ const Settings = () => {
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
+                const newProduct = res.data.product;
+                setCards([...cards, newProduct]);
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Uploaded Successfully!");
                 setIsSubmitting(false);
@@ -141,6 +143,8 @@ const Settings = () => {
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
+                const newProduct = res.data.product;
+                setHero([...hero, newProduct]);
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Uploaded Successfully!");
                 setIsSubmitting(true);
