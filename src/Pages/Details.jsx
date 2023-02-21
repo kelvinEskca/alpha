@@ -71,7 +71,7 @@ const Details = () => {
 
   const addToBag = (size,item) => {
     // setSelectedSizes({ ...selectedSizes, [item._id]: size });
-    addToCart({ ...item, size, color: selectColor,colorName:selectColorName });
+    addToCart({...item, size, color: selectColor,colorName:selectColorName });
   }
 
   const handleColorUpdate = (color,colorName) => {
