@@ -45,6 +45,7 @@ const Modal = ({modal,handleModal}) => {
                                             <div className="top-left">
                                                 <h3 className="heading">{item.name}</h3>
                                                 <p className="paragraph">{item.category}</p>
+                                                <p className="paragraph">{item.colorName}</p>
                                                 <p className="paragraph">{item.size}</p>
                                                 <h3 className="heading">${item.price}</h3>
                                             </div>
