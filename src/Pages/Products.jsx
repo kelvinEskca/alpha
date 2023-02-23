@@ -25,7 +25,7 @@ const Dashboard = () => {
 
     const getproducts = async ()=>{
         try{
-            const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/product')
+            const res = await axios.get('http://localhost:5000/alphaapi/product')
             setProducts(res.data);
             setLoading(false);
         }
@@ -72,7 +72,7 @@ const Dashboard = () => {
         data.append("colorName", formData.colorName);
         data.append("inStock", formData.inStock);
         try {
-            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/product", data,{headers:{token:token}});
+            const res = await axios.post("http://localhost:5000/alphaapi/product", data,{headers:{token:token}});
             if(res.status === 200){
                 const newProduct = res.data.product;
                 setProducts([...products, newProduct]);
@@ -98,7 +98,7 @@ const Dashboard = () => {
         setDeletingId(id); 
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/product/delete/${id}`,{
+            const res = await axios.post(`http://localhost:5000/alphaapi/product/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){

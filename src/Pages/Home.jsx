@@ -34,7 +34,7 @@ const Home = () => {
     useEffect(()=>{
         const getCards = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/card')
+                const res = await axios.get('http://localhost:5000/alphaapi/card')
                 setCards(res.data);
                 setLoading(false);
             }
@@ -46,7 +46,7 @@ const Home = () => {
 
         const getHero = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/hero')
+                const res = await axios.get('http://localhost:5000/alphaapi/hero')
                 setHero(res.data);
                 setLoading(false);
             }

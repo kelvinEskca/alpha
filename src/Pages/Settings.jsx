@@ -38,7 +38,7 @@ const Settings = () => {
     useEffect(()=>{
         const getCards = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/card')
+                const res = await axios.get('http://localhost:5000/alphaapi/card')
                 setCards(res.data);
                 setLoading(false);
             }
@@ -50,7 +50,7 @@ const Settings = () => {
 
         const getHero = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/hero')
+                const res = await axios.get('http://localhost:5000/alphaapi/hero')
                 setHero(res.data);
                 setLoading(false);
             }
@@ -65,7 +65,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/card/delete/${id}`,{
+            const res = await axios.post(`http://localhost:5000/alphaapi/card/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -96,7 +96,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/card/edit/${id}`,{
+            const res = await axios.post(`http://localhost:5000/alphaapi/card/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -127,7 +127,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/hero/delete/${id}`,{
+            const res = await axios.post(`http://localhost:5000/alphaapi/hero/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -157,7 +157,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/hero/edit/${id}`,{
+            const res = await axios.post(`http://localhost:5000/alphaapi/hero/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -187,7 +187,7 @@ const Settings = () => {
     // const handleDeleteFooter = async (i) =>{
     //     const id = i._id;
     //     try{
-    //         const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/footer/delete/${id}`,{
+    //         const res = await axios.post(`http://localhost:5000/alphaapi/footer/delete/${id}`,{
     //             id:id
     //         },{ headers:{token:token} });
     //         if(res.status === 200){
@@ -206,7 +206,7 @@ const Settings = () => {
     // const handleShowFooter = async (i) =>{
     //     const id = i._id;
     //     try{
-    //         const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/footer/edit/${id}`,{
+    //         const res = await axios.post(`http://localhost:5000/alphaapi/footer/edit/${id}`,{
     //             active:true
     //         },{ headers:{token:token} });
     //         if(res.status === 200){

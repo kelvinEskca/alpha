@@ -32,7 +32,7 @@ const Details = () => {
     const getproducts = async () => {
       try {
         const res = await axios.get(
-          `https://alphaapi-production.up.railway.app/alphaapi/product/${id}`
+          `http://localhost:5000/alphaapi/product/${id}`
         );
         setProducts([res.data]);
         setLoading(false);
@@ -45,7 +45,7 @@ const Details = () => {
     const getColor = async () => {
       try {
         const res = await axios.get(
-          `https://alphaapi-production.up.railway.app/alphaapi/color/${id}`
+          `http://localhost:5000/alphaapi/color/${id}`
         );
         setColors(res.data);
         setLoading(false);

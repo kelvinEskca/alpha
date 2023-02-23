@@ -25,7 +25,7 @@ const Category = () => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/category')
+                const res = await axios.get('http://localhost:5000/alphaapi/category')
                 setProducts(res.data);
                 setLoading(false);
             }
@@ -41,7 +41,7 @@ const Category = () => {
         setDeletingId(id); 
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/category/delete/${id}`,{
+            const res = await axios.post(`http://localhost:5000/alphaapi/category/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){

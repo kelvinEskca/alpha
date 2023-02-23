@@ -37,7 +37,7 @@ const CardModal = ({cardModal,openCard}) => {
             data.append("image", formData.images[i]);
         }
         try {
-            const res = await axios.post("https://alphaapi-production.up.railway.app/alphaapi/card", data,{headers:{token:token}});
+            const res = await axios.post("http://localhost:5000/alphaapi/card", data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 setIsSubmitting(false);

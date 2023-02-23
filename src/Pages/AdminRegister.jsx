@@ -29,7 +29,7 @@ const AdminRegister = () => {
         }
         else{
             try{
-                const userSubmit = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/auth/adminRegister',{
+                const userSubmit = await axios.post('http://localhost:5000/alphaapi/auth/adminRegister',{
                     email:email,
                     fname:firstname,
                     lname:firstname,

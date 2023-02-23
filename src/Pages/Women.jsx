@@ -55,7 +55,7 @@ const Women = () => {
         const getproducts = async ()=>{
             const gender = 'Female';
             try{
-                const res = await axios.get(`https://alphaapi-production.up.railway.app/alphaapi/product/female/${gender}`)
+                const res = await axios.get(`http://localhost:5000/alphaapi/product/female/${gender}`)
                 setProducts(res.data);
                 setLoading(false);
             }
@@ -66,7 +66,7 @@ const Women = () => {
         getproducts();
         const getHero = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/hero')
+                const res = await axios.get('http://localhost:5000/alphaapi/hero')
                 setHero(res.data);
                 setLoading(false);
             }

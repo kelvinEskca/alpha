@@ -35,7 +35,7 @@ const ColorModal = ({colorModal,openModal}) => {
             data.append("image", formData.images[i]);
         }
         try {
-            const res = await axios.post(`https://alphaapi-production.up.railway.app/alphaapi/color`, data,{headers:{token:token}});
+            const res = await axios.post(`http://localhost:5000/alphaapi/color`, data,{headers:{token:token}});
             if(res.status === 200){
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Deleted Successfully!");

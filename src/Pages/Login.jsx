@@ -28,7 +28,7 @@ const Login = () => {
         e.preventDefault();
         setIsSubmitting(true)
         try{
-            const loginUser = await axios.post('https://alphaapi-production.up.railway.app/alphaapi/auth/login',{
+            const loginUser = await axios.post('http://localhost:5000/alphaapi/auth/login',{
                 email:email,
                 password:password
             });

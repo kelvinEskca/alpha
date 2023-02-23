@@ -10,7 +10,7 @@ const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleCh
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('https://alphaapi-production.up.railway.app/alphaapi/category')
+                const res = await axios.get('http://localhost:5000/alphaapi/category')
                 setProducts(res.data);
                 setLoading(false);
             }
