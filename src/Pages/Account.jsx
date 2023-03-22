@@ -8,6 +8,7 @@ import MobileNav from "../Components/MobileNav";
 import axios from 'axios'
 import { useEffect } from "react";
 import Loader from "../Components/Loader";
+import baseUrl from "../config/config.js";
 const Account = () => {
     axios.defaults.withCredentials = true;
     const [modal,setModal] = useState(false);
@@ -39,7 +40,7 @@ const Account = () => {
         const id = user._id;
         const grabOrders = async () =>{
             try{
-                const order = await axios.get(`http://localhost:5000/alphaapi/order/${id}`,{headers:{token:token}});
+                const order = await axios.get(`${baseUrl.baseUrl}/alphaapi/order/${id}`,{headers:{token:token}});
                 setLoading(true);
                 if(order.status === 200){
                     setLoading(false);

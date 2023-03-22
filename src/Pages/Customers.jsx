@@ -5,6 +5,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
+import baseUrl from "../config/config.js";
 const Customers = () => {
     axios.defaults.withCredentials = true;
     const auth = localStorage.getItem('token');
@@ -14,7 +15,7 @@ const Customers = () => {
     useEffect(()=>{
         const getcustomers = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/users',{headers:{token:auth}});
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/users`,{headers:{token:auth}});
                 setCustomers(res.data);
                 setLoading(false);
             }

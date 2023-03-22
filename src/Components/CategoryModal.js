@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
 import Loader from "./Loader";
+import baseUrl from "../config/config.js";
 const ProductModal = ({productModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -22,7 +23,7 @@ const ProductModal = ({productModal,openModal}) => {
         }
         else{
             try {
-                const res = await axios.post("http://localhost:5000/alphaapi/category",{
+                const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/category`,{
                     name:name,
                     desc:desc,
                     subcategory:subcategory

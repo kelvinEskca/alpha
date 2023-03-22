@@ -11,6 +11,7 @@ import ImageCard from "../Components/ImageCard";
 import Loader from "../Components/Loader";
 import ColorModal from "../Components/ColorModal";
 import AlertModal from "../Components/AlertModal";
+import baseUrl from "../config/config.js";
 const Details = () => {
   axios.defaults.withCredentials = true;
   const [products, setProducts] = useState([]);
@@ -32,7 +33,7 @@ const Details = () => {
     const getproducts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/alphaapi/product/${id}`
+          `${baseUrl.baseUrl}/alphaapi/product/${id}`
         );
         setProducts([res.data]);
         setLoading(false);
@@ -45,7 +46,7 @@ const Details = () => {
     const getColor = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/alphaapi/color/${id}`
+          `${baseUrl.baseUrl}/alphaapi/color/${id}`
         );
         setColors(res.data);
         setLoading(false);

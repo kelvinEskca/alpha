@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
+import baseUrl from "../config/config.js";
 const CardModal = ({cardModal,openCard}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -37,7 +38,7 @@ const CardModal = ({cardModal,openCard}) => {
             data.append("image", formData.images[i]);
         }
         try {
-            const res = await axios.post("http://localhost:5000/alphaapi/card", data,{headers:{token:token}});
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/card`, data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 setIsSubmitting(false);

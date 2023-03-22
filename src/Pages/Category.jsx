@@ -7,6 +7,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
+import baseUrl from "../config/config.js";
 const Category = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -25,7 +26,7 @@ const Category = () => {
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/category')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/category`)
                 setProducts(res.data);
                 setLoading(false);
             }
@@ -41,7 +42,7 @@ const Category = () => {
         setDeletingId(id); 
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/category/delete/${id}`,{
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/category/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){

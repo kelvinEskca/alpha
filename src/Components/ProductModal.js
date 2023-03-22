@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import Button from "./Button";
 import axios from "axios";
 import Loader from "./Loader";
+import baseUrl from "../config/config.js";
 const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleChange,handleImageChange,formData}) => {
     axios.defaults.withCredentials = true;
     const [products,setProducts] = useState(null);
@@ -10,7 +11,7 @@ const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleCh
     useEffect(()=>{
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/category')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/category`)
                 setProducts(res.data);
                 setLoading(false);
             }

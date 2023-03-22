@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
+import baseUrl from "../config/config.js";
 const FooterModal = ({footerModal,openFooterCard}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -30,7 +31,7 @@ const FooterModal = ({footerModal,openFooterCard}) => {
             data.append("video", formData.videos[i]);
         }
         try {
-            const res = await axios.post("http://localhost:5000/alphaapi/footer", data,{headers:{token:token}});
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/footer`, data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 navigate('/settings');

@@ -10,6 +10,7 @@ import axios from "axios";
 import Loader from "../Components/Loader";
 import { Link } from "react-router-dom";
 import SlideShow from "../Components/SlideShow";
+import baseUrl from "../config/config.js";
 const Men = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
@@ -53,7 +54,7 @@ const Men = () => {
         const gender = 'Male';
         const getproducts = async ()=>{
             try{
-                const res = await axios.get(`http://localhost:5000/alphaapi/product/male/${gender}`)
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/male/${gender}`)
                 setProducts(res.data);
                 setLoading(false);
             }
@@ -64,7 +65,7 @@ const Men = () => {
         getproducts();
         const getHero = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/hero')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/hero`)
                 setHero(res.data);
                 setLoading(false);
             }

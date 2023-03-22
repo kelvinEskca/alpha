@@ -7,6 +7,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
+import baseUrl from "../config/config.js";
 const Admin = () => {
     axios.defaults.withCredentials = true;
     const [email,setEmail] = useState('');
@@ -28,7 +29,7 @@ const Admin = () => {
         e.preventDefault();
         setIsSubmitting(true)
         try{
-            const loginUser = await axios.post('http://localhost:5000/alphaapi/auth/admin',{
+            const loginUser = await axios.post(`${baseUrl.baseUrl}/alphaapi/auth/admin`,{
                 email:email,
                 password:password
             });

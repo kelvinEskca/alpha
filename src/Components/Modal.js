@@ -3,6 +3,7 @@ import { useContext } from "react";
 import axios from 'axios';
 import Button from "./Button";
 import CartContext from "../CartContext";
+import baseUrl from "../config/config.js";
 const Modal = ({modal,handleModal}) => {
     const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount} = useContext(CartContext);
     const user = JSON.parse(localStorage.getItem('user'));
@@ -11,7 +12,7 @@ const Modal = ({modal,handleModal}) => {
     
     const makePayment = async () =>{
         try{
-            const response = await axios.post('http://localhost:5000/alphaapi/pay/create-checkout-session',{
+            const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
                 items:items,
                 userId:user._id
             })

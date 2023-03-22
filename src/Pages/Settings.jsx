@@ -9,6 +9,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
+import baseUrl from "../config/config.js";
 const Settings = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -38,7 +39,7 @@ const Settings = () => {
     useEffect(()=>{
         const getCards = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/card')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/card`)
                 setCards(res.data);
                 setLoading(false);
             }
@@ -50,7 +51,7 @@ const Settings = () => {
 
         const getHero = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/hero')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/hero`)
                 setHero(res.data);
                 setLoading(false);
             }
@@ -65,7 +66,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/card/delete/${id}`,{
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/card/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -96,7 +97,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/card/edit/${id}`,{
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/card/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -127,7 +128,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/hero/delete/${id}`,{
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/hero/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -157,7 +158,7 @@ const Settings = () => {
         const id = i._id;
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/hero/edit/${id}`,{
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/hero/edit/${id}`,{
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
@@ -187,7 +188,7 @@ const Settings = () => {
     // const handleDeleteFooter = async (i) =>{
     //     const id = i._id;
     //     try{
-    //         const res = await axios.post(`http://localhost:5000/alphaapi/footer/delete/${id}`,{
+    //         const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/footer/delete/${id}`,{
     //             id:id
     //         },{ headers:{token:token} });
     //         if(res.status === 200){
@@ -206,7 +207,7 @@ const Settings = () => {
     // const handleShowFooter = async (i) =>{
     //     const id = i._id;
     //     try{
-    //         const res = await axios.post(`http://localhost:5000/alphaapi/footer/edit/${id}`,{
+    //         const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/footer/edit/${id}`,{
     //             active:true
     //         },{ headers:{token:token} });
     //         if(res.status === 200){

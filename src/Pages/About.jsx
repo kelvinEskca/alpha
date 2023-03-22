@@ -8,6 +8,7 @@ import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
 import VideoCard from "../Components/VideoCard";
+import baseUrl from "../config/config.js";
 const About = () => {
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
@@ -24,7 +25,7 @@ const About = () => {
     useEffect(()=>{
         const getHero = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/hero')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/hero`)
                 setHero(res.data);
                 setLoading(false);
             }

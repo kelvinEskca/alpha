@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
 import Loader from "./Loader";
+import baseUrl  from "../config/config";
 
 const AddressModal = ({addressModal,openModal}) => {
     axios.defaults.withCredentials = true;
@@ -26,7 +27,7 @@ const AddressModal = ({addressModal,openModal}) => {
         e.preventDefault();
         if(address !== ''){
             try{
-                const result = await axios.post('http://localhost:5000/alphaapi/address',{
+                const result = await axios.post(`${baseUrl.baseUrl}/alphaapi/address`,{
                     fname:address.fname,
                     lname:address.lname,
                     email:user.email,

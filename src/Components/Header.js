@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CartContext from "../CartContext";
 import { useContext,useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-const Header = ({handleModal,handleMobile}) => {
+const Header = ({handleModal,handleMobile,searchToggle}) => {
     const {items} = useContext(CartContext);
     const user = JSON.parse(localStorage.getItem('user'));
     let location = useLocation();
@@ -42,7 +42,7 @@ const Header = ({handleModal,handleMobile}) => {
                             <nav className="bottom">
                                 <Link to='/'><img src='../images/logo2.png' alt='logo'  className="logo"/></Link>
                                 <div className="bottom-right">
-                                    <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" /></div>
+                                    <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" onClick={searchToggle}/></div>
                                     <div className="small" onClick={handleMobile}><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu"  /></div>
                                 </div>
                             </nav>
@@ -69,7 +69,7 @@ const Header = ({handleModal,handleMobile}) => {
                             <nav className="bottom">
                                 <Link to='/'><img src='../images/logo2.png' alt='logo'  className="logo"/></Link>
                                 <div className="bottom-right">
-                                    <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" /></div>
+                                    <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" onClick={searchToggle}/></div>
                                     <div className="small" onClick={handleMobile}><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu"  /></div>
                                     <div className="small" onClick={handleModal}><img src="../images/icons8-shopping-bag-30.png" alt="icons8-shopping-bag-30" />
                                     <div className="badge"><p className="count">{items.length}</p></div>
@@ -109,7 +109,7 @@ const Header = ({handleModal,handleMobile}) => {
                     </div>
 
                     <div className="bottom-right">
-                        <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" /></div>
+                        <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" onClick={searchToggle}/></div>
                         <div className="small" onClick={handleMobile}><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu"  /></div>
                         <div className="small" onClick={handleModal}><img src="../images/icons8-shopping-bag-30.png" alt="icons8-shopping-bag-30" />
                         <div className="badge"><p className="count">{items.length}</p></div>

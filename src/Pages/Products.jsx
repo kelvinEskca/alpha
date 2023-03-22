@@ -8,6 +8,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
+import baseUrl from "../config/config.js";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -25,7 +26,7 @@ const Dashboard = () => {
 
     const getproducts = async ()=>{
         try{
-            const res = await axios.get('http://localhost:5000/alphaapi/product')
+            const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product`)
             setProducts(res.data);
             setLoading(false);
         }
@@ -72,7 +73,7 @@ const Dashboard = () => {
         data.append("colorName", formData.colorName);
         data.append("inStock", formData.inStock);
         try {
-            const res = await axios.post("http://localhost:5000/alphaapi/product", data,{headers:{token:token}});
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/product`, data,{headers:{token:token}});
             if(res.status === 200){
                 const newProduct = res.data.product;
                 setProducts([...products, newProduct]);
@@ -98,7 +99,7 @@ const Dashboard = () => {
         setDeletingId(id); 
         setIsSubmitting(true);
         try{
-            const res = await axios.post(`http://localhost:5000/alphaapi/product/delete/${id}`,{
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/product/delete/${id}`,{
                 id:id
             },{ headers:{token:token} });
             if(res.status === 200){

@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
+import baseUrl from "../config/config.js";
 const HeroModal = ({heroModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -38,7 +39,7 @@ const HeroModal = ({heroModal,openModal}) => {
         }
         
         try {
-            const res = await axios.post("http://localhost:5000/alphaapi/hero", data,{headers:{token:token}});
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/hero`, data,{headers:{token:token}});
             if(res.status === 200){
                 alert(res.statusText);
                 setIsSubmitting(false);

@@ -6,7 +6,9 @@ import axios from "axios";
 import Loader from "./Loader";
 import SlideShow from "../Components/SlideShow";
 import AlertModal from "./AlertModal";
+import baseUrl from "../config/config.js";
 const ImageCard = ({toggleState}) => {
+    axios.defaults.withCredentials = true;
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     const [selectedSizes, setSelectedSizes] = useState({});
@@ -18,7 +20,7 @@ const ImageCard = ({toggleState}) => {
             const gender = 'Female';
             const getproducts = async ()=>{
                 try{
-                    const res = await axios.get(`http://localhost:5000/alphaapi/product/female/${gender}`);
+                    const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/female/${gender}`);
                     setProducts(res.data);
                     if(res){
                         setLoading(false);
@@ -38,7 +40,7 @@ const ImageCard = ({toggleState}) => {
             const gender = 'Male';
             const getproducts = async ()=>{
                 try{
-                    const res = await axios.get(`http://localhost:5000/alphaapi/product/male/${gender}`)
+                    const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/male/${gender}`)
                     setProducts(res.data);
                     if(res){
                         setLoading(false);
@@ -56,7 +58,7 @@ const ImageCard = ({toggleState}) => {
         else{
             const getproducts = async ()=>{
                 try{
-                    const res = await axios.get(`http://localhost:5000/alphaapi/product`)
+                    const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product`)
                     setProducts(res.data);
                     if(res){
                         setLoading(false);

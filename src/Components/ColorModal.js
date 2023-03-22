@@ -3,6 +3,7 @@ import { useNavigate,useParams } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
 import AlertModal from "./AlertModal";
+import baseUrl from "../config/config.js";
 const ColorModal = ({colorModal,openModal}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -35,7 +36,7 @@ const ColorModal = ({colorModal,openModal}) => {
             data.append("image", formData.images[i]);
         }
         try {
-            const res = await axios.post(`http://localhost:5000/alphaapi/color`, data,{headers:{token:token}});
+            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/color`, data,{headers:{token:token}});
             if(res.status === 200){
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Deleted Successfully!");

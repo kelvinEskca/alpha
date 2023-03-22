@@ -8,6 +8,7 @@ import MobileNav from "../Components/MobileNav";
 import axios from 'axios';
 import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
+import baseUrl from "../config/config.js";
 const AdminRegister = () => {
     axios.defaults.withCredentials = true;
     const [firstname,setFirstname] = useState('');
@@ -29,7 +30,7 @@ const AdminRegister = () => {
         }
         else{
             try{
-                const userSubmit = await axios.post('http://localhost:5000/alphaapi/auth/adminRegister',{
+                const userSubmit = await axios.post(`${baseUrl.baseUrl}/alphaapi/auth/adminRegister`,{
                     email:email,
                     fname:firstname,
                     lname:firstname,

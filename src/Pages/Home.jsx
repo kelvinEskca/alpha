@@ -10,11 +10,14 @@ import { useState } from "react";
 import Modal from "../Components/Modal";
 import { useEffect } from "react";
 import Loader from "../Components/Loader";
+import Search from "../Components/Search";
+import baseUrl from "../config/config.js";
 import axios from "axios";
 const Home = () => {
     const [toggleState, setToggleState] = useState(1);
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
+    const [search,setSearch] = useState(false);
     const [loading,setLoading] = useState(true);
     const [cards,setCards] = useState([]);
     const [hero,setHero] = useState([]);
@@ -31,10 +34,14 @@ const Home = () => {
         setMobile(!mobile);
     };
 
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
+
     useEffect(()=>{
         const getCards = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/card')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/card`)
                 setCards(res.data);
                 setLoading(false);
             }
@@ -46,7 +53,7 @@ const Home = () => {
 
         const getHero = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/hero')
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/hero`)
                 setHero(res.data);
                 setLoading(false);
             }
@@ -60,7 +67,7 @@ const Home = () => {
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
 
                 {hero.map((item,i)=>{
@@ -175,8 +182,8 @@ const Home = () => {
                 </section> */}
 
                 <Modal modal={modal} handleModal={handleModal} />
-
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
         </>

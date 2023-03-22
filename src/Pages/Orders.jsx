@@ -7,6 +7,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
+import baseUrl from "../config/config.js";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const [orders,setOrders] = useState(null);
@@ -16,7 +17,7 @@ const Dashboard = () => {
     useEffect(()=>{
         const getOrders = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/order/',{headers:{token:auth}});
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/order/`,{headers:{token:auth}});
                 setOrders(res.data);
                 setLoading(false);
             }

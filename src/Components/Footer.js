@@ -2,14 +2,14 @@ import React,{useState} from "react";
 import Button from "./Button";
 import FooterBox from "./FooterBox";
 import axios from "axios";
-
+import baseUrl from "../config/config.js";
 const Footer = () => {
     const [email,setEmail] = useState();
     const handleSubmit = async (e)=>{
         e.preventDefault();
         if(email !== ''){
             try{
-                const news = await axios.post('http://localhost:5000/alphaapi/newsletter',{
+                const news = await axios.post(`${baseUrl.baseUrl}/alphaapi/newsletter`,{
                     email:email
                 });
                 if(news.status === 200){

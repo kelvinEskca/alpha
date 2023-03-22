@@ -6,6 +6,7 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import { useEffect } from "react";
+import baseUrl from "../config/config.js";
 import Loader from "../Components/Loader";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
@@ -30,7 +31,7 @@ const Dashboard = () => {
     useEffect(()=>{
         const getusers = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/users/stats',{headers:{token:auth}});
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/users/stats`,{headers:{token:auth}});
                 setUsers(res.data.users);
                 setLoading(false);
             }
@@ -42,7 +43,7 @@ const Dashboard = () => {
 
         const getcustomers = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/users/',{headers:{token:auth}});
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/users`,{headers:{token:auth}});
                 console.log(res.data)
                 setCustomers(res.data);
                 setLoading(false);
@@ -55,7 +56,7 @@ const Dashboard = () => {
 
         const getproducts = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/users/stats',{headers:{token:auth}});
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/users/stats`,{headers:{token:auth}});
                 setProducts(res.data.products);
                 setLoading(false);
             }
@@ -67,7 +68,7 @@ const Dashboard = () => {
 
         const getorders = async ()=>{
             try{
-                const res = await axios.get('http://localhost:5000/alphaapi/users/stats',{headers:{token:auth}});
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/users/stats`,{headers:{token:auth}});
                 setOrders(res.data.orders);
                 setLoading(false);
             }
