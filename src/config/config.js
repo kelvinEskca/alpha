@@ -1,6 +1,5 @@
 const baseUrl = {
-    baseUrl: "http://localhost:5000",
-  };
-  
-  export default baseUrl;
-  
+  baseUrl: "https://velonteapi.onrender.com",
+};
+
+export default baseUrl;
