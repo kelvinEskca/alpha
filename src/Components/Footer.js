@@ -5,7 +5,11 @@ import axios from "axios";
 import baseUrl from "../config/config.js";
 const Footer = () => {
     const [email,setEmail] = useState();
+    const [response, setResponse] = useState(false);
+    const [fetching, setFetching] = useState(false);
+    const [data,setData] = useState([]);
     const handleSubmit = async (e)=>{
+        setFetching(true);
         e.preventDefault();
         if(email !== ''){
             try{
@@ -13,10 +17,22 @@ const Footer = () => {
                     email:email
                 });
                 if(news.status === 200){
-                    alert("Success")
+                    setResponse(true);
+                    setFetching(false);
+                    setData(news.statusText);
+                    const switchResponse = () =>{
+                        setResponse(false);
+                    }
+                    setInterval(switchResponse,3000);
                 }
                 else{
-                    alert(news.statusText);
+                    setResponse(true);
+                    setFetching(false);
+                    setData(news.statusText);
+                    const switchResponse = () =>{
+                        setResponse(false);
+                    }
+                    setInterval(switchResponse,3000);
                 }
 
             }
@@ -35,7 +51,8 @@ const Footer = () => {
                     <h3 className="heading">SIGN UP FOR VELONTE NEWSLETTER</h3>
                     <form action="#" className="form" onSubmit={handleSubmit}>
                         <label htmlFor="#"><input type='email' placeholder='Your Email Address' onChange={(e)=>{setEmail(e.target.value)}}/></label>
-                        <label htmlFor="#"><Button btnText={'Sign Up'}/></label>
+                        {fetching ? (<label htmlFor="#"><Button btnText={'Loading.....'}/></label>) : (<label htmlFor="#"><Button btnText={'Sign Up'}/></label>)}
+                        
                     </form>
 
                     <div className="social-wrapper">
@@ -79,6 +96,16 @@ const Footer = () => {
                     <p className="paragraph">CCPA</p>
                 </span>
             </div>
+
+            {response ? (
+                <div className="wrapper">
+                    <div className="boxes">
+                        <div className="box">
+                            <p class="paragraph">{data}</p>
+                        </div>
+                    </div>
+                </div>
+            ) : ("")}
         </footer>
     );
 }
