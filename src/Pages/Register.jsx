@@ -33,7 +33,7 @@ const Register = () => {
                 const userSubmit = await axios.post(`${baseUrl.baseUrl}/alphaapi/auth/register`,{
                     email:email,
                     fname:firstname,
-                    lname:firstname,
+                    lname:lastname,
                     password:password,
                 });
                 setLoading(true);

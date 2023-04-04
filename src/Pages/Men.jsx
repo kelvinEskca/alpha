@@ -19,9 +19,27 @@ const Men = () => {
     const [selectedSizes, setSelectedSizes] = useState({});
     const [hero,setHero] = useState([]);
 
-    const [setSize] = useState('');
-    const [setGender] = useState('');
-    const [setProType] = useState('');
+    //filter area for products
+    const [filteredChoices,setFilteredChoices] = useState([]);
+    useEffect(() => {
+        console.log(filteredChoices);
+    }, [filteredChoices]);
+    const filterData = (size) => {
+        const filteredProducts = products.filter(product => 
+            product.sizes.some(s => s === size)
+        );
+
+        setFilteredChoices(filteredProducts);
+    };
+
+    const filterByProduct = (productType) => {
+        const filterCategory = products.filter(product => product.subcategory === productType);
+        setFilteredChoices(filterCategory);
+    }
+
+    const [size,setSize] = useState('');
+    const [gender,setGender] = useState('');
+    const [protype,setProType] = useState('');
     const [openItem, setOpenItem] = useState("");
 
     const {addToCart} = useContext(CartContext);
@@ -83,12 +101,11 @@ const Men = () => {
         addToCart({ ...item, size });
     };
     
-    products.map((item)=>{
-        return (
-            console.log(item.subcategory)
-        )
-    })
-
+    // products.map((item)=>{
+    //     return (
+    //         console.log(item.subcategory)
+    //     )
+    // })
     if(loading) return <Loader />;
     return (
         <>
@@ -110,109 +127,217 @@ const Men = () => {
                 })}
                 {hero.some(item => item.active === true) ? null : <div></div>}
 
-                <section className="section new">
-                    <div className="wrapper">
-                        <div className="boxes">
-                        {products.length > 0 ? (
-                            products.map((item,i)=>{
-                                if(item.inStock === true){
+                {filteredChoices.length > 0 ? (
+                    <section className="section new">
+                        <div className="wrapper">
+                            <div className="boxes">
+                            
+                                {filteredChoices.map((item,i)=>{
+                                    if(item.inStock === true){
 
-                                    const {image} = item;   
-                                    let url = [];                 
-                                    image.map((img)=>{
-                                        return url.push(img.url);
-                                    })
-                                    return (
-                                        <div className="box" key={i}>
-                                            <div className="tag"><small></small></div>
-                                            <div className="image-box">
-                                                <Link to={`/details/${item._id}`}>
-                                                    <SlideShow url={url} />
-                                                </Link>
-                        
-                                                <div className="quick-add">
-                                                    <div className="quick-add-top">
-                                                        <h3 className="heading">Quick Add +</h3>
+                                        const {image} = item;   
+                                        let url = [];                 
+                                        image.map((img)=>{
+                                            return url.push(img.url);
+                                        })
+                                        return (
+                                            <div className="box" key={i}>
+                                                <div className="tag"><small></small></div>
+                                                <div className="image-box">
+                                                    <Link to={`/details/${item._id}`}>
+                                                        <SlideShow url={url} />
+                                                    </Link>
+                            
+                                                    <div className="quick-add">
+                                                        <div className="quick-add-top">
+                                                            <h3 className="heading">Quick Add +</h3>
+                                                        </div>
+                            
+                                                        <div className="quick-add-bottom">
+                                                            {item.sizes.map((size,i)=>{
+                                                                return (<div className="size" key={i}><small className={`${
+                                                                    size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                                }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                            })}
+                                                        </div>
                                                     </div>
-                        
-                                                    <div className="quick-add-bottom">
-                                                        {item.sizes.map((size,i)=>{
-                                                            return (<div className="size" key={i}><small className={`${
-                                                                size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                            }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
-                                                        })}
+                                                </div>
+                                                <div className="text">
+                                                    <h3 className="heading">{item.name}</h3>
+                                                    <p className="paragraph">{item.color}</p>
+                                                    <p className="paragraph">${item.price}</p>
+                                                </div>
+                            
+                                                <div className="size-box">
+                                                    {item.sizes.map((size,i)=>{
+                                                        return (<div className="size" key={i}><small className={`${
+                                                            size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                        }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    return null
+                                })} 
+                            
+                                {products.length > 0 ? (
+                                    products.map((item,i)=>{
+                                        return (
+                                            <div className="desktop-details inner-deskt-details">
+                                                <div className="desktop-details-top">
+                                                    <div className="grid-bottom inner-page-bottom">
+                                                        <span className={openItem === gender ? ("high") : ("")}>
+                                                            <div className="top">
+                                                                <Link to='/men'><p className="paragraph">Male</p></Link>
+                                                                <Link to='women'><p className="paragraph">Female</p></Link>
+                                                            </div>
+
+                                                            <div className="bottom" onClick={()=>openModal("gender")}>
+                                                                <h3 className="heading">Product Gender</h3>
+                                                            </div>
+                                                        </span>
+
+                                                        <span className={openItem === size ? ("high") : ("")}>
+                                                            <div className="top">
+                                                            {[...new Set(products.flatMap(item => item.sizes.flat()))].map((size) => {
+                                                            return <p className="paragraph" onClick={()=>filterData(size)}>{size}</p>;
+                                                            })}  
+                                                                
+                                                            </div>
+
+                                                            <div className="bottom"onClick={()=>openModal("size")}>
+                                                                <h3 className="heading">Product Size</h3>
+                                                            </div>
+                                                        </span>
+
+                                                        <span className={openItem === protype ? ("high") : ("")}>
+                                                            <div className="top">
+                                                                <p className="paragraph">{item.subcategory}</p>
+                                                            </div>
+
+                                                            <div className="bottom" onClick={()=>openModal("product")}>
+                                                                <h3 className="heading">Product Type</h3>
+                                                            </div>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="text">
-                                                <h3 className="heading">{item.name}</h3>
-                                                <p className="paragraph">{item.color}</p>
-                                                <p className="paragraph">${item.price}</p>
-                                            </div>
-                        
-                                            <div className="size-box">
-                                                {item.sizes.map((size,i)=>{
-                                                    return (<div className="size" key={i}><small className={`${
-                                                        size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                    }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
-                                                })}
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                                return null
-                            })
-                        ):(<h3>No Products</h3>)}
+                                        )
+                                    })
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                        </div>
+                    </section>
+                ) : (
+                    <section className="section new">
+                        <div className="wrapper">
+                            <div className="boxes">
                             {products.length > 0 ? (
                                 products.map((item,i)=>{
-                                    return (
-                                        <div className="desktop-details inner-deskt-details">
-                                            <div className="desktop-details-top">
-                                                <div className="grid-bottom inner-page-bottom">
-                                                    <span className={openItem === "gender" ? ("high") : ("")}>
-                                                        <div className="top">
-                                                            <Link to='/men'><p className="paragraph">Male</p></Link>
-                                                            <Link to='women'><p className="paragraph">Female</p></Link>
-                                                        </div>
+                                    if(item.inStock === true){
 
-                                                        <div className="bottom" onClick={()=>openModal("gender")}>
-                                                            <h3 className="heading">Product Gender</h3>
+                                        const {image} = item;   
+                                        let url = [];                 
+                                        image.map((img)=>{
+                                            return url.push(img.url);
+                                        })
+                                        return (
+                                            <div className="box" key={i}>
+                                                <div className="tag"><small></small></div>
+                                                <div className="image-box">
+                                                    <Link to={`/details/${item._id}`}>
+                                                        <SlideShow url={url} />
+                                                    </Link>
+                            
+                                                    <div className="quick-add">
+                                                        <div className="quick-add-top">
+                                                            <h3 className="heading">Quick Add +</h3>
                                                         </div>
-                                                    </span>
-
-                                                    <span className={openItem === "size" ? ("high") : ("")}>
-                                                        <div className="top">
-                                                        {item.sizes.map((size)=>{
-                                                            return <p className="paragraph">{size}</p>
-                                                        })}  
-                                                            
+                            
+                                                        <div className="quick-add-bottom">
+                                                            {item.sizes.map((size,i)=>{
+                                                                return (<div className="size" key={i}><small className={`${
+                                                                    size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                                }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                            })}
                                                         </div>
-
-                                                        <div className="bottom"onClick={()=>openModal("size")}>
-                                                            <h3 className="heading">Product Size</h3>
-                                                        </div>
-                                                    </span>
-
-                                                    <span className={openItem === "product" ? ("high") : ("")}>
-                                                        <div className="top">
-                                                            <p className="paragraph">{item.subcategory}</p>
-                                                        </div>
-
-                                                        <div className="bottom" onClick={()=>openModal("product")}>
-                                                            <h3 className="heading">Product Type</h3>
-                                                        </div>
-                                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div className="text">
+                                                    <h3 className="heading">{item.name}</h3>
+                                                    <p className="paragraph">{item.color}</p>
+                                                    <p className="paragraph">${item.price}</p>
+                                                </div>
+                            
+                                                <div className="size-box">
+                                                    {item.sizes.map((size,i)=>{
+                                                        return (<div className="size" key={i}><small className={`${
+                                                            size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                        }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                    })}
                                                 </div>
                                             </div>
-                                        </div>
-                                    )
+                                        )
+                                    }
+                                    return null
                                 })
-                            ) : (
-                                ""
-                            )}
+                            ):(<h3>No Products</h3>)}
+                                {products.length > 0 ? (
+                                    products.map((item,i)=>{
+                                        return (
+                                            <div className="desktop-details inner-deskt-details">
+                                                <div className="desktop-details-top">
+                                                    <div className="grid-bottom inner-page-bottom">
+                                                        <span className={openItem === gender ? ("high") : ("")}>
+                                                            <div className="top">
+                                                                <Link to='/men'><p className="paragraph">Male</p></Link>
+                                                                <Link to='women'><p className="paragraph">Female</p></Link>
+                                                            </div>
+
+                                                            <div className="bottom" onClick={()=>openModal("gender")}>
+                                                                <h3 className="heading">Product Gender</h3>
+                                                            </div>
+                                                        </span>
+
+                                                        <span className={openItem === size ? ("high") : ("")}>
+                                                            <div className="top">
+                                                            {[...new Set(products.flatMap(item => item.sizes.flat()))].map((size) => {
+                                                            return <p className="paragraph" onClick={()=>filterData(size)}>{size}</p>;
+                                                            })}  
+                                                                
+                                                            </div>
+
+                                                            <div className="bottom"onClick={()=>openModal("size")}>
+                                                                <h3 className="heading">Product Size</h3>
+                                                            </div>
+                                                        </span>
+
+                                                        <span className={openItem === protype ? ("high") : ("")}>
+                                                            <div className="top">
+                                                                <p className="paragraph" onClick={()=>filterByProduct(item.subcategory)}>{item.subcategory}</p>
+                                                            </div>
+
+                                                            <div className="bottom" onClick={()=>openModal("product")}>
+                                                                <h3 className="heading">Product Type</h3>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                ) : (
+                                    ""
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                )}
+
+                
 
                 <Modal modal={modal} handleModal={handleModal} />
 
