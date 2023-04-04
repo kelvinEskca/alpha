@@ -14,7 +14,8 @@ const Modal = ({modal,handleModal}) => {
         try{
             const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
                 items:items,
-                userId:user._id
+                userId:user._id,
+                email:user.email
             })
             if(response.data.url){
                 window.location.href = response.data.url;
