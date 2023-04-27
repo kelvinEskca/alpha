@@ -8,6 +8,7 @@ import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
+import AlertModal from "../Components/AlertModal";
 const Login = () => {
     axios.defaults.withCredentials = true;
     const [email,setEmail] = useState('');
@@ -16,6 +17,9 @@ const Login = () => {
     const [mobile,setMobile] = useState(false)
     const [loading,setLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [stats,setStats] = useState('');
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -40,20 +44,38 @@ const Login = () => {
                 if(loginUser.data.isAdmin === false){
                     setLoading(false);
                     setIsSubmitting(false);
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Login Successful");
                     navigate('/account');
+
                 }
                 else{
                     setLoading(false);
+                    setIsSubmitting(false);
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Login Successful");
                     navigate('/dashboard');
                 }
             }
             else{
-                alert(loginUser.statusText);
-                console.log(loginUser.message);
+                setLoading(false);
+                setIsSubmitting(false);
+                setIsSuccessModalOpen(true);
+                setAlertText(loginUser.statusText);
+               
             }
         }
         catch(err){
-            console.log(err);
+            setLoading(false);
+            setIsSubmitting(false);
+            if (err.response && err.response.status === 401) {
+                setStats(err.response.data);
+                setIsSuccessModalOpen(true);
+                setAlertText(err.response.data);
+                setTimeout(()=>{
+                    setStats('');
+                },3000)
+            }
         }
     }
     if(loading) return <Loader />;
@@ -68,13 +90,13 @@ const Login = () => {
                                 <h3 className="heading">Log Into My Account</h3>
                                 <form action="#" className="form" onSubmit={handleSubmit}>
                                     <label htmlFor="#">Email Address
-                                        <input type="email" name="email" id="email" onChange={(e)=>{
+                                        <input type="email" name="email" id="email" required onChange={(e)=>{
                                             setEmail(e.target.value);
                                         }}/>
                                     </label>
 
                                     <label htmlFor="#">Password
-                                        <input type="password" name="password" id="password" onChange={(e)=>{
+                                        <input type="password" name="password" id="password" required onChange={(e)=>{
                                             setPassword(e.target.value);
                                         }}/>
                                     </label>
@@ -84,7 +106,8 @@ const Login = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                        <Button btnText={isSubmitting ? 'Processing..' : 'Log In'}  />
+                                        {stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Log In'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}
+                                        
                                     </label>
 
                                     <label htmlFor="#" className="center-label">
@@ -99,6 +122,7 @@ const Login = () => {
                 <Modal modal={modal} handleModal={handleModal} />
 
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
 
             <Footer />

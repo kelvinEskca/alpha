@@ -9,6 +9,7 @@ import axios from 'axios'
 import { useEffect } from "react";
 import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
+import Search from "../Components/Search";
 const Account = () => {
     axios.defaults.withCredentials = true;
     const [modal,setModal] = useState(false);
@@ -18,6 +19,7 @@ const Account = () => {
     const [orders,setOrders] = useState([]);
     const token = localStorage.getItem('token');
     const [loading,setLoading] = useState(false);
+    const [search,setSearch] = useState(false);
     const navigate = useNavigate();
     const logout = () => {
         if(user){
@@ -35,6 +37,10 @@ const Account = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
+
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
 
     useEffect(()=>{
         const id = user._id;
@@ -56,7 +62,7 @@ const Account = () => {
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section welcome">
                     <div className="wrapper">
@@ -158,6 +164,7 @@ const Account = () => {
                 <Modal modal={modal} handleModal={handleModal} />
 
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
         </>

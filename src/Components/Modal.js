@@ -5,7 +5,7 @@ import Button from "./Button";
 import CartContext from "../CartContext";
 import baseUrl from "../config/config.js";
 const Modal = ({modal,handleModal}) => {
-    const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount} = useContext(CartContext);
+    const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount,getShipping} = useContext(CartContext);
     const user = JSON.parse(localStorage.getItem('user'));
     axios.defaults.withCredentials = true;
     const individualTotalPrice = getItemAmount();
@@ -16,6 +16,7 @@ const Modal = ({modal,handleModal}) => {
                 items:items,
                 userId:user._id,
                 email:user.email
+
             })
             if(response.data.url){
                 window.location.href = response.data.url;
@@ -25,11 +26,11 @@ const Modal = ({modal,handleModal}) => {
             console.log(error);
         }
     }
-
     return (
         <section className={`section  ${modal ? ('modal') : ('off')}`}>
             <div className="wrapper">
                 <div className="boxes">
+                    <>
                     {items.length === 0 ? (
                         <div className="box">
                             <h3 className="heading">Give Your Bag Some Love</h3>
@@ -40,6 +41,7 @@ const Modal = ({modal,handleModal}) => {
                             </div>
                         </div>
                     ) : (
+                        
                         <div className="border-container">
                             {items.map((item,i)=>{
                                 return (
@@ -59,8 +61,6 @@ const Modal = ({modal,handleModal}) => {
                                             ) : (
                                             <img src={`${item.image[0].url}`} alt={item.image[0]} />
                                             )}
-
-                                                
                                             </div>
                                         </div>
 
@@ -84,42 +84,42 @@ const Modal = ({modal,handleModal}) => {
                                     </div>
                                 )
                             })}
-                            <div className="total-banner">
-                                <span>
-                                    <h3 className="heading">Total: ${getTotalAmount()}</h3>
-                                    {items.length > 1 ? (<h3 className="heading"> | {items.length} items</h3>) : (<h3 className="heading"> | {items.length} item</h3>)}
-                                    
-                                </span>
-                            </div>
-                            {user === null ? (
-                                <Link to='/login' className="widelogin"><button className="loginbtn">Login to checkout</button></Link>
-                            ) : (
-                                <button onClick={makePayment}>Checkout</button>
-                            )}
                             
-                            <button onClick={handleModal}>Cancel</button>
                         </div>
                         
                     )}
-                    
-                    {/* <div className="box">
-                        <h3 className="heading">Recommended Products</h3>
-                        <div className="modal-box">
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
-                            <ImageCard/>
+                    <div className="info-container">
+                        <div className="rowMajor">
+                            <div className="rowOne">
+                                <div className="total-banner">
+                                    <span>
+                                        <h3 className="heading">Total: ${getShipping()}</h3>
+                                        {items.length > 1 ? (<h3 className="heading"> | {items.length} items</h3>) : (<h3 className="heading"> | {items.length} item</h3>)}
+                                    </span>
+                                </div>
+                                <div className="total-banner">
+                                    <span>
+                                        <h3 className="small-heading">SubTotal: ${getTotalAmount()}</h3>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <span className="note-span">
+                                <small>N/B: Free shipping for the first one month</small>
+                                <small>$25 for items greater than 10</small>
+                                <small>$15 for items less than 10</small>
+                            </span>
                         </div>
-                    </div> */}
+                        {user === null ? (
+                            <Link to='/login' className="widelogin"><button className="loginbtn">Login to checkout</button></Link>
+                        ) : (
+                            <button onClick={makePayment}>Checkout</button>
+                        )}
+                        
+                        <button onClick={handleModal}>Cancel</button>
+                    </div>
+                    </>
+                    
                 </div>
             </div>
         </section>

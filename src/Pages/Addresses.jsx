@@ -6,6 +6,8 @@ import Header from "../Components/Header";
 import AddressModal from "../Components/AddressModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
+import Search from "../Components/Search";
+import AlertModal from "../Components/AlertModal";
 const Account = () => {
     const [addressModal,setAddressModal] = useState(false);
     const openModal = () =>{
@@ -15,6 +17,9 @@ const Account = () => {
     const useraddress = JSON.parse(localStorage.getItem('address'));
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
+    const [search,setSearch] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -22,9 +27,13 @@ const Account = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
+
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section welcome">
                     <div className="wrapper">
@@ -56,11 +65,13 @@ const Account = () => {
                     </div>
                 </section>
 
-                <AddressModal openModal={openModal} addressModal={addressModal} />
+                <AddressModal openModal={openModal} addressModal={addressModal} setAlertText={setAlertText} />
 
                 <Modal modal={modal} handleModal={handleModal} />
 
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <Search search={search} searchToggle={searchToggle} />
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
             <Footer />
         </>

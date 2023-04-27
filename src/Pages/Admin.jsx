@@ -16,6 +16,7 @@ const Admin = () => {
     const [mobile,setMobile] = useState(false)
     const [loading,setLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [stats,setStats] = useState('');
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -53,7 +54,14 @@ const Admin = () => {
             }
         }
         catch(err){
-            console.log(err);
+            setLoading(false);
+            setIsSubmitting(false);
+            if (err.response && err.response.status === 401) {
+                setStats(err.response.data);
+                setTimeout(()=>{
+                    setStats('');
+                },3000)
+            }
         }
     }
     if(loading) return <Loader />;
@@ -84,7 +92,7 @@ const Admin = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                        <Button btnText={isSubmitting ? 'Processing..' : 'Log In'}  />
+                                    {stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Log In'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}
                                     </label>
 
                                     <label htmlFor="#" className="center-label">

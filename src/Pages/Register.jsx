@@ -19,14 +19,21 @@ const Register = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
+    const [stats,setStats] = useState('');
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setIsSubmitting(true);
         if(email === ''  || firstname === '' || lastname === ''  || password === ''){
-            alert('Please ensure all fields are filled');
+            setIsSuccessModalOpen(true);
+            setAlertText("Please ensure all fields are filled");
+            setLoading(false);
+            setIsSubmitting(false);
         }
         else if(password.length <= 4){
-            alert('Please make sure passwords is greater than 4 characters');
+            setIsSuccessModalOpen(true);
+            setAlertText("Please ensure password is greater than four");
+            setLoading(false);
+            setIsSubmitting(false);
         }
         else{
             try{
@@ -48,10 +55,18 @@ const Register = () => {
                     setIsSuccessModalOpen(true);
                     setAlertText("User Registration Failed!");
                     setLoading(false);
+                    setIsSubmitting(false);
                 }
             }
             catch(err){
-                console.log(err);
+                setLoading(false);
+                setIsSubmitting(false);
+                if (err.response && err.response.status === 401) {
+                    setStats(err.response.data);
+                    setTimeout(()=>{
+                        setStats('');
+                    },3000)
+                }
             }
         }
     }
@@ -101,7 +116,7 @@ const Register = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                        <Button btnText={isSubmitting ? 'Processing..' : 'Create My Account'}  />
+                                    {stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Create My Account'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}
                                     </label>
 
                                     <label htmlFor="#" className="center-label">

@@ -85,12 +85,31 @@ export function CartProvider({children}){
     return items.reduce((acc, item) => acc + item.price * item.qty, 0)
   }
 
+  const getShipping = () => {
+    const totalQty = items.reduce((acc, item) => acc + item.qty, 0);
+    const subtotal = items.reduce(
+      (acc, item) => acc + item.price * item.qty,
+      0
+    );
+
+    let shippingFee = 0;
+    if (totalQty > 10) {
+      shippingFee = 25;
+    } else {
+      shippingFee = 15;
+    }
+
+    const totalAmount = subtotal + shippingFee;
+
+    return totalAmount;
+  };
+
   const getItemAmount = () => {
     return items.map(item => item.price * item.qty);
   }
 
   return(
-    <CartContext.Provider value={{items,addToCart,removeFromCart,increaseQuantity,reduceQuantity,getTotalAmount,getItemAmount}}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{items,addToCart,removeFromCart,increaseQuantity,reduceQuantity,getTotalAmount,getItemAmount,getShipping}}>{children}</CartContext.Provider>
   )
 }
 

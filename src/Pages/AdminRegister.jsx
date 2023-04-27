@@ -19,6 +19,7 @@ const AdminRegister = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
+    const [stats,setStats] = useState('');
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setIsSubmitting(true)
@@ -52,7 +53,14 @@ const AdminRegister = () => {
                 }
             }
             catch(err){
-                console.log(err);
+                setLoading(false);
+                setIsSubmitting(false);
+                if (err.response && err.response.status === 401) {
+                    setStats(err.response.data);
+                    setTimeout(()=>{
+                        setStats('');
+                    },3000)
+                }
             }
         }
     }
@@ -102,7 +110,7 @@ const AdminRegister = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                        <Button btnText={isSubmitting ? 'Processing..' : 'Register'}  />
+                                    {stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Create Admin Account'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}
                                     </label>
 
                                     <label htmlFor="#" className="center-label">

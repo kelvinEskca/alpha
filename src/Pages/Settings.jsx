@@ -85,7 +85,7 @@ const Settings = () => {
                 setIsSubmitting(false);
                 setTimeout(() => {
                     setIsSuccessModalOpen(false);
-                  }, 5000);
+                }, 5000);
             }
         }
         catch(err){
