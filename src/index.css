@@ -961,12 +961,11 @@ footer .newsletter .heading{
 }
 
 footer .newsletter button{
-  width: max-content;
+  width: 100%;
   font-weight: 700;
   height: 2.5rem;
   font-family: 'GT';
   font-size: .9rem;
-  padding: 1rem;
 }
 
 footer .newsletter form{
@@ -3176,6 +3175,15 @@ img{
   .desktop-details .grid-bottom{
     width: 90%;
     margin-left: -45%;
+  }
+
+  footer .newsletter button{
+    width: max-content;
+    font-weight: 700;
+    height: 2.5rem;
+    font-family: 'GT';
+    font-size: .9rem;
+    padding: 1rem;
   }
 }
 

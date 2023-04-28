@@ -21,18 +21,22 @@ const Footer = () => {
                 if(news.status === 200){
                     setResponse(true);
                     setFetching(false);
-                    setData(news.data.message);
+                    setData(news.data);
+                    setIsSuccessModalOpen(true);
                     const switchResponse = () =>{
                         setResponse(false);
+                        setIsSuccessModalOpen(false);
                     }
                     setInterval(switchResponse,3000);
                 }
                 else{
                     setResponse(true);
                     setFetching(false);
-                    setData(news.data.message);
+                    setData(news.data);
+                    setIsSuccessModalOpen(true);
                     const switchResponse = () =>{
                         setResponse(false);
+                        setIsSuccessModalOpen(false);
                     }
                     setInterval(switchResponse,3000);
                 }
