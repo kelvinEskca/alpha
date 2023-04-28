@@ -89,7 +89,7 @@ const Modal = ({modal,handleModal}) => {
                         
                     )}
                     {items.length === 0 ? (
-                        <button onClick={handleModal}>Cancel</button>
+                        ""
                     ):(
                         <div className="info-container">
                             <div className="rowMajor">
