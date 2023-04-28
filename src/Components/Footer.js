@@ -3,11 +3,13 @@ import Button from "./Button";
 import FooterBox from "./FooterBox";
 import axios from "axios";
 import baseUrl from "../config/config.js";
+import AlertModal from "./AlertModal";
 const Footer = () => {
     const [email,setEmail] = useState();
     const [response, setResponse] = useState(false);
     const [fetching, setFetching] = useState(false);
     const [data,setData] = useState([]);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const handleSubmit = async (e)=>{
         setFetching(true);
         e.preventDefault();
@@ -19,7 +21,7 @@ const Footer = () => {
                 if(news.status === 200){
                     setResponse(true);
                     setFetching(false);
-                    setData(news.statusText);
+                    setData(news.data.message);
                     const switchResponse = () =>{
                         setResponse(false);
                     }
@@ -28,7 +30,7 @@ const Footer = () => {
                 else{
                     setResponse(true);
                     setFetching(false);
-                    setData(news.statusText);
+                    setData(news.data.message);
                     const switchResponse = () =>{
                         setResponse(false);
                     }
@@ -50,7 +52,7 @@ const Footer = () => {
                 <div className="newsletter">
                     <h3 className="heading">SIGN UP FOR VELONTE NEWSLETTER</h3>
                     <form action="#" className="form" onSubmit={handleSubmit}>
-                        <label htmlFor="#"><input type='email' placeholder='Your Email Address' onChange={(e)=>{setEmail(e.target.value)}}/></label>
+                        <label htmlFor="#"><input type='email' placeholder='Your Email Address' onChange={(e)=>{setEmail(e.target.value)}} required/></label>
                         {fetching ? (<label htmlFor="#"><Button btnText={'Loading.....'}/></label>) : (<label htmlFor="#"><Button btnText={'Sign Up'}/></label>)}
                         
                     </form>
@@ -98,13 +100,7 @@ const Footer = () => {
             </div>
 
             {response ? (
-                <div className="wrapper">
-                    <div className="boxes">
-                        <div className="box">
-                            <p class="paragraph">{data}</p>
-                        </div>
-                    </div>
-                </div>
+                <AlertModal isOpen={isSuccessModalOpen} alertText={data} onClose={() => setIsSuccessModalOpen(false)} />
             ) : ("")}
         </footer>
     );
