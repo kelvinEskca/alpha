@@ -88,36 +88,41 @@ const Modal = ({modal,handleModal}) => {
                         </div>
                         
                     )}
-                    <div className="info-container">
-                        <div className="rowMajor">
-                            <div className="rowOne">
-                                <div className="total-banner">
-                                    <span>
-                                        <h3 className="heading">Total: ${getShipping()}</h3>
-                                        {items.length > 1 ? (<h3 className="heading"> | {items.length} items</h3>) : (<h3 className="heading"> | {items.length} item</h3>)}
-                                    </span>
-                                </div>
-                                <div className="total-banner">
-                                    <span>
-                                        <h3 className="small-heading">SubTotal: ${getTotalAmount()}</h3>
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            <span className="note-span">
-                                <small>N/B: Free shipping for the first one month</small>
-                                <small>$25 for items greater than 10</small>
-                                <small>$15 for items less than 10</small>
-                            </span>
-                        </div>
-                        {user === null ? (
-                            <Link to='/login' className="widelogin"><button className="loginbtn">Login to checkout</button></Link>
-                        ) : (
-                            <button onClick={makePayment}>Checkout</button>
-                        )}
-                        
+                    {items.length === 0 ? (
                         <button onClick={handleModal}>Cancel</button>
-                    </div>
+                    ):(
+                        <div className="info-container">
+                            <div className="rowMajor">
+                                <div className="rowOne">
+                                    <div className="total-banner">
+                                        <span>
+                                            <h3 className="heading">Total: ${getShipping()}</h3>
+                                            {items.length > 1 ? (<h3 className="heading"> | {items.length} items</h3>) : (<h3 className="heading"> | {items.length} item</h3>)}
+                                        </span>
+                                    </div>
+                                    <div className="total-banner">
+                                        <span>
+                                            <h3 className="small-heading">SubTotal: ${getTotalAmount()}</h3>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <span className="note-span">
+                                    <small>N/B: Free shipping for the first one month</small>
+                                    <small>$25 for items greater than 10</small>
+                                    <small>$15 for items less than 10</small>
+                                </span>
+                            </div>
+                            {user === null ? (
+                                <Link to='/login' className="widelogin"><button className="loginbtn">Login to checkout</button></Link>
+                            ) : (
+                                <button onClick={makePayment}>Checkout</button>
+                            )}
+                            
+                            <button onClick={handleModal}>Cancel</button>
+                        </div>
+                    )}
+                    
                     </>
                     
                 </div>
