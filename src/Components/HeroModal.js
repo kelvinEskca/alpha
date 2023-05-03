@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
 import baseUrl from "../config/config.js";
-const HeroModal = ({heroModal,openModal}) => {
+import AlertModal from "./AlertModal";
+const HeroModal = ({heroModal,openModal,hero,setHero}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     const navigate = useNavigate();
     
     const [formData, setFormData] = useState({
@@ -41,15 +44,32 @@ const HeroModal = ({heroModal,openModal}) => {
         try {
             const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/hero`, data,{headers:{token:token}});
             if(res.status === 200){
-                alert(res.statusText);
+                const newHero = res.data.product;
+                setHero([...hero, newHero]);
+                setIsSubmitting(false);
+                setAlertText("Hero Section Uploaded Successfully!");
+                setIsSuccessModalOpen(true);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
                 setIsSubmitting(false);
                 navigate('/settings');
             }
-        } catch (err) {
-        console.error(err);
+            else{
+                setAlertText("Hero Section Not Uploaded Successfully!");
+                setIsSuccessModalOpen(true);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+                setIsSubmitting(false);
+            }
+        } 
+        catch (err) {
+            console.error(err);
         }
     };
     return (
+        <>
         <section className={`section addressModal  ${heroModal ? ('modal') : ('off')}`} >
             <div className="wrapper">
                 <div className="boxes" >
@@ -93,6 +113,8 @@ const HeroModal = ({heroModal,openModal}) => {
                 </div>
             </div>
         </section>
+        <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+        </>
     );
 }
  

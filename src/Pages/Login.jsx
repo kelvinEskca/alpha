@@ -120,7 +120,6 @@ const Login = () => {
                 </section>
 
                 <Modal modal={modal} handleModal={handleModal} />
-
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>

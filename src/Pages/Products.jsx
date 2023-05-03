@@ -9,16 +9,19 @@ import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
+import Search from "../Components/Search";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     const [products,setProducts] = useState([]);
+    const [category,setCategory] = useState([]);
     const [loading,setLoading] = useState(true);
     const [productModal,setProductModal] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
     const [deletingId,setDeletingId] = useState('');
+    const [search,setSearch] = useState(false);
 
     const openModal = () =>{
         setProductModal(!productModal);
@@ -28,6 +31,17 @@ const Dashboard = () => {
         try{
             const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product`)
             setProducts(res.data);
+            setLoading(false);
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+    const getcategory = async ()=>{
+        try{
+            const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/category`)
+            setCategory(res.data);
             setLoading(false);
         }
         catch(err){
@@ -72,26 +86,46 @@ const Dashboard = () => {
         data.append("quantity", formData.quantity);
         data.append("colorName", formData.colorName);
         data.append("inStock", formData.inStock);
-        try {
-            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/product`, data,{headers:{token:token}});
-            if(res.status === 200){
-                const newProduct = res.data.product;
-                setProducts([...products, newProduct]);
-                console.log(products);
-                setIsSuccessModalOpen(true);
-                setAlertText("Product Added Successfully!");
-                setIsSubmitting(false);
-                setTimeout(() => {
-                    setIsSuccessModalOpen(false);
-                }, 5000);
+        if(category.length > 0){
+            try {
+                const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/product`, data,{headers:{token:token}});
+                if(res.status === 200){
+                    const newProduct = res.data.product;
+                    setProducts([...products, newProduct]);
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Product Added Successfully!");
+                    setIsSubmitting(false);
+                    setTimeout(() => {
+                        setIsSuccessModalOpen(false);
+                    }, 5000);
+                }
+                else{
+                    setAlertText("Products not Uploaded Successfully!");
+                    setIsSuccessModalOpen(true);
+                    setTimeout(() => {
+                        setIsSuccessModalOpen(false);
+                    }, 5000);
+                    setIsSubmitting(false);
+                }
+            } 
+            catch (err) {
+                console.error(err);
             }
-        } catch (err) {
-        console.error(err);
         }
+        else{
+            setAlertText("Please Upload a category first!");
+            setIsSuccessModalOpen(true);
+            setTimeout(() => {
+                setIsSuccessModalOpen(false);
+            }, 5000);
+            setIsSubmitting(false);
+        }
+        
     };
 
     useEffect(()=>{
         getproducts();
+        getcategory();
     },[]);
 
     const handleDelete = async (i) =>{
@@ -133,10 +167,14 @@ const Dashboard = () => {
         setMobile(!mobile);
     }
 
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
+
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section latest products-latest">
                     <div className="wrapper">
@@ -199,6 +237,7 @@ const Dashboard = () => {
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
         </>

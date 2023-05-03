@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
@@ -20,6 +20,7 @@ const AdminRegister = () => {
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
     const [stats,setStats] = useState('');
+    const navigate = useNavigate();
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setIsSubmitting(true)
@@ -45,6 +46,7 @@ const AdminRegister = () => {
                     setAlertText("Admin Registration Successful!");
                     setLoading(false);
                     setIsSubmitting(false);
+                    navigate('/dashboard');
                 }
                 else{
                     setLoading(false);

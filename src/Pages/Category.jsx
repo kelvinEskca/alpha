@@ -8,6 +8,7 @@ import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
+import Search from "../Components/Search";
 const Category = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -18,22 +19,25 @@ const Category = () => {
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
     const [deletingId,setDeletingId] = useState('');
+    const [search,setSearch] = useState(false);
 
     const openModal = () =>{
         setProductModal(!productModal);
     }
 
-    useEffect(()=>{
-        const getproducts = async ()=>{
-            try{
-                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/category`)
-                setProducts(res.data);
-                setLoading(false);
-            }
-            catch(err){
-                console.log(err);
-            }
+    const getproducts = async ()=>{
+        try{
+            const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/category`)
+            setProducts(res.data);
+            setLoading(false);
         }
+        catch(err){
+            console.log(err);
+        }
+    }
+    
+
+    useEffect(()=>{
         getproducts();
     },[]);
 
@@ -77,10 +81,14 @@ const Category = () => {
         setMobile(!mobile);
     }
 
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
+
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section latest products-latest category">
                     <div className="wrapper">
@@ -124,10 +132,11 @@ const Category = () => {
                     </div>
                 </section>
 
-                <CategoryModal openModal={openModal} productModal={productModal} />
+                <CategoryModal openModal={openModal} productModal={productModal} setProducts={setProducts} products={products} />
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
         </>

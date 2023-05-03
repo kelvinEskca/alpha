@@ -8,6 +8,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import baseUrl from "../config/config.js";
 import Loader from "../Components/Loader";
+import Search from "../Components/Search";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const auth = localStorage.getItem('token');
@@ -18,6 +19,7 @@ const Dashboard = () => {
     const [orders,setOrders] = useState([]);
     const [loading,setLoading] = useState(true);
     const navigate = useNavigate();
+    const [search,setSearch] = useState(false);
     const logout = () => {
         if(user){
             localStorage.removeItem("user");
@@ -87,10 +89,14 @@ const Dashboard = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
+
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section welcome">
                     <div className="wrapper">
@@ -178,6 +184,7 @@ const Dashboard = () => {
 
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
         </>

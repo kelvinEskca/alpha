@@ -10,19 +10,21 @@ import MobileNav from "../Components/MobileNav";
 import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
+import { useNavigate } from "react-router-dom";
+import Search from "../Components/Search";
 const Settings = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     const [cards,setCards] = useState([]);
     const [hero,setHero] = useState([]);
-    //const [footer,setFooter] = useState([]);
     const [loading,setLoading] = useState(true);
     const [heroModal,setHeroModal] = useState(false);
-    //const [footerModal,setFooterModal] = useState(false);
     const [cardModal,setCardModal] = useState(false);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [search,setSearch] = useState(false);
+    const navigate = useNavigate();
 
     const openModal = () =>{
         setHeroModal(!heroModal);
@@ -31,10 +33,6 @@ const Settings = () => {
     const openCard = () => {
         setCardModal(!cardModal);
     }
-
-    // const openFooterCard = () => {
-    //     setFooterModal(!footerModal);
-    // }
 
     useEffect(()=>{
         const getCards = async ()=>{
@@ -79,7 +77,6 @@ const Settings = () => {
                 setCards(cards.filter(card => card._id !== id));
             }
             else{
-                alert(res.statusText);
                 setIsSuccessModalOpen(true);
                 setAlertText("Card Not Deleted Successfully!");
                 setIsSubmitting(false);
@@ -101,7 +98,7 @@ const Settings = () => {
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
-                const newProduct = res.data.product;
+                const newProduct = res.data;
                 setCards([...cards, newProduct]);
                 setIsSuccessModalOpen(true);
                 setTimeout(() => {
@@ -162,18 +159,19 @@ const Settings = () => {
                 active:true
             },{ headers:{token:token} });
             if(res.status === 200){
-                const newProduct = res.data.product;
+                const newProduct = res.data;
                 setHero([...hero, newProduct]);
                 setIsSuccessModalOpen(true);
-                setAlertText("Card Uploaded Successfully!");
-                setIsSubmitting(true);
+                setAlertText("Card Toggled Successfully!");
+                setIsSubmitting(false);
                 setTimeout(() => {
                     setIsSuccessModalOpen(false);
                   }, 5000);
+                  navigate('/settings');
             }
             else{
                 setIsSuccessModalOpen(true);
-                setAlertText("Card Uploaded Failed!");
+                setAlertText("Card Toggle Failed!");
                 setIsSubmitting(true);
                 setTimeout(() => {
                     setIsSuccessModalOpen(false);
@@ -185,44 +183,6 @@ const Settings = () => {
         }
     }
 
-    // const handleDeleteFooter = async (i) =>{
-    //     const id = i._id;
-    //     try{
-    //         const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/footer/delete/${id}`,{
-    //             id:id
-    //         },{ headers:{token:token} });
-    //         if(res.status === 200){
-    //             alert(res.statusText);
-    //             navigate('/settings');
-    //         }
-    //         else{
-    //             alert(res.statusText);
-    //         }
-    //     }
-    //     catch(err){
-    //         console.log(err);
-    //     }
-    // }
-
-    // const handleShowFooter = async (i) =>{
-    //     const id = i._id;
-    //     try{
-    //         const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/footer/edit/${id}`,{
-    //             active:true
-    //         },{ headers:{token:token} });
-    //         if(res.status === 200){
-    //             alert(res.statusText);
-    //             navigate('/settings');
-    //         }
-    //         else{
-    //             alert(res.statusText);
-    //         }
-    //     }
-    //     catch(err){
-    //         console.log(err);
-    //     }
-    // }
-
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
     const handleModal = () =>{
@@ -232,10 +192,14 @@ const Settings = () => {
         setMobile(!mobile);
     }
 
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
+
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section latest cards-latest">
                     <div className="wrapper">
@@ -290,8 +254,8 @@ const Settings = () => {
                                                 <button onClick={()=>handleDeleteHero(item)}>{isSubmitting ? 'Deleting..' : 'Delete Card'}</button>
                                             ) : (
                                                 <>
-                                                    <button onClick={()=>handleDeleteHero(item)}>{isSubmitting ? 'Deleting..' : 'Delete Card'}</button>
-                                                    <button onClick={()=>handleShowHero(item)}>Show Card</button>
+                                                    <button type="button" onClick={()=>handleDeleteHero(item)}>{isSubmitting ? 'Deleting..' : 'Delete Card'}</button>
+                                                    <button type="button" onClick={()=>handleShowHero(item)}>Show Card</button>
                                                 </>
                                             )}
 
@@ -412,12 +376,13 @@ const Settings = () => {
                     </div>
                 </section>
 
-                <HeroModal openModal={openModal} heroModal={heroModal} />
+                <HeroModal openModal={openModal} heroModal={heroModal} hero={hero} setHero={setHero} />
                 {/* <FooterModal openFooterCard={openFooterCard} footerModal={footerModal} /> */}
-                <CardModal openCard={openCard} cardModal={cardModal} />
+                <CardModal openCard={openCard} cardModal={cardModal} cards={cards} setCards={setCards} />
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
         </>

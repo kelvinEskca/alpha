@@ -6,11 +6,13 @@ import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
+import Search from "../Components/Search";
 const Customers = () => {
     axios.defaults.withCredentials = true;
     const auth = localStorage.getItem('token');
     const [customers,setCustomers] = useState(null);
     const [loading,setLoading] = useState(true);
+    const [search,setSearch] = useState(false);
 
     useEffect(()=>{
         const getcustomers = async ()=>{
@@ -34,11 +36,13 @@ const Customers = () => {
     const handleMobile = () =>{
         setMobile(!mobile);
     }
-
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section latest customers-latest">
                     <div className="wrapper">
@@ -79,6 +83,7 @@ const Customers = () => {
 
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
         </>

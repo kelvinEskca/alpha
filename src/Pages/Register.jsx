@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
@@ -20,6 +20,7 @@ const Register = () => {
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
     const [stats,setStats] = useState('');
+    const navigate = useNavigate();
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setIsSubmitting(true);
@@ -48,8 +49,8 @@ const Register = () => {
                     setIsSuccessModalOpen(true);
                     setAlertText("User Registration Successful!");
                     setLoading(false);
-                    setIsSubmitting(false)
-                    
+                    setIsSubmitting(false);
+                    navigate('/login');
                 }
                 else{
                     setIsSuccessModalOpen(true);

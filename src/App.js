@@ -9,6 +9,7 @@ import Contact from "./Pages/Contact";
 import Help from './Pages/Help';
 import Login from './Pages/Login';
 import Forgot from "./Pages/Forgot";
+import Reset from "./Pages/Reset";
 import Register from "./Pages/Register";
 import Account from "./Pages/Account";
 import Addresses from "./Pages/Addresses";
@@ -46,6 +47,8 @@ const App = () => {
           <Route path="/return" element={<Return />}/>
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>}/>
           <Route path="/admin" element={<PublicRoute><Admin /></PublicRoute>}/>
+          <Route path="/forget" element={<Forgot />}/>
+          <Route path="/reset/:id" element={<Reset />}/>
           <Route path="/forget" element={<Forgot />}/>
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>}/>
           <Route path="/adminregister" element={<PublicRoute><AdminRegister /></PublicRoute>}/>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import axios from 'axios';
 import Button from "./Button";
 import CartContext from "../CartContext";
@@ -9,13 +9,31 @@ const Modal = ({modal,handleModal}) => {
     const user = JSON.parse(localStorage.getItem('user'));
     axios.defaults.withCredentials = true;
     const individualTotalPrice = getItemAmount();
+    const [isChecked, setIsChecked] = useState(false);
+    let totalAmount = 0;
+
+    function handleToggle() {
+        setIsChecked(!isChecked);
+    }
+
+    if(isChecked === true){
+        totalAmount = 0;
+        console.log(totalAmount);
+    }
+    else{
+        totalAmount = getShipping() - getTotalAmount();
+        console.log(totalAmount);
+    }
+    
     
     const makePayment = async () =>{
+        
         try{
             const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
                 items:items,
                 userId:user._id,
-                email:user.email
+                email:user.email,
+                total:totalAmount
 
             })
             if(response.data.url){
@@ -92,23 +110,34 @@ const Modal = ({modal,handleModal}) => {
                         ""
                     ):(
                         <div className="info-container">
-                            <div className="rowMajor">
-                                <div className="rowOne">
-                                    <div className="total-banner">
-                                        <span>
-                                            <h3 className="heading">Total: ${getShipping()}</h3>
-                                            {items.length > 1 ? (<h3 className="heading"> | {items.length} items</h3>) : (<h3 className="heading"> | {items.length} item</h3>)}
-                                        </span>
-                                    </div>
-                                    <div className="total-banner">
-                                        <span>
-                                            <h3 className="small-heading">SubTotal: ${getTotalAmount()}</h3>
-                                        </span>
-                                    </div>
+                            <div className="rowOne">
+                                <div className="total-banner">
+                                    <span>
+                                        {items.length > 1 ? (<h3 className="heading">Item Total: <span>{items.length}</span></h3>) : (<h3 className="heading">Item Total: <span>{items.length}</span></h3>)}
+                                    </span>
+                                    <span>
+                                        <h3 className="heading">Shipping:<span>{isChecked ? ("Free"):(<>
+                                        ${getShipping() - getTotalAmount()}</>)}</span></h3>
+                                    </span>
+                                    
                                 </div>
-                                
+                                <div className="total-banner">
+                                    <span>
+                                        <h3 className="small-heading">SubTotal: <span>${getTotalAmount()}</span></h3>
+                                    </span>
+                                    <span>
+                                        <h3 className="heading">Total: <span>${getShipping()}</span></h3>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className={`rowMajor majorFirst ${isChecked ? ' checked' : ''}`}>
+                                <span className={`note-span check-span `}>
+                                    <input type="checkbox" checked={isChecked} onChange={handleToggle} />
+                                    <small>Free shipping for the first one month</small>
+                                </span>
+                            </div>
+                            <div className="rowMajor">
                                 <span className="note-span">
-                                    <small>N/B: Free shipping for the first one month</small>
                                     <small>$25 for items greater than 10</small>
                                     <small>$15 for items less than 10</small>
                                 </span>

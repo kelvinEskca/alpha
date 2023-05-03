@@ -39,15 +39,25 @@ const ColorModal = ({colorModal,openModal}) => {
             const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/color`, data,{headers:{token:token}});
             if(res.status === 200){
                 setIsSuccessModalOpen(true);
-                setAlertText("Card Deleted Successfully!");
+                setAlertText("Color Image addedd Successfully!");
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
                 setIsSubmitting(false);
                 navigate(`/details/${id}`);
             }
-        } catch (err) {
-        console.error(err);
+            else{
+                setAlertText("Color Image Not addedd Successfully!");
+                setIsSuccessModalOpen(true);
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+                setIsSubmitting(false);
+            }
+        } 
+        catch (err) {
+            console.error(err);
         }
-
-        console.log(data);
     };
 
     return (

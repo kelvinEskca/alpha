@@ -4,22 +4,29 @@ import Button from "./Button";
 import axios from "axios";
 import Loader from "./Loader";
 import baseUrl from "../config/config.js";
-const ProductModal = ({productModal,openModal}) => {
+import AlertModal from "./AlertModal";
+const ProductModal = ({productModal,openModal,setProducts,products}) => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     const navigate = useNavigate();
     
     const [name,setName] = useState('');
     const [desc,setDesc] = useState('');
     const [subcategory,setSubcategory] = useState('');
     const [loading,setLoading] = useState(false);
-    
+
     const handleSubmit = async e => {
         e.preventDefault();
         setIsSubmitting(true);
         if(name === ''  || desc === '' || subcategory === ''){
-            alert('Please ensure all fields are filled');
+            setIsSuccessModalOpen(true);
+            setAlertText("Please ensure all fields are filled");
+            setTimeout(() => {
+                setIsSuccessModalOpen(false);
+            }, 5000);
         }
         else{
             try {
@@ -28,20 +35,36 @@ const ProductModal = ({productModal,openModal}) => {
                     desc:desc,
                     subcategory:subcategory
                 },{headers:{token:token}});
-                console.log(res);
                 setLoading(true);
                 if(res.status === 200){
+                    const newProduct = res.data;
+                    setProducts([...products, newProduct]);
                     setLoading(false);
                     setIsSubmitting(false);
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Category Uploaded Successfully!");
+                    setTimeout(() => {
+                        setIsSuccessModalOpen(false);
+                    }, 5000);
                     navigate('/category');
                 }
-            } catch (err) {
-            console.error(err);
+                else{
+                    setAlertText("Category Not Uploaded Successfully!");
+                    setIsSuccessModalOpen(true);
+                    setTimeout(() => {
+                        setIsSuccessModalOpen(false);
+                    }, 5000);
+                    setIsSubmitting(false);
+                }
+            } 
+            catch (err) {
+                console.error(err);
             }
         }
     };
     if(loading) return <Loader />;
     return (
+        <>
         <section className={`section addressModal  ${productModal ? ('modal') : ('off')}`} >
             <div className="wrapper">
                 <div className="boxes" >
@@ -72,6 +95,8 @@ const ProductModal = ({productModal,openModal}) => {
                 </div>
             </div>
         </section>
+        <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+        </>
     );
 }
  
