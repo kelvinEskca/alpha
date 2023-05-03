@@ -46,6 +46,9 @@ const Login = () => {
                     setIsSubmitting(false);
                     setIsSuccessModalOpen(true);
                     setAlertText("Login Successful");
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000)
                     navigate('/account');
 
                 }
@@ -54,6 +57,9 @@ const Login = () => {
                     setIsSubmitting(false);
                     setIsSuccessModalOpen(true);
                     setAlertText("Login Successful");
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000)
                     navigate('/dashboard');
                 }
             }
@@ -62,7 +68,9 @@ const Login = () => {
                 setIsSubmitting(false);
                 setIsSuccessModalOpen(true);
                 setAlertText(loginUser.statusText);
-               
+                setTimeout(()=>{
+                    setIsSuccessModalOpen(false);
+                },3000)
             }
         }
         catch(err){

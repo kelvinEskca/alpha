@@ -8,6 +8,7 @@ import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
+import AlertModal from "../Components/AlertModal";
 const Admin = () => {
     axios.defaults.withCredentials = true;
     const [email,setEmail] = useState('');
@@ -16,6 +17,8 @@ const Admin = () => {
     const [mobile,setMobile] = useState(false)
     const [loading,setLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
     const [stats,setStats] = useState('');
     const handleModal = () =>{
         setModal(!modal);
@@ -41,16 +44,32 @@ const Admin = () => {
                 if(loginUser.data.isAdmin === false){
                     setLoading(false);
                     setIsSubmitting(false);
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Login Successful");
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000)
                     navigate('/account');
                 }
                 else{
                     setLoading(false);
-                    navigate('/dashboard');
+                    setIsSubmitting(false);
+                    setIsSuccessModalOpen(true);
+                    setAlertText("Login Failed");
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000)
+                    navigate('/admin');
                 }
             }
             else{
-                alert(loginUser.statusText);
-                console.log(loginUser.message);
+                setIsSubmitting(false);
+                setIsSuccessModalOpen(true);
+                setAlertText(loginUser.statusText);
+                setTimeout(()=>{
+                    setIsSuccessModalOpen(false);
+                },3000)
+                navigate('/admin');
             }
         }
         catch(err){
@@ -105,8 +124,8 @@ const Admin = () => {
                 </section>
 
                 <Modal modal={modal} handleModal={handleModal} />
-
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
 
             <Footer />

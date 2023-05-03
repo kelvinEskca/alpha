@@ -46,12 +46,18 @@ const AdminRegister = () => {
                     setAlertText("Admin Registration Successful!");
                     setLoading(false);
                     setIsSubmitting(false);
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000)
                     navigate('/dashboard');
                 }
                 else{
                     setLoading(false);
                     setIsSuccessModalOpen(true);
                     setAlertText("Admin Registration Failed!");
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000)
                 }
             }
             catch(err){
