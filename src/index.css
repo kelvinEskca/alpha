@@ -1994,7 +1994,7 @@ img {
   margin-top: 1rem;
 }
 
-.widelogin{
+.widelogin {
   width: 100%;
 }
 
@@ -2005,15 +2005,15 @@ img {
   justify-content: flex-start;
 }
 
-.total-banner span .heading{
-  margin-bottom: .4rem;
+.total-banner span .heading {
+  margin-bottom: 1rem;
 }
 
-
-.total-banner span .heading,.total-banner span .small-heading {
+.total-banner span .heading,
+.total-banner span .small-heading {
   color: #ddd;
   font-weight: 400;
-  font-size: .7rem;
+  font-size: 0.7rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -2021,7 +2021,8 @@ img {
   width: 100%;
 }
 
-.total-banner span .heading span,.total-banner span .small-heading span{
+.total-banner span .heading span,
+.total-banner span .small-heading span {
   width: auto;
   margin: 0;
   font-weight: 600;
@@ -2767,34 +2768,34 @@ img {
   padding-top: 1rem;
 }
 
-.check-span{
+.check-span {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
 
-.check-span input{
+.check-span input {
   width: 16px;
   height: auto;
   background-color: #ddd;
   border: none;
 }
 
-.check-span small{
+.check-span small {
   margin-top: 0;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
-.majorFirst{
+.majorFirst {
   margin-bottom: 1rem;
 }
 
-.checked{
+.checked {
   border: 1px solid #48e271;
 }
 
-.checked span small{
+.checked span small {
   color: #48e271;
 }
 
@@ -3343,6 +3344,8 @@ img {
   .rowOne {
     margin-bottom: 0;
   }
+
+  
 }
 
 @media screen and (min-width: 1000px) {
@@ -3456,6 +3459,23 @@ img {
 
   .inner-page-bottom:hover span .top {
     display: none;
+  }
+
+  .border-container {
+    position: fixed;
+    max-width: 400px;
+    right: 0;
+    height: 550px;
+    overflow-y: scroll;
+    background-color: #0f0f0fbc;
+    -webkit-backdrop-filter: blur(100px);
+    backdrop-filter: blur(100px);
+    border: 1px solid #929294;
+    border-radius: 1rem;
+  }
+
+  .info-container{
+    max-width: 400px;
   }
 }
 
