@@ -7,7 +7,7 @@ import AlertModal from "./AlertModal";
 import { useContext } from "react";
 import CartContext from "../CartContext";
 import baseUrl from "../config/config.js";
-const Search = ({search}) => {
+const Search = ({search,searchToggle}) => {
     axios.defaults.withCredentials = true;
     const [filtered,setfiltered] = useState('');
     const [products,setProducts] = useState([]);
@@ -55,8 +55,14 @@ const Search = ({search}) => {
             setIsSuccessModalOpen(false);
         }, 5000);
     };
+
+    const handleSectionClick = (e) => {
+        if (e.target === e.currentTarget) {
+          searchToggle();
+        }
+    }
     return (
-        <div className={`${search ? ("search-on") : ("search-off")}`}>
+        <div className={`${search ? ("search-off search-on") : ("search-off")}`} onClick={handleSectionClick}>
             <div className="mobile-inner">
                 <div className="top">
                    <label htmlFor="search"><input type="search" placeholder="Search Products" onChange={searchFunction} autoComplete="off"/></label>

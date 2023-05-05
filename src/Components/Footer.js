@@ -4,7 +4,7 @@ import FooterBox from "./FooterBox";
 import axios from "axios";
 import baseUrl from "../config/config.js";
 import AlertModal from "./AlertModal";
-const Footer = () => {
+const Footer = ({search}) => {
     const [email,setEmail] = useState();
     const [response, setResponse] = useState(false);
     const [fetching, setFetching] = useState(false);
@@ -51,7 +51,7 @@ const Footer = () => {
         }
     }
     return (
-        <footer className="footer">
+        <footer className={`footer ${search ? ("footer-off"):("footer-on")}`}>
             <div className="rows">
                 <div className="newsletter">
                     <h3 className="heading">SIGN UP FOR VELONTE NEWSLETTER</h3>
@@ -71,7 +71,7 @@ const Footer = () => {
                 </div>
 
                 <div className="two">
-                    <FooterBox linkThree={'/track'} linkTwo={'/summer'} linkOne={'/help'} heading={'Support'} linkFour={'/return'} textOne={'Help Center'} textTwo={'Summer'} textThree={'Track My Order'} textFour={'Return and Exchange'} />
+                    <FooterBox linkThree={'/track'} linkOne={'/help'} heading={'Support'} linkFour={'/return'} textOne={'Help Center'} textThree={'Track My Order'} textFour={'Return and Exchange'} />
 
                     <FooterBox linkThree={'/shipping'} linkTwo={'/contact'} linkOne={'/about'} heading={'Info'} textOne={'About Us'} textTwo={'Contact Us'} textThree={'Shipping Info'} />
                 </div>
@@ -81,18 +81,12 @@ const Footer = () => {
                 <span className="holder">
                     <p className="paragraph">&copy; 2023</p>
                     <p className="paragraph">|</p>
-                    <p className="paragraph">&copy;  Velonte Athletics LLC</p>
+                    <p className="paragraph">&copy;  VELONTE Athletics LLC</p>
                     <p className="paragraph">|</p>
                     <p className="paragraph">All Rights Reserved</p>
                 </span>
 
-                <span className="holder">
-                    <p className="paragraph">Learn More</p>
-                    <p className="paragraph">|</p>
-                    <p className="paragraph">Dream More</p>
-                    <p className="paragraph">|</p>
-                    <p className="paragraph">Be More</p>
-                </span>
+                <span className="holder"></span>
 
                 <span className="holder">
                     <p className="paragraph">Privacy Policy</p>

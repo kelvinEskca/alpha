@@ -9,6 +9,7 @@ import axios from "axios";
 import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
 import AlertModal from "../Components/AlertModal";
+import Search from "../Components/Search";
 const Login = () => {
     axios.defaults.withCredentials = true;
     const [email,setEmail] = useState('');
@@ -19,6 +20,7 @@ const Login = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [stats,setStats] = useState('');
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [search,setSearch] = useState(false);
     const [alertText,setAlertText] = useState('');
     const handleModal = () =>{
         setModal(!modal);
@@ -86,10 +88,15 @@ const Login = () => {
             }
         }
     }
+
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
+
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section auth">
                     <div className="wrapper">
@@ -130,6 +137,7 @@ const Login = () => {
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
 
             <Footer />

@@ -9,6 +9,7 @@ import axios from "axios";
 import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
 import AlertModal from "../Components/AlertModal";
+import Search from "../Components/Search";
 const Admin = () => {
     axios.defaults.withCredentials = true;
     const [email,setEmail] = useState('');
@@ -20,6 +21,7 @@ const Admin = () => {
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
     const [stats,setStats] = useState('');
+    const [search,setSearch] = useState(false);
     const handleModal = () =>{
         setModal(!modal);
     }
@@ -83,10 +85,15 @@ const Admin = () => {
             }
         }
     }
+
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
+
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 <section className="section auth">
                     <div className="wrapper">
@@ -115,7 +122,7 @@ const Admin = () => {
                                     </label>
 
                                     <label htmlFor="#" className="center-label">
-                                        <span>New to Velonte <Link to='/register'>Create An Account</Link></span>
+                                        <span>New to VELONTE <Link to='/register'>Create An Account</Link></span>
                                     </label>
                                 </form>
                             </div>
@@ -126,6 +133,7 @@ const Admin = () => {
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
 
             <Footer />

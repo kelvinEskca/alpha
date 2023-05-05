@@ -40,7 +40,7 @@ const MobileNav = ({handleMobile,mobile}) => {
                     </div>
                 ) : (
                     <div className="center">
-                        <h3 className="heading">Welcome To Velonte</h3>
+                        <h3 className="heading">Welcome To VELONTE</h3>
                         <ul className="list">
                             <li><Link to='/login'>Login</Link></li>
                             <li><Link to='/register'>Register</Link></li>

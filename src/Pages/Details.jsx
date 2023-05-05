@@ -12,6 +12,7 @@ import Loader from "../Components/Loader";
 import ColorModal from "../Components/ColorModal";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
+import Search from "../Components/Search";
 const Details = () => {
   axios.defaults.withCredentials = true;
   const [products, setProducts] = useState([]);
@@ -27,6 +28,8 @@ const Details = () => {
   const { addToCart } = useContext(CartContext);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [alertText,setAlertText] = useState('');
+  const [search,setSearch] = useState(false);
+  const [desctoggle,setDescToggle] = useState(false);
  
   const { id } = useParams();
   useEffect(() => {
@@ -106,11 +109,21 @@ const Details = () => {
     setSelectColorName(colorName);
   };
 
+  const searchToggle = () =>{
+    setSearch(!search);
+  };
+
+  const toggleDescription = (e) =>{
+    if (e.target === e.currentTarget){
+      console.log("clicked");
+      setDescToggle(!desctoggle);
+    }
+  }
   
   if (loading) return <Loader />;
   return (
     <>
-      <Header handleModal={handleModal} handleMobile={handleMobile} />
+      <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle} />
       <main className="main">
         <section className="section detailss">
           <div className="wrapper">
@@ -200,10 +213,10 @@ const Details = () => {
                       </div>
 
                       <div className="desc-box">
-                        <div className="description">
-                          <div className="desc-top">
+                        <div className={`description ${desctoggle ? ("descOpen") : ("description")}`}>
+                          <div className="desc-top" onClick={toggleDescription}>
                             <h3 className="heading">Description</h3>
-                            <h3 className="heading">+</h3>
+                            <h3 className="heading">{desctoggle ? ("-") : ("+")}</h3>
                           </div>
 
                           <div className="desc-bottom">
@@ -399,10 +412,10 @@ const Details = () => {
                       </div>
 
                       <div className="desc-box">
-                        <div className="description">
-                          <div className="desc-top">
+                        <div className={`description ${desctoggle ? ("descOpen") : ("description")}`}>
+                          <div className="desc-top" onClick={toggleDescription}>
                             <h3 className="heading">Description</h3>
-                            <h3 className="heading">+</h3>
+                            <h3 className="heading">{desctoggle ? ("-") : ("+")}</h3>
                           </div>
 
                           <div className="desc-bottom">
@@ -546,6 +559,7 @@ const Details = () => {
         <Modal modal={modal} handleModal={handleModal} />
         <MobileNav mobile={mobile} handleMobile={handleMobile} />
         <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
+        <Search search={search} searchToggle={searchToggle} />
       </main>
       <Footer />
     </>

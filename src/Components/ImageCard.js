@@ -86,6 +86,11 @@ const ImageCard = ({toggleState}) => {
         }, 5000);
     };
     
+    let url = []; 
+    const makePic = (item) =>{
+        url.push(item);
+        console.log(item)
+    }
 
     if(loading) return <Loader />
     return (
@@ -94,7 +99,7 @@ const ImageCard = ({toggleState}) => {
             products.map((item,i)=>{
                 if (item.inStock === true){
                     const {image} = item;   
-                    let url = [];                 
+                                    
                     image.map((img)=>{
                         return url.push(img.url);
                     })
@@ -131,6 +136,16 @@ const ImageCard = ({toggleState}) => {
                                     return (<div className="size" key={i}><small className={`${
                                         size === selectedSizes[item._id] ? 'sizeActive' : ''
                                     }`} onClick={()=>handleClick(item,size)}>{size}</small></div>)
+                                })}
+                            </div>
+
+                            <div className="image-scroll">
+                                {item.image.map((pic,i)=>{
+                                    return(
+                                        <>
+                                            <img src={pic.url} alt={item.name} onClick={()=>makePic(pic.url)}/>
+                                        </>
+                                    )
                                 })}
                             </div>
                         </div>

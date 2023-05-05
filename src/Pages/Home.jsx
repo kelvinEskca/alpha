@@ -127,65 +127,11 @@ const Home = () => {
                     {cards.some(item => item.active === true) ? null : <div></div>}
                 </div>
 
-                {/* <section className="section new">
-                    <div className="wrapper">
-                        <div className="area">
-                            <p className="paragraph">Shop</p>
-                            <h3 className="heading">Leggings</h3>
-                        </div>
-                        <div className="boxes">
-                            <ImageCard />
-                        </div>
-                    </div>
-                </section>
-
-                <div className="row">
-                    <section className="section shop">
-                        <div className="wrapper">
-                            <div className="boxes">
-                                <div className="box">
-                                    <img src="../images/Ozone_38.webp" alt="Ozone_38" />
-                                    <div className="text-box">
-                                        <h3 className="heading">Seamless to a tee</h3>
-                                        <p className="paragraph">Explore your soon to be favs</p>
-                                        <Button btnText={'Shop Amplify'} btntheme={'longer'} />
-                                        <Button btnText={'Shop Now'} btntheme={'shorter'} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section className="section shop">
-                        <div className="wrapper">
-                            <div className="boxes">
-                                <div className="box">
-                                    <img src="../images/0F6A0266_2.jpg" alt="0F6A0266_2" />
-                                    <div className="text-box">
-                                        <h3 className="heading">Infinity</h3>
-                                        <p className="paragraph">Leading the way in mordern aesthetics</p>
-                                        <Button btnText={'Shop Women'} />
-                                        <Button btnText={'Shop Men'} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div> */}
-
-                {/* <section className="section visit hero">
-                    <div className="wrapper">
-                        <div className="boxes">
-                            <VideoCard video={clip[1].video} heading={clip[1].heading} paragraph={clip[1].paragraph} btn={clip[1].btn} btnTwo={clip[1].btnTwo} />
-                        </div>
-                    </div>
-                </section> */}
-
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <Search search={search} searchToggle={searchToggle} />
             </main>
-            <Footer />
+            <Footer search={search} />
         </>
     );
 }

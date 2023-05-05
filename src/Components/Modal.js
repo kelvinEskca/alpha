@@ -22,7 +22,12 @@ const Modal = ({modal,handleModal}) => {
     }
     else{
         totalAmount = getShipping() - getTotalAmount();
-        console.log(totalAmount);
+    }
+
+    const handleSectionClick = (e) => {
+        if (e.target === e.currentTarget) {
+          handleModal();
+        }
     }
     
     
@@ -45,9 +50,9 @@ const Modal = ({modal,handleModal}) => {
         }
     }
     return (
-        <section className={`section  ${modal ? ('modal') : ('off')}`}>
+        <section className={`section  ${modal ? ('modal') : ('off')}`} >
             <div className="wrapper">
-                <div className="boxes">
+                <div className="boxes" onClick={handleSectionClick}>
                     <>
                     {items.length === 0 ? (
                         <div className="box">
@@ -124,9 +129,10 @@ const Modal = ({modal,handleModal}) => {
                                 <div className="total-banner">
                                     <span>
                                         <h3 className="small-heading">SubTotal: <span>${getTotalAmount()}</span></h3>
+                                        
                                     </span>
                                     <span>
-                                        <h3 className="heading">Total: <span>${getShipping()}</span></h3>
+                                        <h3 className="heading">Total: <span>{isChecked ? (`$${getTotalAmount()}`):(`$${getShipping()}`)}</span></h3>
                                     </span>
                                 </div>
                             </div>

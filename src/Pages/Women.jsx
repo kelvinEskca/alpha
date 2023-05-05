@@ -11,21 +11,22 @@ import Loader from "../Components/Loader";
 import { Link } from "react-router-dom";
 import SlideShow from "../Components/SlideShow";
 import baseUrl from "../config/config.js";
+import Search from "../Components/Search";
 const Women = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
-    const [filteredProdcuts,setFiltereProducts] = useState(null);
     const [selectedSizes, setSelectedSizes] = useState({});
     const {addToCart} = useContext(CartContext);
     const [hero,setHero] = useState([]);
-
-    const [setSize] = useState('');
-    const [setGender] = useState('');
-    const [setProType] = useState('');
-    const [openItem, setOpenItem] = useState("");
-
+    const [activeGrid,setActiveGrid] = useState(false);
+    const [lastClickedFilter, setLastClickedFilter] = useState(null);
+    const [search,setSearch] = useState(false);
+    const [grabProductType,setGrabProductType] = useState([]);
+    const [grabSizes,setGrabSizes] = useState([]);
+    const [grabProductContent,setGrabProductContent] = useState([]);
+    let content;
 
     const handleModal = () =>{
         setModal(!modal);
@@ -35,23 +36,6 @@ const Women = () => {
         setMobile(!mobile);
     }
 
-    const openModal = (item) =>{
-        if (item === openItem) {
-            setOpenItem("");
-        } else {
-            setOpenItem(item);
-        }
-        if(item === "gender"){
-            setGender("gender");
-        }
-        else if(item === "size"){
-            setSize("size");
-        }
-        else if(item === "product"){
-            setProType("product");
-        }
-    }
-
     useEffect(()=>{
         const getproducts = async ()=>{
             const gender = 'Female';
@@ -59,6 +43,21 @@ const Women = () => {
                 const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/female/${gender}`)
                 setProducts(res.data);
                 setLoading(false);
+
+                // Get all the product types
+                const productTypes = res.data.map(product => product.subcategory);
+                setGrabProductType(productTypes);
+              
+                // Get all the sizes
+                const sizes = res.data.reduce((acc, product) => {
+                product.sizes.forEach(size => {
+                    if (!acc.includes(size)) {
+                    acc.push(size);
+                    }
+                });
+                return acc;
+                }, []);
+                setGrabSizes(sizes);
             }
             catch(err){
                 console.log(err);
@@ -79,27 +78,83 @@ const Women = () => {
         setLoading(false);
 
     },[]);
-    const filterBySize = (size) =>{
-        const filteredItems = products.filter(product => product.sizes.includes(size));
-        setFiltereProducts(filteredItems);
-        console.log(filteredItems);
-    }
-
-    const filterByType = (type) =>{
-        const filteredItems = products.filter(product => product.subcategory.includes(type));
-        setFiltereProducts(filteredItems);
-        console.log(filteredItems);
-    }
-
+    
     const handleClick = (size, item) => {
         setSelectedSizes({ ...selectedSizes, [item._id]: size });
         addToCart({ ...item, size });
     };
+
+    const activateFilter = (filter) => {
+        if (lastClickedFilter === filter) {
+            setActiveGrid(false); // deactivate the grid filter area
+            setLastClickedFilter(null); // reset the last clicked filter
+        } else {
+            setActiveGrid(true); // activate the grid filter area
+            setLastClickedFilter(filter); // set the last clicked filter
+        }
+    }
+
+    const searchToggle = () =>{
+        setSearch(!search);
+    };
+
+    const filterBySize = (size)=>{
+        const filteredProducts = products.filter((product) => product.sizes.includes(size));
+        setGrabProductContent(filteredProducts);
+    }
+
+    const filterBySubCategory = (subcategory) => {
+        const filteredProducts = products.filter((product) =>
+          product.subcategory === subcategory
+        );
+        setGrabProductContent(filteredProducts);
+    };
+
+    if(lastClickedFilter === "gender"){
+        content = (
+            <div className="box-grid gender-grid">
+                <div className="top-box-grid">
+                    <Link to="/women">Women</Link>
+                </div>
+                <div className="top-box-grid">
+                    <Link to="/men">Men</Link>
+                </div>
+            </div>
+        )
+        
+    }
+    else if(lastClickedFilter === 'size'){
+        content = (
+            <div className="box-grid">
+                {grabSizes && grabSizes.map((item,i)=>{
+                    return (
+                        <div className="top-box-grid" key={i} onClick={() => filterBySize(item)}>
+                            <h3 className="heading">{item}</h3>
+                        </div>
+                    )
+                })}
+            </div>
+            
+        )
+    }
+    else if(lastClickedFilter === 'productType'){
+        content = (
+            <div className="box-grid">
+                {grabProductType && grabProductType.map((item,i)=>{
+                    return (
+                        <div className="top-box-grid" key={i} onClick={() => filterBySubCategory(item)}>
+                            <h3 className="heading">{item}</h3>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
     
     if(loading) return <Loader />;
     return (
         <>
-            <Header handleModal={handleModal} handleMobile={handleMobile}/>
+            <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
                 {hero.map((item,i)=>{
                     if(item.active === true && item.category === "Female"){
@@ -117,31 +172,48 @@ const Women = () => {
                 })}
                 {hero.some(item => item.active === true) ? null : <div></div>}
 
-                <section className="section new">
-                    <div className="wrapper">
-                        <div className="boxes">
-                        {filteredProdcuts !== null  ? (
-                            filteredProdcuts.map((item,i)=>{
-                                if(item.inStock === true){
-                                    const {image} = item;   
-                                    let url = [];                 
-                                    image.map((img)=>{
-                                        return url.push(img.url);
-                                    })
-                                    return (
-                                        <div className="box" key={i}>
-                                            <div className="tag"><small></small></div>
-                                            <div className="image-box">
-                                                <Link to={`details/${item._id}`}>
-                                                    <SlideShow url={url} />
-                                                </Link>
-                        
-                                                <div className="quick-add">
-                                                    <div className="quick-add-top">
-                                                        <h3 className="heading">Quick Add +</h3>
+                {grabProductContent.length > 0 ? (
+                    <section className="section new">
+                        <div className="wrapper">
+                            <div className="boxes">
+                                {grabProductContent.length > 0 ? (
+                                    grabProductContent.map((item,i)=>{
+                                        if(item.inStock === true){
+
+                                            const {image} = item;   
+                                            let url = [];                 
+                                            image.map((img)=>{
+                                                return url.push(img.url);
+                                            })
+                                            return (
+                                                <div className="box" key={i}>
+                                                    <div className="tag"><small></small></div>
+                                                    <div className="image-box">
+                                                        <Link to={`/details/${item._id}`}>
+                                                            <SlideShow url={url} />
+                                                        </Link>
+                                
+                                                        <div className="quick-add">
+                                                            <div className="quick-add-top">
+                                                                <h3 className="heading">Quick Add +</h3>
+                                                            </div>
+                                
+                                                            <div className="quick-add-bottom">
+                                                                {item.sizes.map((size,i)=>{
+                                                                    return (<div className="size" key={i}><small className={`${
+                                                                        size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                                    }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                                })}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                        
-                                                    <div className="quick-add-bottom">
+                                                    <div className="text">
+                                                        <h3 className="heading">{item.name}</h3>
+                                                        <p className="paragraph">{item.color}</p>
+                                                        <p className="paragraph">${item.price}</p>
+                                                    </div>
+                                
+                                                    <div className="size-box">
                                                         {item.sizes.map((size,i)=>{
                                                             return (<div className="size" key={i}><small className={`${
                                                                 size === selectedSizes[item._id] ? 'sizeActive' : ''
@@ -149,132 +221,99 @@ const Women = () => {
                                                         })}
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="text">
-                                                <h3 className="heading">{item.name}</h3>
-                                                <p className="paragraph">{item.color}</p>
-                                                <p className="paragraph">${item.price}</p>
-                                            </div>
-                        
-                                            <div className="size-box">
-                                                {item.sizes.map((size,i)=>{
-                                                    return (<div className="size" key={i}><small className={`${
-                                                        size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                    }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
-                                                })}
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                                return null
-                            })
-                        ):(
-                            products.length > 0 ? (
-                                products.map((item,i)=>{
-                                    if(item.inStock === true){
-                                        const {image} = item;   
-                                        let url = [];                 
-                                        image.map((img)=>{
-                                            return url.push(img.url);
-                                        })
-                                        return (
-                                            <div className="box" key={i}>
-                                                <div className="tag"><small></small></div>
-                                                <div className="image-box">
-                                                    <Link to={`/details/${item._id}`}>
-                                                        <SlideShow url={url} />
-                                                    </Link>
-                            
-                                                    <div className="quick-add">
-                                                        <div className="quick-add-top">
-                                                            <h3 className="heading">Quick Add +</h3>
-                                                        </div>
-                            
-                                                        <div className="quick-add-bottom">
-                                                            {item.sizes.map((size,i)=>{
-                                                                return (<div className="size" key={i}><small className={`${
-                                                                    size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                                }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
-                                                            })}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="text">
-                                                    <h3 className="heading">{item.name}</h3>
-                                                    <p className="paragraph">{item.color}</p>
-                                                    <p className="paragraph">${item.price}</p>
-                                                </div>
-                            
-                                                <div className="size-box">
-                                                    {item.sizes.map((size,i)=>{
-                                                        return (<div className="size" key={i}><small className={`${
-                                                            size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                        }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
-                                                    })}
-                                                </div>
-                                            </div>
-                                        )
-                                    }
-                                    return null
-                                })
-                            ):(<h3>No Products</h3>)
-                        )}
-                        {products.length > 0 ? (
-                            products.map((item,i)=>{
-                                return (
-                                    <div className="desktop-details inner-deskt-details">
-                                        <div className="desktop-details-top">
-                                            <div className="grid-bottom inner-page-bottom">
-                                                <span className={openItem === "gender" ? ("high") : ("")}>
-                                                    <div className="top">
-                                                        <Link to='/men'><p className="paragraph">Male</p></Link>
-                                                        <Link to='women'><p className="paragraph">Female</p></Link>
-                                                    </div>
-
-                                                    <div className="bottom" onClick={()=>openModal("gender")}>
-                                                        <h3 className="heading">Product Gender</h3>
-                                                    </div>
-                                                </span>
-
-                                                <span className={openItem === "size" ? ("high") : ("")}>
-                                                    <div className="top">
-                                                    {item.sizes.map((size)=>{
-                                                        return <p className="paragraph" onClick={() => filterBySize(size)}>{size}</p>
-                                                    })}  
-                                                        
-                                                    </div>
-
-                                                    <div className="bottom"onClick={()=>openModal("size")}>
-                                                        <h3 className="heading">Product Size</h3>
-                                                    </div>
-                                                </span>
-
-                                                <span className={openItem === "product" ? ("high") : ("")}>
-                                                    <div className="top">
-                                                        <p className="paragraph" onClick={() => filterByType(item.subcategory)}>{item.subcategory}</p>
-                                                    </div>
-
-                                                    <div className="bottom" onClick={()=>openModal("product")}>
-                                                        <h3 className="heading">Product Type</h3>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        ) : (
-                            ""
-                        )}
+                                            )
+                                        }
+                                        return null
+                                    })
+                                ):(<h3>No Products</h3>)}
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                ) : (
+                    <section className="section new">
+                        <div className="wrapper">
+                            <div className="boxes">
+                                {products.length > 0 ? (
+                                    products.map((item,i)=>{
+                                        if(item.inStock === true){
+
+                                            const {image} = item;   
+                                            let url = [];                 
+                                            image.map((img)=>{
+                                                return url.push(img.url);
+                                            })
+                                            return (
+                                                <div className="box" key={i}>
+                                                    <div className="tag"><small></small></div>
+                                                    <div className="image-box">
+                                                        <Link to={`/details/${item._id}`}>
+                                                            <SlideShow url={url} />
+                                                        </Link>
+                                
+                                                        <div className="quick-add">
+                                                            <div className="quick-add-top">
+                                                                <h3 className="heading">Quick Add +</h3>
+                                                            </div>
+                                
+                                                            <div className="quick-add-bottom">
+                                                                {item.sizes.map((size,i)=>{
+                                                                    return (<div className="size" key={i}><small className={`${
+                                                                        size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                                    }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text">
+                                                        <h3 className="heading">{item.name}</h3>
+                                                        <p className="paragraph">{item.color}</p>
+                                                        <p className="paragraph">${item.price}</p>
+                                                    </div>
+                                
+                                                    <div className="size-box">
+                                                        {item.sizes.map((size,i)=>{
+                                                            return (<div className="size" key={i}><small className={`${
+                                                                size === selectedSizes[item._id] ? 'sizeActive' : ''
+                                                            }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                        return null
+                                    })
+                                ):(<h3>No Products</h3>)}
+                            </div>
+                        </div>
+                    </section>
+                )}
 
                 <Modal modal={modal} handleModal={handleModal} />
 
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
+            <div className={`grid-filter-area ${activeGrid ? ("grid-filter-area activegrid-filter"):("grid-filter-area ")}`}>
+                <div className="top-area">
+                   {content}
+                </div>
+                <div className="bottom-area">
+                    <div className="bottom-area-wrapper">
+                        <div className={`bottom-area-box ${lastClickedFilter === 'gender' ? ("activeBottom") : ("bottom-area-box")}`} onClick={() => activateFilter("gender")}>
+                            <h3 className="heading">Gender</h3>
+                        </div>
+
+                        <div className={`bottom-area-box ${lastClickedFilter === 'size' ? ("activeBottom") : ("bottom-area-box")}`} onClick={() => activateFilter("size")}>
+                            <h3 className="heading">Size</h3>
+                        </div>
+
+                        <div className={`bottom-area-box ${lastClickedFilter === 'productType' ? ("activeBottom") : ("bottom-area-box")}`} onClick={() => activateFilter("productType")}>
+                            <h3 className="heading">Product Type</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }
