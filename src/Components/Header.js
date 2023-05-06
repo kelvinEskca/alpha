@@ -93,7 +93,7 @@ const Header = ({handleModal,handleMobile,searchToggle}) => {
                                 </div>
                             </nav>
 
-                            <nav className="bottom">
+                            <nav className="bottom mobile-bottom">
                                 <Link to='/'><img src='../images/logo2.png' alt='logo'  className="logo"/></Link>
                                 <div className="bottom-right">
                                     <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" onClick={searchToggle}/></div>
@@ -120,7 +120,7 @@ const Header = ({handleModal,handleMobile,searchToggle}) => {
                                 </div>
                             </nav>
 
-                            <nav className="bottom">
+                            <nav className="bottom mobile-bottom">
                                 <Link to='/'><img src='../images/logo2.png' alt='logo'  className="logo"/></Link>
                                 <div className="bottom-right">
                                     <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" onClick={searchToggle}/></div>

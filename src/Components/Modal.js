@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from 'axios';
 import Button from "./Button";
@@ -11,6 +11,7 @@ const Modal = ({modal,handleModal}) => {
     const individualTotalPrice = getItemAmount();
     const [isChecked, setIsChecked] = useState(false);
     let totalAmount = 0;
+    const navigate = useNavigate();
 
     function handleToggle() {
         setIsChecked(!isChecked);
@@ -29,7 +30,10 @@ const Modal = ({modal,handleModal}) => {
           handleModal();
         }
     }
-    
+
+    const handlelink = () =>{
+        navigate('/login');
+    }
     
     const makePayment = async () =>{
         
@@ -148,13 +152,14 @@ const Modal = ({modal,handleModal}) => {
                                     <small>$15 for items less than 10</small>
                                 </span>
                             </div>
+                            
                             {user === null ? (
-                                <Link to='/login' className="widelogin"><button className="loginbtn">Login to checkout</button></Link>
+                                <Link to='/login' className="widelogin"><button className="loginbtn" onClick={handlelink}>Login to checkout</button></Link>
                             ) : (
                                 <button onClick={makePayment}>Checkout</button>
                             )}
-                            
                             <button onClick={handleModal}>Cancel</button>
+                            <button onClick={makePayment}>Checkout</button>
                         </div>
                     )}
                     

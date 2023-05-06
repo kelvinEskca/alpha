@@ -1092,6 +1092,12 @@ header .bottom{
   justify-content: flex-start;
 }
 
+header .mobile-bottom{
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 header .longer{
   height: 20rem;
 }

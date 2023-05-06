@@ -84,6 +84,7 @@ const Login = () => {
                 setAlertText(err.response.data);
                 setTimeout(()=>{
                     setStats('');
+                    setIsSuccessModalOpen(false);
                 },3000)
             }
         }
