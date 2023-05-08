@@ -120,14 +120,43 @@ const Header = ({handleModal,handleMobile,searchToggle}) => {
                                 </div>
                             </nav>
 
-                            <nav className="bottom mobile-bottom">
-                                <Link to='/'><img src='../images/logo2.png' alt='logo'  className="logo"/></Link>
-                                <div className="bottom-right">
-                                    <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" onClick={searchToggle}/></div>
-                                    <div className="small" onClick={handleMobile}><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu"  /></div>
-                                    <div className="small" onClick={handleModal}><img src="../images/icons8-shopping-bag-30.png" alt="icons8-shopping-bag-30" />
-                                    <div className="badge"><p className="count">{items.length}</p></div>
+                            <nav className={`bottom ${bottomHeight ? ("longer") : ("")}`}>
+                                <div className="bottomTop">
+                                    <Link to='/'><img src='../images/logo2.png' alt='logo'  className="logo"/></Link>
+                                    <div className="center">
+                                        <Link to='/women' onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>Women</Link>
+                                        <Link to='/men' onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>Men</Link>
                                     </div>
+
+                                    <div className="bottom-right">
+                                        <div className="small"><img src="../images/icons8-search-30.png" alt="icons8-search-30" onClick={searchToggle}/></div>
+                                        <div className="small" onClick={handleMobile}><img src="../images/icons8-menu-rounded-30.png" alt="icons8-menu-rounded-30" className="menu"  /></div>
+                                        <div className="small" onClick={handleModal}><img src="../images/icons8-shopping-bag-30.png" alt="icons8-shopping-bag-30" />
+                                        <div className="badge"><p className="count">{items.length}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bottomBottom" onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
+                                    {linkContent && linkContent.map((item,i)=>{
+                                        if(item.category === "Male"){
+                                            return( 
+                                                <ul key={item.id}>
+                                                    <h3 className="heading">{item.subcategory}</h3>
+                                                    <li><Link to='/men'>{item.name}</Link></li>
+                                                </ul>
+                                            )
+                                        }
+                                        else{
+                                            return (
+                                                <ul key={item.id}>
+                                                    
+                                                    <h3 className="heading">{item.subcategory}</h3>
+                                                    <li><Link to='/women'>{item.name}</Link></li>
+                                                </ul>
+                                            )
+                                        }
+                                    })}
                                 </div>
                             </nav>
                         </>

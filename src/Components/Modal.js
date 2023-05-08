@@ -159,7 +159,6 @@ const Modal = ({modal,handleModal}) => {
                                 <button onClick={makePayment}>Checkout</button>
                             )}
                             <button onClick={handleModal}>Cancel</button>
-                            <button onClick={makePayment}>Checkout</button>
                         </div>
                     )}
                     
