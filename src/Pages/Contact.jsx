@@ -73,10 +73,13 @@ const Contact = () => {
             catch(err){
                 setLoading(false);
                 setIsSubmitting(false);
-                if (err.response && err.response.status === 401) {
+                setIsSuccessModalOpen(true);
+                setAlertText("Contact Message Failed to send!");
+                if (err.response && err.response.status === 500) {
                     setStats(err.response.data);
                     setTimeout(()=>{
                         setStats('');
+                        setIsSuccessModalOpen(false);
                     },3000)
                 }
             }
@@ -107,11 +110,11 @@ const Contact = () => {
                         <div className="boxes">
                             <div className="box">
                                 <form onSubmit={handleSubmit}>
-                                    <label htmlFor="#">Name:
+                                    <label htmlFor="#">First Name:
                                         <input type="text" name='fname' placeholder='First Name' onChange={(e)=>{setfName(e.target.value)}} required />
                                     </label>
 
-                                    <label htmlFor="#">Name:
+                                    <label htmlFor="#">Last Name:
                                         <input type="text" name='lname' placeholder='Last Name' onChange={(e)=>{setlName(e.target.value)}} required />
                                     </label>
 
