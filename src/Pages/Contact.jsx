@@ -106,24 +106,24 @@ const Contact = () => {
                     <div className="wrapper">
                         <div className="boxes">
                             <div className="box">
-                                <form onClick={handleSubmit}>
+                                <form onSubmit={handleSubmit}>
                                     <label htmlFor="#">Name:
-                                        <input type="text" name='fname' placeholder='First Name' onChange={(e)=>{setfName(e.target.value)}} />
+                                        <input type="text" name='fname' placeholder='First Name' onChange={(e)=>{setfName(e.target.value)}} required />
                                     </label>
 
                                     <label htmlFor="#">Name:
-                                        <input type="text" name='lname' placeholder='Last Name' onChange={(e)=>{setlName(e.target.value)}} />
+                                        <input type="text" name='lname' placeholder='Last Name' onChange={(e)=>{setlName(e.target.value)}} required />
                                     </label>
 
                                     <label htmlFor="#">Email:
-                                        <input type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value);}}/>
+                                        <input type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value);}} required/>
                                     </label>
 
                                     <label htmlFor="#">Message:
-                                        <textarea name="message" id="message" cols="30" rows="10" placeholder='Message' onChange={(e)=>{setMessage(e.target.value)}}></textarea>
+                                        <textarea name="message" id="message" cols="30" rows="10" placeholder='Message' onChange={(e)=>{setMessage(e.target.value)}} required></textarea>
                                     </label>
 
-                                    <label htmlFor="#">{stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Submit'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}</label>
+                                    <label htmlFor="#">{stats === '' ? (<button>{isSubmitting ? 'Processing..' : 'Submit'}</button>) : (<button>{isSubmitting ? 'Processing..' : stats}</button>)}</label>
                                 </form>
                             </div>
                         </div>
