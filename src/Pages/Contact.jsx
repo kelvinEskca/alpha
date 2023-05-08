@@ -54,14 +54,20 @@ const Contact = () => {
                 
                 if(contactSubmit.status === 201){
                     setIsSuccessModalOpen(true);
-                    setAlertText("Admin Registration Successful!");
+                    setAlertText("Contact Message Sent Successfully!");
                     setLoading(false);
                     setIsSubmitting(false);
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000)
                 }
                 else{
                     setLoading(false);
                     setIsSuccessModalOpen(true);
-                    setAlertText("Admin Registration Failed!");
+                    setAlertText("Contact Message Failed to send!");
+                    setTimeout(()=>{
+                        setIsSuccessModalOpen(false);
+                    },3000);
                 }
             }
             catch(err){
@@ -100,28 +106,26 @@ const Contact = () => {
                     <div className="wrapper">
                         <div className="boxes">
                             <div className="box">
-                            <form onClick={handleSubmit}>
-                                <label htmlFor="#">Name:
-                                    <input type="text" name='fname' placeholder='First Name' onChange={(e)=>{setfName(e.target.value)}} />
-                                </label>
+                                <form onClick={handleSubmit}>
+                                    <label htmlFor="#">Name:
+                                        <input type="text" name='fname' placeholder='First Name' onChange={(e)=>{setfName(e.target.value)}} />
+                                    </label>
 
-                                <label htmlFor="#">Name:
-                                    <input type="text" name='lname' placeholder='Last Name' onChange={(e)=>{setlName(e.target.value)}} />
-                                </label>
+                                    <label htmlFor="#">Name:
+                                        <input type="text" name='lname' placeholder='Last Name' onChange={(e)=>{setlName(e.target.value)}} />
+                                    </label>
 
-                                <label htmlFor="#">Email:
-                                    <input type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value);}}/>
-                                </label>
+                                    <label htmlFor="#">Email:
+                                        <input type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value);}}/>
+                                    </label>
 
-                                <label htmlFor="#">Message:
-                                    <textarea name="message" id="message" cols="30" rows="10" placeholder='Message' onChange={(e)=>{setMessage(e.target.value)}}></textarea>
-                                </label>
+                                    <label htmlFor="#">Message:
+                                        <textarea name="message" id="message" cols="30" rows="10" placeholder='Message' onChange={(e)=>{setMessage(e.target.value)}}></textarea>
+                                    </label>
 
-                                <label htmlFor="#">{stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Submit'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}</label>
-                            </form>
+                                    <label htmlFor="#">{stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Submit'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}</label>
+                                </form>
                             </div>
-
-                        
                         </div>
                     </div>
                 </section>
