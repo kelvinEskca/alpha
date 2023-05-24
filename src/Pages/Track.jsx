@@ -4,6 +4,7 @@ import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
+import GlobeComponent from "../Components/GlobeComponent";
 const Track = () => {
     axios.defaults.withCredentials = true;
     const [modal,setModal] = useState(false)
@@ -66,6 +67,8 @@ const Track = () => {
                                 </label>
                             </form>
                         </div>
+
+                        <GlobeComponent/>
                     </div>
                 </div>
             </section>

@@ -81,7 +81,7 @@ const Footer = ({search}) => {
                 <span className="holder">
                     <p className="paragraph">&copy; 2023</p>
                     <p className="paragraph">|</p>
-                    <p className="paragraph">&copy;  VELONTE Athletics LLC</p>
+                    <p className="paragraph">&copy;  VELONTE</p>
                     <p className="paragraph">|</p>
                     <p className="paragraph">All Rights Reserved</p>
                 </span>

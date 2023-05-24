@@ -65,7 +65,6 @@ const Header = ({handleModal,handleMobile,searchToggle}) => {
         
    },[]);
   
-   if(loading) return <Loader />;
     return (
         user ? (
             <>

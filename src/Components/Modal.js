@@ -54,7 +54,7 @@ const Modal = ({modal,handleModal}) => {
         }
     }
     return (
-        <section className={`section  ${modal ? ('modal') : ('off')}`} >
+        <section className={`section  ${modal ? ('modal') : ('modal modaloff')}`} >
             <div className="wrapper">
                 <div className="boxes" onClick={handleSectionClick}>
                     <>

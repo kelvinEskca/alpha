@@ -13,6 +13,7 @@ import Loader from "../Components/Loader";
 import Search from "../Components/Search";
 import baseUrl from "../config/config.js";
 import axios from "axios";
+import AnimatedRoutes from "../Components/AnimatedRoutes";
 const Home = () => {
     const [toggleState, setToggleState] = useState(1);
     const [modal,setModal] = useState(false);
@@ -68,6 +69,7 @@ const Home = () => {
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
+            <AnimatedRoutes>
             <main className="main">
 
                 {hero.map((item,i)=>{
@@ -132,6 +134,7 @@ const Home = () => {
                 <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer search={search} />
+            </AnimatedRoutes>
         </>
     );
 }

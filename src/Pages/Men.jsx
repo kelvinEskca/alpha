@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import SlideShow from "../Components/SlideShow";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
+import AnimatedRoutes from "../Components/AnimatedRoutes";
 const Men = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
@@ -154,6 +155,7 @@ const Men = () => {
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
+            <AnimatedRoutes>
             <main className="main">
                 {hero.map((item,i)=>{
                     if(item.active === true && item.category === "Male"){
@@ -294,6 +296,7 @@ const Men = () => {
                 <Search search={search} searchToggle={searchToggle} />
             </main>
             <Footer />
+            </AnimatedRoutes>
             <div className={`grid-filter-area ${activeGrid ? ("grid-filter-area activegrid-filter"):("grid-filter-area ")}`}>
                 <div className="top-area">
                    {content}
