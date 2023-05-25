@@ -33,7 +33,7 @@ const Login = () => {
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        setIsSubmitting(true)
+        setIsSubmitting(true);
         try{
             const loginUser = await axios.post(`${baseUrl.baseUrl}/alphaapi/auth/login`,{
                 email:email,

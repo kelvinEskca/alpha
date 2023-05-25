@@ -38,11 +38,12 @@ const Contact = () => {
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        setIsSubmitting(true)
+        
         if(email === ''  || fname === '' || lname === '' || message === ''){
             alert('Please ensure all fields are filled');
         }
         else{
+            setIsSubmitting(true)
             try{
                 const contactSubmit = await axios.post(`${baseUrl.baseUrl}/alphaapi/contact`,{
                     email:email,

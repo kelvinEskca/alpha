@@ -25,7 +25,7 @@ const AdminRegister = () => {
     const navigate = useNavigate();
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        setIsSubmitting(true)
+        
         if(email === ''  || firstname === '' || lastname === ''  || password === ''){
             alert('Please ensure all fields are filled');
         }
@@ -33,6 +33,7 @@ const AdminRegister = () => {
             alert('Please make sure passwords is greater than 4 characters');
         }
         else{
+            setIsSubmitting(true)
             try{
                 const userSubmit = await axios.post(`${baseUrl.baseUrl}/alphaapi/auth/adminRegister`,{
                     email:email,
@@ -103,25 +104,25 @@ const AdminRegister = () => {
                                     <label htmlFor="#">First Name
                                         <input type='text' placeholder='First Name' onChange={(e)=>{
                                         setFirstname(e.target.value);
-                                    }}/>
+                                    }} required/>
                                     </label>
 
                                     <label htmlFor="#">Last Name
                                         <input type='text' placeholder='Last Name' onChange={(e)=>{
                                         setLastname(e.target.value);
-                                    }}/>
+                                    }} required/>
                                     </label>
 
                                     <label htmlFor="#">Email Address
                                         <input type='email' placeholder='Email' onChange={(e)=>{
                                         setEmail(e.target.value);
-                                    }}/>
+                                    }} required/>
                                     </label>
 
                                     <label htmlFor="#">Password
                                         <input type='password' placeholder='Password' onChange={(e)=>{
                                         setPassword(e.target.value);
-                                    }}/>
+                                    }} required/>
                                     </label>
 
                                     <label htmlFor="#">

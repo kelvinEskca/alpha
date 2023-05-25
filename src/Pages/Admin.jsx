@@ -104,13 +104,13 @@ const Admin = () => {
                                     <label htmlFor="#">Email Address
                                         <input type="email" name="email" id="email" onChange={(e)=>{
                                             setEmail(e.target.value);
-                                        }}/>
+                                        }} required/>
                                     </label>
 
                                     <label htmlFor="#">Password
                                         <input type="password" name="password" id="password" onChange={(e)=>{
                                             setPassword(e.target.value);
-                                        }}/>
+                                        }} required/>
                                     </label>
 
                                     <label htmlFor="#" className="center-label">

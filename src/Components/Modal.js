@@ -143,7 +143,7 @@ const Modal = ({modal,handleModal}) => {
                             <div className={`rowMajor majorFirst ${isChecked ? ' checked' : ''}`}>
                                 <span className={`note-span check-span `}>
                                     <input type="checkbox" checked={isChecked} onChange={handleToggle} />
-                                    <small>Free shipping for the first one month</small>
+                                    <small>Free shipping</small>
                                 </span>
                             </div>
                             <div className={`rowMajor ${isChecked ? 'off' : ''}`}>
