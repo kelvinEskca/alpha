@@ -3025,6 +3025,7 @@ img {
   min-height: 300px;
   align-items: center;
   justify-content: center; 
+  margin-bottom:1rem;
 }
 
 .trackmain #globeBox canvas{
@@ -3741,7 +3742,8 @@ img {
     width: 500px;
     min-height: 500px;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
+    margin-bottom: 0; 
   }
   
   .trackmain .boxes{
