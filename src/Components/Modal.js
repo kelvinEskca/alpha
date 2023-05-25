@@ -9,7 +9,7 @@ const Modal = ({modal,handleModal}) => {
     const user = JSON.parse(localStorage.getItem('user'));
     axios.defaults.withCredentials = true;
     const individualTotalPrice = getItemAmount();
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(true);
     let totalAmount = 0;
     const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ const Modal = ({modal,handleModal}) => {
         }
     }
     return (
-        <section className={`section  ${modal ? ('modal') : ('modal modaloff')}`} >
+        <section className={`section modal  ${modal ? ('modaloff') : ('')}`} >
             <div className="wrapper">
                 <div className="boxes" onClick={handleSectionClick}>
                     <>
@@ -146,7 +146,7 @@ const Modal = ({modal,handleModal}) => {
                                     <small>Free shipping for the first one month</small>
                                 </span>
                             </div>
-                            <div className="rowMajor">
+                            <div className={`rowMajor ${isChecked ? 'off' : ''}`}>
                                 <span className="note-span">
                                     <small>$25 for items greater than 10</small>
                                     <small>$15 for items less than 10</small>

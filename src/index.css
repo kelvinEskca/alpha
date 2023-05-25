@@ -1625,7 +1625,7 @@ img {
   background-color: #0f0f0fbc;
   backdrop-filter: blur(100px);
   border: 1px solid #929294;
-  z-index: 20;
+  z-index: 90;
   top: -100rem;
   padding: 0;
   align-items: center;
@@ -1702,6 +1702,10 @@ img {
 
 .modal .box:nth-of-type(1) a:nth-of-type(1) button {
   width: 12rem;
+}
+
+.info-container .off{
+  display: none;
 }
 
 .off {

@@ -5,7 +5,6 @@ import { useContext,useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import baseUrl from "../config/config.js";
 import axios from "axios";
-import Loader from "./Loader";
 const Header = ({handleModal,handleMobile,searchToggle}) => {
     const {items} = useContext(CartContext);
     const user = JSON.parse(localStorage.getItem('user'));

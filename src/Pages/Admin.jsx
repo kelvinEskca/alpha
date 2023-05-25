@@ -43,7 +43,7 @@ const Admin = () => {
                 localStorage.setItem("token", loginUser.data.accessToken);
                 localStorage.setItem("user",JSON.stringify(loginUser.data));
                 setLoading(true);
-                if(loginUser.data.isAdmin === false){
+                if(loginUser.data.isAdmin === true){
                     setLoading(false);
                     setIsSubmitting(false);
                     setIsSuccessModalOpen(true);
@@ -51,7 +51,7 @@ const Admin = () => {
                     setTimeout(()=>{
                         setIsSuccessModalOpen(false);
                     },3000)
-                    navigate('/account');
+                    navigate('/dashboard');
                 }
                 else{
                     setLoading(false);
