@@ -1,5 +1,3 @@
-import Button from '../Components/Button';
-import Input from '../Components/Input';
 import React,{useState} from 'react';
 import { useEffect } from 'react';
 import Footer from '../Components/Footer';
@@ -96,11 +94,6 @@ const Contact = () => {
                         <div className="boxes">
                             <div className="box">
                                 <h3 className="heading">Contact Us</h3>
-                                <form action="#">
-                                    <label htmlFor="#"><Input type={'text'} placeholder={'Search key words here...'} /></label>
-                                    <Button btnText={'Search'} />
-                                </form>
-                                
                             </div>
                         </div>
                     </div>

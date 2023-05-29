@@ -64,11 +64,17 @@ const CardModal = ({cardModal,openCard,cards,setCards}) => {
         }
     };
 
+    const handleSectionClick = (e) => {
+        if (e.target === e.currentTarget) {
+            openCard();
+        }
+    }
+
     return (
         <>
-            <section className={`section addressModal  ${cardModal ? ('modal') : ('off')}`} >
+            <section className={`section addressModal modal  ${cardModal ? ('modal modaloff') : ('')}`} >
                 <div className="wrapper">
-                    <div className="boxes" >
+                    <div className="boxes" onClick={handleSectionClick}>
                         <div className="box">
                             <form action="#" className="form" onSubmit={handleSubmit} encType="multipart/form-data">
                                 <h3 className="heading">Add a new card section</h3>

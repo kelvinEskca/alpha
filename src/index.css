@@ -389,6 +389,7 @@ main {
 .support-main {
   background-color: #fff;
   padding: 0;
+  padding-top: 5rem;
 }
 
 .support .hero-box button {
@@ -460,10 +461,11 @@ main {
 .help-main {
   background-color: #fff;
   padding: 0;
+  background-image: none;
 }
 
 .cant {
-  background-image: url(../public/images/aee8b30ca116d71e3a7bd022d5a13146bb0d361a.jpg);
+  background-image: url(../public/images/VELONTÉ\ WITH\ STARS.png);
   background-position: center;
   background-size: cover;
   height: 40vh;
@@ -1641,14 +1643,14 @@ img {
 .modal .wrapper,
 .modal .boxes {
   height: 100%;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   overflow-y: auto;
   scrollbar-width: none;
 }
 
-.modal .boxes {
-  padding: 3rem;
+.modal .wrapper{
+  padding-block: 2rem;
 }
 
 .modal .box {
@@ -3148,10 +3150,6 @@ img {
     align-items: center;
   }
 
-  .policy .box {
-    max-width: 900px;
-  }
-
   .policy .box form {
     max-width: 700px;
     align-items: center;
@@ -3243,6 +3241,10 @@ img {
   footer,
   .main .row {
     padding-inline: 2.6rem;
+  }
+
+  .modal{
+    padding: 0;
   }
 
   .main .row section {
@@ -3729,8 +3731,9 @@ img {
   .modal .boxes{
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     max-width: 1000px;
+    gap: 2rem;
   }
 
   .info-container .rowOne{
@@ -3760,6 +3763,8 @@ img {
   .main .row {
     padding-inline: 8rem;
   }
+
+  
 
   header,
   .mobile-inner,.grid-filter-area {

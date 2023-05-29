@@ -68,11 +68,18 @@ const HeroModal = ({heroModal,openModal,hero,setHero}) => {
             console.error(err);
         }
     };
+
+    const handleSectionClick = (e) => {
+        if (e.target === e.currentTarget) {
+            openModal();
+        }
+    }
+
     return (
         <>
-        <section className={`section addressModal  ${heroModal ? ('modal') : ('off')}`} >
+        <section className={`section addressModal modal  ${heroModal ? ('modal modaloff') : ('')}`} >
             <div className="wrapper">
-                <div className="boxes" >
+                <div className="boxes" onClick={handleSectionClick}>
                     <div className="box">
                         <form action="#" className="form" onSubmit={handleSubmit} encType="multipart/form-data">
                             <h3 className="heading">Add a new hero section</h3>
