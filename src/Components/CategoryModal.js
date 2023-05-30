@@ -62,12 +62,20 @@ const ProductModal = ({productModal,openModal,setProducts,products}) => {
             }
         }
     };
+
+    const handleSectionClick = (e) => {
+        if (e.target === e.currentTarget) {
+            openModal();
+        }
+    }
+
+    
     if(loading) return <Loader />;
     return (
         <>
-        <section className={`section addressModal  ${productModal ? ('modal') : ('off')}`} >
+        <section className={`section addressModal modal  ${productModal ? ('modaloff') : ('')}`} >
             <div className="wrapper">
-                <div className="boxes" >
+                <div className="boxes" onClick={handleSectionClick}>
                     <div className="box">
                         <form action="#" className="form" onSubmit={handleSubmit}>
                             <h3 className="heading">Add a new category</h3>

@@ -78,7 +78,7 @@ const Return = () => {
                                 </ul>
                                 <p className="paragraph">If you need to start a return, click one of the links below. If you need any extra help, <Link to="/contact">contact us</Link>and we'll be happy to give you a hand!</p>
 
-                                <Link to='/'>US domestic customers, please click here.</Link>
+                                <Link to='/ticket'>US domestic customers, please click here.</Link>
                             </div>
                         </div>
                     </div>

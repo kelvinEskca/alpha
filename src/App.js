@@ -32,6 +32,7 @@ import Details from "./Pages/Details";
 import Admin from "./Pages/Admin";
 import AdminRegister from "./Pages/AdminRegister";
 import PublicRoute from "./Components/PublicRoute";
+import Warranty from "./Pages/Warranty";
 const App = () => {
   return (
     <CartProvider>
@@ -40,10 +41,11 @@ const App = () => {
           <Route exact path='/' element={<Home />}/>
           <Route path="/summer" element={<Summer />}/>
           <Route path="/about" element={<About />}/>
-          <Route path="/support" element={<Support />}/>
+          <Route path="/ticket" element={<Support />}/>
           <Route path="/shipping" element={<Shipping />}/>
           <Route path="/contact" element={<Contact />}/>
           <Route path="/help" element={<Help />}/>
+          <Route path="/warranty" element={<Warranty />}/>
           <Route path="/return" element={<Return />}/>
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>}/>
           <Route path="/admin" element={<PublicRoute><Admin /></PublicRoute>}/>

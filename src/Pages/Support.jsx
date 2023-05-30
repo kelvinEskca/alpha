@@ -1,5 +1,4 @@
 import SupportHero from '../Components/SupportHero';
-import SupportFooter from '../Components/SupportFooter';
 import SupportHeader from '../Components/SupportHeader';
 import baseUrl from "../config/config.js";
 import axios from 'axios';
@@ -8,6 +7,7 @@ import { useEffect,useState } from 'react';
 import Modal from '../Components/Modal';
 import MobileNav from '../Components/MobileNav';
 import AlertModal from '../Components/AlertModal';
+import Footer from '../Components/Footer';
 const Support = () => {
 
     axios.defaults.withCredentials = true;
@@ -106,7 +106,7 @@ const Support = () => {
                 <section className="section support">
                     <div className="wrapper">
                         <div className="boxes">
-                            <SupportHero link={'Returns & Exchange'} heading={'Return / exchange policy'}/>
+                            <SupportHero heading={'Ticket'}/>
                         </div>
                     </div>
                 </section>
@@ -150,9 +150,7 @@ const Support = () => {
                 <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
 
-            <footer className="support-footer">
-                <SupportFooter />
-            </footer>
+            <Footer />
         </>
     );
 }

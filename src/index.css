@@ -1464,6 +1464,7 @@ header .bottom-right .small .badge .count {
 }
 
 .latest .products {
+  background-color: #222;
   border: 1px solid #2b2a33;
   padding: 1rem;
   border-radius: 0.8rem;

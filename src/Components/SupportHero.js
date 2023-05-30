@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Button from '../Components/Button'
 const SupportHeader = ({link,linkto,heading}) => {
     return (
         <div className="box">
@@ -11,7 +10,6 @@ const SupportHeader = ({link,linkto,heading}) => {
 
             <div className="hero-box">
                 <h3 className="heading">{heading}</h3>
-                <Link to='#'><Button btnText={'Follow'}/></Link>
             </div>
         </div>
     );

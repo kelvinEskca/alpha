@@ -70,12 +70,19 @@ const AddressModal = ({addressModal,openModal,setAlertText}) => {
         else{
             setAlertText('Ensure All inputs are filled!');
         }
+    };
+
+    const handleSectionClick = (e) => {
+        if (e.target === e.currentTarget) {
+            openModal();
+        }
     }
+
     if(loading) return <Loader />;
     return (
-        <section className={`section addressModal  ${addressModal ? ('modal') : ('off')}`} >
+        <section className={`section addressModal modal  ${addressModal ? ('modaloff') : ('')}`} >
             <div className="wrapper">
-                <div className="boxes" >
+                <div className="boxes" onClick={handleSectionClick}>
                     <div className="box">
                         <form action="#" className="form" onSubmit={addAddress}>
                             <h3 className="heading">Add a new address</h3>
