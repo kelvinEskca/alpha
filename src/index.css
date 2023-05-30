@@ -1298,9 +1298,9 @@ header .bottom-right .small .badge .count {
 }
 
 .welcome .box {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .welcome .heading {
@@ -1310,6 +1310,7 @@ header .bottom-right .small .badge .count {
   max-width: 220px;
   font-family: "GT";
   text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 .orders .orders-box {
@@ -3129,6 +3130,12 @@ img {
   .desc-box .description {
     margin: 0;
   }
+
+  .welcome .box {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -3391,6 +3398,7 @@ img {
 
   .welcome .heading {
     max-width: 300px;
+    margin-bottom: 0;
   }
 
   .orders .boxes {
