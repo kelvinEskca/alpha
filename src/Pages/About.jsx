@@ -6,7 +6,6 @@ import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
-import Loader from "../Components/Loader";
 import VideoCard from "../Components/VideoCard";
 import baseUrl from "../config/config.js";
 const About = () => {
@@ -35,7 +34,6 @@ const About = () => {
         }
         getHero();
     },[]);
-    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>

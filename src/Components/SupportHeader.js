@@ -5,7 +5,6 @@ import { useContext,useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import baseUrl from "../config/config.js";
 import axios from "axios";
-import Loader from "./Loader";
 const SupportHeader = ({handleModal,handleMobile,searchToggle}) => {
     const {items} = useContext(CartContext);
     const user = JSON.parse(localStorage.getItem('user'));
@@ -65,7 +64,6 @@ const SupportHeader = ({handleModal,handleMobile,searchToggle}) => {
         
    },[]);
   
-   if(loading) return <Loader />;
   
    return (
     user ? (

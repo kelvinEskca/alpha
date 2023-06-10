@@ -1,6 +1,5 @@
 import React,{useState} from "react";
 import { useNavigate,useParams } from "react-router-dom";
-import Button from "./Button";
 import axios from "axios";
 import AlertModal from "./AlertModal";
 import baseUrl from "../config/config.js";
@@ -36,7 +35,7 @@ const ColorModal = ({colorModal,openModal}) => {
             data.append("image", formData.images[i]);
         }
         try {
-            const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/color`, data,{headers:{token:token}});
+            const res = await axios.put(`${baseUrl.baseUrl}/alphaapi/product/update/${id}`, data,{headers:{token:token}});
             if(res.status === 200){
                 setIsSuccessModalOpen(true);
                 setAlertText("Color Image addedd Successfully!");
@@ -83,7 +82,7 @@ const ColorModal = ({colorModal,openModal}) => {
                             </label>
 
                             <label htmlFor="#">
-                                <Button btnText={isSubmitting ? 'Uploading..' : 'Add Image'} />
+                                <button>{isSubmitting ? 'Uploading..' : 'Add Image'}</button>
                             </label>
 
                             <label htmlFor="#">

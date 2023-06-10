@@ -1,6 +1,6 @@
 const Button = ({btnText,btntheme}) => {
     return (
-        <button className={`button ${btntheme}`}>{btnText}</button>
+        <button type="button" className={`button ${btntheme}`}>{btnText}</button>
     );
 }
  

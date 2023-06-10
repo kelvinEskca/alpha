@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import CartContext from "../CartContext";
 import axios from "axios";
-import Loader from "./Loader";
-import SlideShow from "../Components/SlideShow";
 import AlertModal from "./AlertModal";
 import baseUrl from "../config/config.js";
+import Skeleton,{SkeletonTheme } from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 const ImageCard = ({toggleState}) => {
     axios.defaults.withCredentials = true;
     const [products,setProducts] = useState([]);
@@ -15,101 +15,84 @@ const ImageCard = ({toggleState}) => {
     const {addToCart} = useContext(CartContext);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [alertText,setAlertText] = useState('');
+    const [selectColor, setSelectColor] = useState([]);
+    const [selectColorName, setSelectColorName] = useState([]);
+    const [colorId, setColorId] = useState();
     useEffect(()=>{
-        if(toggleState === 1){
-            const gender = 'Female';
-            const getproducts = async ()=>{
-                try{
-                    const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/female/${gender}`);
-                    setProducts(res.data);
-                    if(res){
-                        setLoading(false);
-                    }
-                    else{
-                        setLoading(false);
-                    }
-                   
-                }
-                catch(err){
-                    console.log(err);
-                }
+        setLoading(true);
+        const fetchData = async () => {
+            try {
+              let res;
+              if (toggleState === 1) {
+                const gender = 'Female';
+                res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/female/${gender}`);
+              } else if (toggleState === 2) {
+                const gender = 'Male';
+                res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/male/${gender}`);
+              } else {
+                res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product`);
+              }
+        
+              setProducts(res.data);
+              setLoading(false); // Set loading to false when data fetching is complete
+            } catch (err) {
+              console.log(err);
             }
-            getproducts();
-        }
-        else if(toggleState === 2){
-            const gender = 'Male';
-            const getproducts = async ()=>{
-                try{
-                    const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/male/${gender}`)
-                    setProducts(res.data);
-                    if(res){
-                        setLoading(false);
-                    }
-                    else{
-                        setLoading(false);
-                    }
-                }
-                catch(err){
-                    console.log(err);
-                }
-            }
-            getproducts();
-        }
-        else{
-            const getproducts = async ()=>{
-                try{
-                    const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product`)
-                    setProducts(res.data);
-                    if(res){
-                        setLoading(false);
-                    }
-                    else{
-                        setLoading(false);
-                    }
-                }
-                catch(err){
-                    console.log(err);
-                }
-            }
-            getproducts();
-        }
+          };
+        
+        fetchData();
         
     },[toggleState]);
 
-    const handleClick = (item,size) => {
-        setSelectedSizes({...selectedSizes, [item._id]: size });
-        addToCart({...item,size});
+
+    const handleClick = (item, size) => {
+        const selectedColor = selectColor.length > 0 ? selectColor : item.colors[0].image[0].url;
+        const selectedColorName = selectColorName.length > 0 ? selectColorName : item.colors[0].colorName;
+        setSelectedSizes({ ...selectedSizes, [item._id]: size });
+        addToCart({ ...item, size, colors: selectedColor, colorName: selectedColorName });
         setIsSuccessModalOpen(true);
         setAlertText("Item added to cart!");
         setTimeout(() => {
-            setIsSuccessModalOpen(false);
+          setIsSuccessModalOpen(false);
         }, 5000);
     };
-    
-    let url = []; 
-    const makePic = (item) =>{
-        url.push(item);
-        console.log(item)
-    }
+      
 
-    if(loading) return <Loader />
+    const handleColorUpdate = (color,colorName,id) => {
+        setSelectColor(color);
+        setSelectColorName(colorName);
+        setColorId(id);
+    };
+    
     return (
         <>
-        {products.length > 0 ? (
+        {loading ? (
+            <SkeletonTheme baseColor="#2b2a33" highlightColor="#222">
+            <div className="box skeletonbox">
+                <Skeleton height={280} count={products.length}/>
+            </div>
+            </SkeletonTheme>
+        ) : (
             products.map((item,i)=>{
                 if (item.inStock === true){
-                    const {image} = item;   
-                                    
-                    image.map((img)=>{
-                        return url.push(img.url);
-                    })
+                    const itemId = item._id;
+                    const href = `/details/${itemId}`;
                     return (
                         <div className="box" key={i}>
                             <div className="tag"><small></small></div>
                             <div className="image-box">
-                                <Link to={`details/${item._id}`}>
-                                    <SlideShow url={url} />
-                                </Link>
+                            <Link to={href}>
+                                {selectColor.length > 0 && colorId === item._id ? (
+                                    <img src={selectColor} alt={selectColor} />
+                                ) : (
+                                    item.colors.map((col, i) => {
+                                    return col.image.map((pic, j) => {
+                                        return <img src={pic.url} alt={item.name} key={j} />;
+                                    });
+                                    })
+                                )}
+                            </Link>
+
         
                                 <div className="quick-add">
                                     <div className="quick-add-top">
@@ -127,7 +110,8 @@ const ImageCard = ({toggleState}) => {
                             </div>
                             <div className="text">
                                 <h3 className="heading">{item.name}</h3>
-                                <p className="paragraph">{item.color}</p>
+                                {selectColorName && selectColorName.length > 0 ? (<p className="paragraph">{selectColorName}</p>) : (<p className="paragraph">{item.colors[0].colorName}</p>)}
+                                
                                 <p className="paragraph">${item.price}</p>
                             </div>
         
@@ -140,12 +124,12 @@ const ImageCard = ({toggleState}) => {
                             </div>
 
                             <div className="image-scroll">
-                                {item.image.map((pic,i)=>{
-                                    return(
-                                        <>
-                                            <img src={pic.url} alt={item.name} onClick={()=>makePic(pic.url)}/>
-                                        </>
-                                    )
+                                
+                                {item.colors.map((col, i) => {
+                                    return col.image.map((pic, j) => {
+                                        return <img src={pic.url} alt={item.name} key={j} onClick={() =>
+                                            handleColorUpdate(pic.url,col.colorName,item._id)} />;
+                                    });
                                 })}
                             </div>
                         </div>
@@ -153,7 +137,8 @@ const ImageCard = ({toggleState}) => {
                 }
                 return null
             })
-        ):(<h3>No Products</h3>)}
+        )}
+        
 
         <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
         </>

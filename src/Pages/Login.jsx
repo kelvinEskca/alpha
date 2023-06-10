@@ -1,12 +1,10 @@
 import React,{useState} from "react";
 import {Link,useNavigate} from 'react-router-dom';
-import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
-import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
 import AlertModal from "../Components/AlertModal";
 import Search from "../Components/Search";
@@ -94,7 +92,6 @@ const Login = () => {
         setSearch(!search);
     };
 
-    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
@@ -122,7 +119,7 @@ const Login = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                        {stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Log In'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}
+                                        {stats === '' ? (<button> {isSubmitting ? 'Processing..' : 'Log In'}</button>) : (<button>{isSubmitting ? 'Processing..' : stats}</button>)}
                                         
                                     </label>
 

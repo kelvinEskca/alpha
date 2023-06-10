@@ -7,7 +7,6 @@ import HeroModal from "../Components/HeroModal";
 import CardModal from "../Components/CardModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
-import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
 import { useNavigate } from "react-router-dom";
@@ -195,8 +194,6 @@ const Settings = () => {
     const searchToggle = () =>{
         setSearch(!search);
     };
-
-    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>

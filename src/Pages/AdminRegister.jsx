@@ -1,12 +1,10 @@
 import React,{useState} from "react";
 import {Link, useNavigate} from 'react-router-dom';
-import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from 'axios';
-import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
@@ -90,7 +88,6 @@ const AdminRegister = () => {
         setSearch(!search);
     };
 
-    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle} />
@@ -126,7 +123,7 @@ const AdminRegister = () => {
                                     </label>
 
                                     <label htmlFor="#">
-                                    {stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Create Admin Account'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}
+                                    {stats === '' ? (<button>{isSubmitting ? 'Processing..' : 'Create Admin Account'}</button>) : (<button>{isSubmitting ? 'Processing..' : stats}</button>)}
                                     </label>
 
                                     <label htmlFor="#" className="center-label">

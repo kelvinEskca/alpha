@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import { useEffect } from 'react';
 import Footer from '../Components/Footer';
 import SupportHeader from '../Components/SupportHeader';
-import Loader from "../Components/Loader";
 import MobileNav from "../Components/MobileNav";
 import Modal from "../Components/Modal";
 import baseUrl from "../config/config.js";
@@ -84,7 +83,6 @@ const Contact = () => {
             }
         }
     }
-    if(loading) return <Loader />;
     return (
         <>
             <SupportHeader handleModal={handleModal} handleMobile={handleMobile}/>

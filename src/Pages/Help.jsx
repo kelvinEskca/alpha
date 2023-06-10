@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import { useEffect } from 'react';
 import Footer from '../Components/Footer';
 import SupportHeader from '../Components/SupportHeader';
-import Loader from "../Components/Loader";
 import MobileNav from "../Components/MobileNav";
 import Modal from "../Components/Modal";
 import { Link } from 'react-router-dom';
@@ -23,7 +22,7 @@ const Help = () => {
     useEffect(()=>{
         setLoading(false);
     },[]);
-    if(loading) return <Loader />;
+  
     return (
         <>
             <SupportHeader handleModal={handleModal} handleMobile={handleMobile}/>
@@ -64,7 +63,7 @@ const Help = () => {
                                 <h3 className="heading">If your delivery address is outside of the United States:</h3>
                                 <p className="paragraph">Couriers recommend waiting an additional 2 business days for delivery. If you still haven't received your package by the third business day, please proceed in opening a claim through your local courier.</p>
 
-                                <p className="paragraph">If you have waited these extra days, or would like further assistance looking into your package's delivery, please contact our <Link to="/support">Support Team</Link></p>
+                                <p className="paragraph">If you have waited these extra days, or would like further assistance looking into your package's delivery, please contact our <Link to="/ticket">Support Team</Link></p>
 
                                 <h3 className="heading">Please contact us within 15 days of the delivery date. This will ensure that our team is able to assist you further and open an investigation on applicable orders.</h3>
                             </div>
@@ -73,7 +72,7 @@ const Help = () => {
                                 <h3 className="heading">Where can I find my tracking number?</h3>
                                 <p className="paragraph">You'll find your tracking number in your shipping confirmation email. Below you'll find a breakdown of tracking number identifications and links that can be found in your shipping email.</p>
 
-                                <p className="paragraph">If you have any additional questions or concerns, our Support Team is here for you. Just submit a <Link to='/support'>ticket</Link> and we'll be happy to give you a hand!</p>
+                                <p className="paragraph">If you have any additional questions or concerns, our Support Team is here for you. Just submit a <Link to='/ticket'>ticket</Link> and we'll be happy to give you a hand!</p>
                             </div>
 
                         </div>

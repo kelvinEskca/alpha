@@ -1,13 +1,11 @@
 import React,{useState} from "react";
 import { Link,useNavigate } from "react-router-dom";
-import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from 'axios'
 import { useEffect } from "react";
-import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
 const Account = () => {
@@ -20,6 +18,7 @@ const Account = () => {
     const token = localStorage.getItem('token');
     const [loading,setLoading] = useState(false);
     const [search,setSearch] = useState(false);
+    const [address,setAddress] = useState([]);
     const navigate = useNavigate();
     const logout = () => {
         if(user){
@@ -59,7 +58,23 @@ const Account = () => {
         }
         grabOrders()
     },[token,user]);
-    if(loading) return <Loader />;
+
+    const getaddress = async ()=>{
+        const id = user._id;
+        try{
+            const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/address/${id}`,{headers:{token:token}})
+            setAddress(res.data);
+            setLoading(false);
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+    
+    useEffect(()=>{
+        getaddress();
+    },[])
+
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
@@ -150,13 +165,27 @@ const Account = () => {
                                 
                             )}
                             
-
-                            <div className="box address">
-                                <h3 className="heading">PRIMARY ADDRESS</h3>
-                                <p className="paragraph">{useraddress ? (useraddress.fname + ' ' + useraddress.lname) : (user.fname + ' ' + user.lname)}</p>
-                                {useraddress  ? (<p className="paragraph">{useraddress.country}</p>) : (<p className="paragraph">United States</p>)}
-                                <Link to='/addresses'><Button btnText={'Edit Addresses'}/></Link>
-                            </div>
+                            {address !== null ? (
+                                <div className="box address">
+                                    <h3 className="heading">PRIMARY SHIPPING ADDRESS</h3>
+                                    <p className="paragraph">{address.fname + ' ' + useraddress.lname}</p>
+                                    <p className="paragraph">{address.country}</p>
+                                    <p className="paragraph">{address.phone}</p>
+                                    <p className="paragraph">{address.addressOne}</p>
+                                    <p className="paragraph">{address.country}</p>
+                                    <p className="paragraph">{address.city}</p>
+                                    <p className="paragraph">{address.province}</p>
+                                    <p className="paragraph">{address.postalcode}</p>
+                                    <Link to='/addresses'><button>{'Edit Addresses'}</button></Link>
+                                </div>
+                            ):(
+                                <div className="box address">
+                                    <h3 className="heading">PRIMARY SHIPPING ADDRESS</h3>
+                                    <p className="paragraph">{user.fname + ' ' + user.lname}</p>
+                                    {<p className="paragraph">United States</p>}
+                                    <Link to='/addresses'><button>{'Edit Addresses'}</button></Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>

@@ -2,7 +2,6 @@ import SupportHero from '../Components/SupportHero';
 import SupportHeader from '../Components/SupportHeader';
 import baseUrl from "../config/config.js";
 import axios from 'axios';
-import Loader from '../Components/Loader';
 import { useEffect,useState } from 'react';
 import Modal from '../Components/Modal';
 import MobileNav from '../Components/MobileNav';
@@ -98,7 +97,6 @@ const Support = () => {
             }
         }
     }
-    if(loading) return <Loader />;
     return (
         <>
             <SupportHeader />

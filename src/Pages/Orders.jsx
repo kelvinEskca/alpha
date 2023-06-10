@@ -6,11 +6,10 @@ import Input from "../Components/Input";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
-import Loader from "../Components/Loader";
 import baseUrl from "../config/config.js";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
-    const [orders,setOrders] = useState(null);
+    const [orders,setOrders] = useState([]);
     const auth = localStorage.getItem('token');
     const [loading,setLoading] = useState(true);
 
@@ -37,7 +36,6 @@ const Dashboard = () => {
         setMobile(!mobile);
     }
 
-    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>

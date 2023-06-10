@@ -1,11 +1,9 @@
 import React,{useState,useEffect} from "react";
-import Button from "./Button";
 import axios from "axios";
-import Loader from "./Loader";
 import baseUrl from "../config/config.js";
 const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleChange,handleImageChange,formData}) => {
     axios.defaults.withCredentials = true;
-    const [products,setProducts] = useState(null);
+    const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
     
     useEffect(()=>{
@@ -13,6 +11,7 @@ const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleCh
             try{
                 const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/category`)
                 setProducts(res.data);
+                console.log(res.data);
                 setLoading(false);
             }
             catch(err){
@@ -27,7 +26,6 @@ const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleCh
             openModal();
         }
     }
-    if(loading) return <Loader />;
     return (
         <section className={`section addressModal modal  ${productModal ? ('modaloff') : ('')}`} >
             <div className="wrapper">
@@ -78,7 +76,12 @@ const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleCh
                                     {products.map((cat,i)=>{
                                         return (
                                             <>
-                                                <option value={cat.subcategory} key={cat._id}>{cat.subcategory}</option>
+                                                {cat.subcategories.map((sub,j)=>{
+                                                    return(
+                                                        <option value={sub.subcategoryname} key={sub._id}>{sub.subcategoryname}</option>
+                                                    )
+                                                
+                                                })}
                                             </>
                                         )
                                     })}
@@ -94,7 +97,7 @@ const ProductModal = ({productModal,openModal,isSubmitting,handleSubmit,handleCh
                             </label>
 
                             <label htmlFor="#">
-                                <Button btnText={isSubmitting ? 'Uploading..' : 'Add Product'} />
+                                <button>{isSubmitting ? 'Uploading..' : 'Add Product'}</button>
                             </label>
 
                             <label htmlFor="#">

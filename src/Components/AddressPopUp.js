@@ -1,22 +1,19 @@
-import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from 'axios';
-import Button from "./Button";
 import CartContext from "../CartContext";
 import baseUrl from "../config/config.js";
-import AddressPopUp from "./AddressPopUp";
-const Modal = ({modal,handleModal}) => {
-    const {items,increaseQuantity,reduceQuantity,removeFromCart,getTotalAmount,getItemAmount,getShipping} = useContext(CartContext);
-    const user = JSON.parse(localStorage.getItem('user'));
-    axios.defaults.withCredentials = true;
-    const individualTotalPrice = getItemAmount();
-    const [isChecked, setIsChecked] = useState(true);
-    let totalAmount = 0;
-    const [addressPop,setAddressPop] = useState(false);
 
+const AddressPopUp = ({addressPop,addressPopUp}) => {
+    const {items,getTotalAmount,getShipping} = useContext(CartContext);
+    axios.defaults.withCredentials = true;
+    const [isChecked, setIsChecked] = useState(true);
+    const user = JSON.parse(localStorage.getItem('user'));
     function handleToggle() {
         setIsChecked(!isChecked);
     }
+
+    let totalAmount = 0;
 
     if(isChecked === true){
         totalAmount = 0;
@@ -25,19 +22,11 @@ const Modal = ({modal,handleModal}) => {
         totalAmount = getShipping() - getTotalAmount();
     }
 
-    const handleSectionClick = (e) => {
-        if (e.target === e.currentTarget) {
-          handleModal();
-        }
-    }
-    
     const makePayment = async () =>{
         
         try{
             const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
                 items:items,
-                userId:user._id,
-                email:user.email,
                 total:totalAmount
 
             })
@@ -49,25 +38,14 @@ const Modal = ({modal,handleModal}) => {
             console.log(error);
         }
     }
-
-    const addressPopUp = ()=>{
-        setAddressPop(!addressPop)
-    }
     return (
-        <>
-        <section className={`section modal  ${modal ? ('modaloff') : ('')}`} >
-            <div className="wrapper">
-                <div className="boxes" onClick={handleSectionClick}>
-                    <>
+        <section className={`section modal addresspop  ${addressPop ? ('modaloff') : ('')}`} >
+        <div className="wrapper">
+            <Link to={'/'}><img src={'images/logo.png'} alt="logo" className="logo" /></Link>
+            <div className="boxes">
+                <div className="box">
                     {items.length === 0 ? (
-                        <div className="box">
-                            <h3 className="heading">Give Your Bag Some Love</h3>
-                            <div className="btn-column">
-                                <Link to='/women'><Button btnText={`Women's Top Pick`} /></Link>
-                                <Link to='/men'><Button btnText={`Men's Top Pick`} /></Link>
-                                <button onClick={handleModal}>Cancel</button>
-                            </div>
-                        </div>
+                        ""
                     ) : (
                         
                         <div className="border-container">
@@ -76,10 +54,6 @@ const Modal = ({modal,handleModal}) => {
                                     <div className="border-box" key={i}>
                                         <div className="top">
                                             <div className="top-left">
-                                                <h3 className="heading">{item.name}</h3>
-                                                <p className="paragraph">{item.category}</p>
-                                                <p className="paragraph">{item.colorName}</p>
-                                                <p className="paragraph">{item.size}</p>
                                                 <h3 className="heading">${item.price}</h3>
                                             </div>
 
@@ -89,26 +63,13 @@ const Modal = ({modal,handleModal}) => {
                                             ) : (
                                             <img src={`${item.colors}`} alt={item.colors} />
                                             )}
+                                            <div class="rowright">
+                                                <h3 className="heading">{item.name}</h3>
+                                                <p className="paragraph">{item.size}</p>
+                                            </div>
                                             </div>
                                         </div>
 
-                                        <div className="bottom">
-                                            <div className="bottom-right">
-                                                <div className="smaller" onClick={()=>removeFromCart(item._id,item.colorName,item.size)}>
-                                                    <img src="../images/icons8-remove-24.png" alt="icons8-remove-24" />
-                                                </div>
-
-                                                <div className="smaller">
-                                                    <div className="left" onClick={()=>reduceQuantity(item._id,item.colorName,item.size)}><h3 className="heading">-</h3></div>
-                                                    <div className="center"><h3 className="heading">{item.qty}</h3></div>
-                                                    <div className="right" onClick={()=>increaseQuantity(item._id,item.colorName,item.size)}><h3 className="heading">+</h3></div>
-                                                </div>
-
-                                                <div className="smaller">
-                                                    <h3 className="heading">${individualTotalPrice[i]}</h3>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 )
                             })}
@@ -153,21 +114,80 @@ const Modal = ({modal,handleModal}) => {
                                     <small>$15 for items less than 10</small>
                                 </span>
                             </div>
-                            
-                            <button onClick={addressPopUp}>Checkout</button>
-                            <button onClick={handleModal}>Cancel</button>
                         </div>
                     )}
                     
-                    </>
-                    
                 </div>
-            </div>
-        </section>
 
-        <AddressPopUp addressPop={addressPop} addressPopUp={addressPopUp} makePayment={makePayment}></AddressPopUp>
-        </>
+                <div className="box">
+                    <form className="form">
+                        <div className="toprow">
+                            <h3 className="heading">Contact Information</h3>
+                            {user === null ? (<span>Already have an account? <Link to={'/login'}>Login</Link></span>) : ("")}
+                        </div>
+                        
+                        <label>
+                            <input type="text" placeholder="Email" />
+                        </label>
+
+                        <div className="group">Shipping address 
+                            <label>
+                                <input type="text" placeholder="Country" />
+                            </label>
+
+                            <div className="labelrow">
+                                <label>
+                                    <input type="text" placeholder="First Name" />
+                                </label>
+
+                                <label>
+                                    <input type="text" placeholder="Last Name" />
+                                </label>
+                            </div>
+
+                            <label>
+                                <input type="text" placeholder="Company (Optional) " />
+                            </label>
+
+                            <label>
+                                <input type="text" placeholder="Address" />
+                            </label>
+
+                            <label>
+                                <input type="text" placeholder="Appartment, suite, e.t.c (Optional)" />
+                            </label>
+
+                            <div className="labelrow">
+                                <label>
+                                    <input type="text" placeholder="City" />
+                                </label>
+
+                                <label>
+                                    <input type="text" placeholder="State" />
+                                </label>
+
+                                <label>
+                                    <input type="text" placeholder="Zip Code" />
+                                </label>
+                            </div>
+
+                            <label>
+                                <input type="phone" placeholder="Phone" />
+                            </label>
+                        </div>
+
+                        <div className="popbottom">
+                            <p className="paragraph" onClick={addressPopUp}>&#x2190; Return to cart</p>
+                            <button onClick={makePayment}>Proceed To Payment</button>
+                        </div>
+                    </form>
+                </div>
+
+                
+            </div>
+        </div>
+        </section>
     );
 }
  
-export default Modal;
+export default AddressPopUp;

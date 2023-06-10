@@ -8,7 +8,6 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import ImageCard from "../Components/ImageCard";
-import Loader from "../Components/Loader";
 import ColorModal from "../Components/ColorModal";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
@@ -16,7 +15,6 @@ import Search from "../Components/Search";
 const Details = () => {
   axios.defaults.withCredentials = true;
   const [products, setProducts] = useState([]);
-  const [colors, setColors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [colorModal, setColorModal] = useState(false);
@@ -45,19 +43,6 @@ const Details = () => {
       }
     };
     getproducts();
-
-    const getColor = async () => {
-      try {
-        const res = await axios.get(
-          `${baseUrl.baseUrl}/alphaapi/color/${id}`
-        );
-        setColors(res.data);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getColor();
   }, [id]);
 
   const handleMobile = () => {
@@ -120,7 +105,6 @@ const Details = () => {
     }
   }
   
-  if (loading) return <Loader />;
   return (
     <>
       <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle} />
@@ -136,8 +120,10 @@ const Details = () => {
                         {selectColor.length > 0 ? (
                           <img src={selectColor} alt={selectColor} />
                         ) : (
-                          item.image.map((img, i) => {
-                            return <img src={img.url} alt={img.url} />;
+                          item.colors.map((col, i) => {
+                            return col.image.map((pic, j) => {
+                              return <img src={pic.url} alt={item.name} key={j} />;
+                            });
                           })
                         )}
                       </div>
@@ -171,25 +157,29 @@ const Details = () => {
                       <div className="row-top">
                         <div className="color-box">
                           <h3 className="heading">
-                            {colors && colors.length} color (s) |{" "}
+                            {products && products.length} color (s) |{" "}
                             {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                           </h3>
                           <div className="color-rounds">
-                            {colors.map((color, i) => {
+                            {products.map((img, i) => {
                               return (
-                                <div className="color-image">
-                                  {color.image.map((img, i) => {
-                                    return (
-                                      <img
-                                        src={img.url}
-                                        alt={img.url}
-                                        onClick={() =>
-                                          handleColorUpdate(img.url,color.colorName)
-                                        }
-                                      />
-                                    );
-                                  })}
-                                </div>
+                                img.colors.map((bg,j)=>{
+                                  return(
+                                    bg.image.map((bgimg,k)=>{
+                                      return(
+                                        <div className="color-image">
+                                          <img
+                                            src={bgimg.url}
+                                            alt={bgimg.url}
+                                            onClick={() =>
+                                              handleColorUpdate(bgimg.url,bg.colorName)
+                                            }
+                                          />
+                                        </div>
+                                      )
+                                    })
+                                  )
+                                })
                               );
                             })}
                           </div>
@@ -263,8 +253,10 @@ const Details = () => {
                                 {selectColor.length > 0 ? (
                                   <img src={selectColor} alt={selectColor} />
                                 ) : (
-                                  item.image.map((img, i) => {
-                                    return <img src={img.url} alt={img.url} />;
+                                  item.colors.map((col, i) => {
+                                    return col.image.map((pic, j) => {
+                                      return <img src={pic.url} alt={item.name} key={j} />;
+                                    });
                                   })
                                 )}
                               </div>
@@ -277,27 +269,33 @@ const Details = () => {
                         <div className="row-top">
                           <div className="color-box">
                             <h3 className="heading">
-                              {colors && colors.length} color (s) |{" "}
+                              {products && products.length} color (s) |{" "}
                              {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                             </h3>
                             <div className="color-rounds">
-                              {colors.map((color, i) => {
-                                return (
-                                  <div className="color-image">
-                                    {color.image.map((img, i) => {
-                                      return (
-                                        <img
-                                          src={img.url}
-                                          alt={img.url}
-                                          onClick={() =>
-                                            handleColorUpdate(img.url,color.colorName)
-                                          }
-                                        />
-                                      );
-                                    })}
-                                  </div>
-                                );
-                              })}
+                            {products.map((img, i) => {
+                              return (
+                                
+                                img.colors.map((bg,j)=>{
+                                  return(
+                                    bg.image.map((bgimg,k)=>{
+                                      return(
+                                        <div className="color-image">
+                                          <img
+                                            src={bgimg.url}
+                                            alt={bgimg.url}
+                                            onClick={() =>
+                                              handleColorUpdate(bgimg.url,bg.colorName)
+                                            }
+                                          />
+                                        </div>
+                                      )
+                                    })
+                                  )
+                                })
+                                
+                              );
+                            })}
                             </div>
                           </div>
 
@@ -366,25 +364,31 @@ const Details = () => {
                       <div className="row-top">
                         <div className="color-box">
                           <h3 className="heading">
-                            {colors && colors.length} color (s) |{" "}
+                            {products && products.length} color (s) |{" "}
                            {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                           </h3>
                           <div className="color-rounds">
-                            {colors.map((color, i) => {
+                            {products.map((img, i) => {
                               return (
-                                <div className="color-image">
-                                  {color.image.map((img, i) => {
-                                    return (
-                                      <img
-                                        src={img.url}
-                                        alt={img.url}
-                                        onClick={() =>
-                                          handleColorUpdate(img.url,color.colorName)
-                                        }
-                                      />
-                                    );
-                                  })}
-                                </div>
+                                
+                                img.colors.map((bg,j)=>{
+                                  return(
+                                    bg.image.map((bgimg,k)=>{
+                                      return(
+                                        <div className="color-image">
+                                          <img
+                                            src={bgimg.url}
+                                            alt={bgimg.url}
+                                            onClick={() =>
+                                              handleColorUpdate(bgimg.url,bg.colorName)
+                                            }
+                                          />
+                                        </div>
+                                      )
+                                    })
+                                  )
+                                })
+                                
                               );
                             })}
                           </div>
@@ -466,8 +470,10 @@ const Details = () => {
                                 {selectColor.length > 0 ? (
                                   <img src={selectColor} alt={selectColor} />
                                 ) : (
-                                  item.image.map((img, i) => {
-                                    return <img src={img.url} alt={img.url} />;
+                                  item.colors.map((img, i) => {
+                                    img.image.map((bgimg,k)=>{
+                                      return <img src={bgimg.url} alt={bgimg.url} />;
+                                    })
                                   })
                                 )}
                               </div>
@@ -479,25 +485,30 @@ const Details = () => {
                       <div className="right">
                         <div className="color-box">
                           <h3 className="heading">
-                            {colors && colors.length} color (s) |{" "}
+                            {products && products.length} color (s) |{" "}
                            {selectColorName.length > 0 ? (selectColorName) : (item.colorName)}
                           </h3>
                           <div className="color-rounds">
-                            {colors.map((color, i) => {
+                            {products.map((img, i) => {
                               return (
-                                <div className="color-image">
-                                  {color.image.map((img, i) => {
-                                    return (
-                                      <img
-                                        src={img.url}
-                                        alt={img.url}
-                                        onClick={() =>
-                                          handleColorUpdate(img.url,color.colorName)
-                                        }
-                                      />
-                                    );
-                                  })}
-                                </div>
+                                
+                                img.colors.map((bg,j)=>{
+                                  return(
+                                    bg.image.map((bgimg,k)=>{
+                                      return(
+                                        <div className="color-image">
+                                          <img
+                                            src={bgimg.url}
+                                            alt={bgimg.url}
+                                            onClick={() =>
+                                              handleColorUpdate(bgimg.url,bg.colorName)
+                                            }
+                                          />
+                                        </div>
+                                      )
+                                    })
+                                  )
+                                })
                               );
                             })}
                           </div>

@@ -7,7 +7,6 @@ import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import { useEffect } from "react";
 import baseUrl from "../config/config.js";
-import Loader from "../Components/Loader";
 import Search from "../Components/Search";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
@@ -93,7 +92,7 @@ const Dashboard = () => {
     const searchToggle = () =>{
         setSearch(!search);
     };
-    if(loading) return <Loader />;
+    
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>

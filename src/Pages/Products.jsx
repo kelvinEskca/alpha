@@ -6,7 +6,6 @@ import axios from "axios";
 import ProductModal from "../Components/ProductModal";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
-import Loader from "../Components/Loader";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
@@ -171,7 +170,6 @@ const Dashboard = () => {
         setSearch(!search);
     };
 
-    if(loading) return <Loader />;
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
@@ -195,8 +193,8 @@ const Dashboard = () => {
                                         <div className="products" key={i}>
                                             <Link to={`/details/${item._id}`}>
                                                 <div className="product-image">
-                                                    {item.image && item.image.length > 0 && (
-                                                        <img src={`${item.image[0].url}`} alt={item.image[0].url} />
+                                                    {item.colors && item.colors.length > 0 && (
+                                                        <img src={`${item.colors[0].image[0].url}`} alt={item.colors[0].image[0].url} />
                                                     )}
                                                 </div>
                                             </Link>

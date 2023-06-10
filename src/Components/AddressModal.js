@@ -1,19 +1,14 @@
 import React,{useState} from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "./Button";
 import axios from "axios";
-import Loader from "./Loader";
 import baseUrl  from "../config/config";
 
-const AddressModal = ({addressModal,openModal,setAlertText}) => {
+const AddressModal = ({addressModal,openModal,setAlertText,setIsSuccessModalOpen}) => {
     axios.defaults.withCredentials = true;
     const [checkBox,setCheckBox] = useState(false);
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
     const [loading,setLoading] = useState(false);
-    const [stats,setStats] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const navigate = useNavigate();
     //add address;
     const [address,setAddress] = useState({fname:"",lname:"",email:"", company:"",addressOne:"",addressTwo:"",city:"",country:"", province:"",phone:"",postalcode:""});
 
@@ -24,8 +19,9 @@ const AddressModal = ({addressModal,openModal,setAlertText}) => {
         e.preventDefault();
         setAddress({...address,[e.target.name]: e.target.value})
     }
-    const addAddress = async (e) =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault();
+        console.log('clicked');
         setIsSubmitting(true)
         if(address !== ''){
             try{
@@ -49,21 +45,25 @@ const AddressModal = ({addressModal,openModal,setAlertText}) => {
                     setIsSubmitting(false)
                     setAlertText("Address updated successfuly");
                     setLoading(false);
-                    navigate('/account')
                     localStorage.setItem('address',JSON.stringify(result.data));
+                    setTimeout(() => {
+                        setIsSuccessModalOpen(false);
+                    }, 5000);
                 }
                 else{
                     setAlertText("Address failed to upload successfuly")
+                    setTimeout(() => {
+                        setIsSuccessModalOpen(false);
+                    }, 5000);
                 }
             }
             catch(err){
                 setLoading(false);
                 setIsSubmitting(false);
                 if (err.response && err.response.status === 401) {
-                    setStats(err.response.data);
-                    setTimeout(()=>{
-                        setStats('');
-                    },3000)
+                    setTimeout(() => {
+                        setIsSuccessModalOpen(false);
+                    }, 5000);
                 }
             }
         }
@@ -78,13 +78,12 @@ const AddressModal = ({addressModal,openModal,setAlertText}) => {
         }
     }
 
-    if(loading) return <Loader />;
     return (
         <section className={`section addressModal modal  ${addressModal ? ('modaloff') : ('')}`} >
             <div className="wrapper">
                 <div className="boxes" onClick={handleSectionClick}>
                     <div className="box">
-                        <form action="#" className="form" onSubmit={addAddress}>
+                        <form action="#" className="form" onSubmit={handleSubmit}>
                             <h3 className="heading">Add a new address</h3>
                             <div className="row-label">
                                 <label htmlFor="#">First Name 
@@ -95,10 +94,7 @@ const AddressModal = ({addressModal,openModal,setAlertText}) => {
                                     <input type="text" id="lname" name="lname" onChange={handleChange} required/>
                                 </label>
                             </div>
-                            <label htmlFor="#" style={{display:'none'}}> 
-                                <input type="email" id="email" name="email" onChange={handleChange} required/>
-                            </label>
-
+                          
                             <label htmlFor="#">Company 
                                 <input type="text" id="company" name="company" onChange={handleChange} required/>
                             </label>
@@ -140,9 +136,9 @@ const AddressModal = ({addressModal,openModal,setAlertText}) => {
                                 <p className="paragraph">Set as default address</p>
                             </label>
 
-                            <label htmlFor="#">
-                            <label htmlFor="#">{stats === '' ? (<Button btnText={isSubmitting ? 'Processing..' : 'Submit'}  />) : (<Button btnText={isSubmitting ? 'Processing..' : stats}  />)}</label>
-                            </label>
+                            
+                            <label htmlFor="#"><button type="submit">{isSubmitting ? 'Processing..' : 'Submit'}</button></label>
+                           
 
                             <label htmlFor="#">
                                 <button type="button" onClick={openModal}>Cancel</button>

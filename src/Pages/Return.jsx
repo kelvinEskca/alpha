@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../Components/Footer';
 import SupportHeader from '../Components/SupportHeader';
-import Loader from "../Components/Loader";
 import MobileNav from "../Components/MobileNav";
 import Modal from "../Components/Modal";
 const Return = () => {
@@ -23,7 +22,6 @@ const Return = () => {
     useEffect(()=>{
         setLoading(false);
     },[]);
-    if(loading) return <Loader />;
     return (
         <>
             <SupportHeader handleModal={handleModal} handleMobile={handleMobile}/>

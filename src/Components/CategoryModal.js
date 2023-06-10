@@ -1,8 +1,6 @@
 import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
 import axios from "axios";
-import Loader from "./Loader";
 import baseUrl from "../config/config.js";
 import AlertModal from "./AlertModal";
 const ProductModal = ({productModal,openModal,setProducts,products}) => {
@@ -31,9 +29,13 @@ const ProductModal = ({productModal,openModal,setProducts,products}) => {
         else{
             try {
                 const res = await axios.post(`${baseUrl.baseUrl}/alphaapi/category`,{
-                    name:name,
-                    desc:desc,
-                    subcategory:subcategory
+                    name: name,
+                    subcategories: [
+                        {
+                        subcategoryname: subcategory,
+                        description: desc
+                        }
+                    ]
                 },{headers:{token:token}});
                 setLoading(true);
                 if(res.status === 200){
@@ -69,8 +71,6 @@ const ProductModal = ({productModal,openModal,setProducts,products}) => {
         }
     }
 
-    
-    if(loading) return <Loader />;
     return (
         <>
         <section className={`section addressModal modal  ${productModal ? ('modaloff') : ('')}`} >
@@ -92,7 +92,7 @@ const ProductModal = ({productModal,openModal,setProducts,products}) => {
                             </label>
 
                             <label htmlFor="#">
-                            <Button btnText={isSubmitting ? 'Uploading..' : 'Add Category'} />
+                            <button>{isSubmitting ? 'Uploading..' : 'Add Category'}</button>
                             </label>
 
                             <label htmlFor="#">
