@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import CartContext from "../CartContext";
 import baseUrl from "../config/config.js";
+import { v4 as uuidv4 } from 'uuid';
 
-const AddressPopUp = ({addressPop,addressPopUp}) => {
+const AddressPopUp = ({addressPop,addressPopUp,isSuccessModalOpen,alertText,setAlertText,setIsSuccessModalOpen}) => {
     const {items,getTotalAmount,getShipping} = useContext(CartContext);
     axios.defaults.withCredentials = true;
     const [isChecked, setIsChecked] = useState(true);
+    const [email,setEmail] = useState('');
     const user = JSON.parse(localStorage.getItem('user'));
+    const [isSubmitting, setIsSubmitting] = useState(false);
     function handleToggle() {
         setIsChecked(!isChecked);
     }
@@ -22,21 +25,39 @@ const AddressPopUp = ({addressPop,addressPopUp}) => {
         totalAmount = getShipping() - getTotalAmount();
     }
 
-    const makePayment = async () =>{
-        
-        try{
-            const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
-                items:items,
-                total:totalAmount
+    const userId = user === null ? uuidv4() : user._id;
+    
 
-            })
-            if(response.data.url){
-                window.location.href = response.data.url;
+    const makePayment = async (e) =>{
+        e.preventDefault();
+        setIsSubmitting(true);
+        let paymentEmail = email;
+        if (user !== null) {
+            paymentEmail = user.email;
+        }
+        if(email === ''){
+            setIsSuccessModalOpen(true);
+            setAlertText("Please ensure all fields are filled");
+            setIsSubmitting(false);
+        }
+        else{
+            try{
+                const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
+                    items:items,
+                    userId:userId,
+                    email:paymentEmail,
+                    total:totalAmount
+    
+                })
+                if(response.data.url){
+                    setIsSubmitting(false);
+                    window.location.href = response.data.url;
+                }
             }
-        }
-        catch(error){
-            console.log(error);
-        }
+            catch(error){
+                setIsSubmitting(false);
+            }
+        } 
     }
     return (
         <section className={`section modal addresspop  ${addressPop ? ('modaloff') : ('')}`} >
@@ -126,59 +147,16 @@ const AddressPopUp = ({addressPop,addressPopUp}) => {
                             {user === null ? (<span>Already have an account? <Link to={'/login'}>Login</Link></span>) : ("")}
                         </div>
                         
-                        <label>
-                            <input type="text" placeholder="Email" />
-                        </label>
-
-                        <div className="group">Shipping address 
+                        {user === null ? (
                             <label>
-                                <input type="text" placeholder="Country" />
+                                <input type="text" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}} required />
                             </label>
-
-                            <div className="labelrow">
-                                <label>
-                                    <input type="text" placeholder="First Name" />
-                                </label>
-
-                                <label>
-                                    <input type="text" placeholder="Last Name" />
-                                </label>
-                            </div>
-
-                            <label>
-                                <input type="text" placeholder="Company (Optional) " />
-                            </label>
-
-                            <label>
-                                <input type="text" placeholder="Address" />
-                            </label>
-
-                            <label>
-                                <input type="text" placeholder="Appartment, suite, e.t.c (Optional)" />
-                            </label>
-
-                            <div className="labelrow">
-                                <label>
-                                    <input type="text" placeholder="City" />
-                                </label>
-
-                                <label>
-                                    <input type="text" placeholder="State" />
-                                </label>
-
-                                <label>
-                                    <input type="text" placeholder="Zip Code" />
-                                </label>
-                            </div>
-
-                            <label>
-                                <input type="phone" placeholder="Phone" />
-                            </label>
-                        </div>
+                        ):("")}
+                        
 
                         <div className="popbottom">
                             <p className="paragraph" onClick={addressPopUp}>&#x2190; Return to cart</p>
-                            <button onClick={makePayment}>Proceed To Payment</button>
+                            <button onClick={makePayment}>{isSubmitting ? 'Processing..' : 'Proceed To Payment'}</button>
                         </div>
                     </form>
                 </div>

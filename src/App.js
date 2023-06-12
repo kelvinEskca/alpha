@@ -33,6 +33,7 @@ import Admin from "./Pages/Admin";
 import AdminRegister from "./Pages/AdminRegister";
 import PublicRoute from "./Components/PublicRoute";
 import Warranty from "./Pages/Warranty";
+import CategoryDetails from "./Pages/CategoryDetails";
 const App = () => {
   return (
     <CartProvider>
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>}/>
           <Route path="/adminregister" element={<PublicRoute><AdminRegister /></PublicRoute>}/>
           <Route path="/details/:id" element={<Details />}/>
+          <Route path="/category/:id" element={<PrivateUserRoute><CategoryDetails /></PrivateUserRoute>}/>
           <Route path="/account" element={<PrivateUserRoute><Account /></PrivateUserRoute>}/>
           <Route path="/addresses" element={<PrivateUserRoute><Addresses /></PrivateUserRoute>}/>
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>

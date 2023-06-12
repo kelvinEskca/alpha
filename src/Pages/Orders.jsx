@@ -44,10 +44,6 @@ const Dashboard = () => {
                     <div className="wrapper">
                         <h3 className="heading">Latest Orders</h3>
                         <Input placeholder={'Search...'} type={'search'} />
-                        <div className="btn-row">
-                            <Button btnText={'Import'} />
-                            <Button btnText={'Export'} />
-                        </div>
                         <div className="boxes">
                             {orders.length === 0 ? (
                                 <div className="table">

@@ -1476,7 +1476,7 @@ header .bottom-right .small .badge .count {
 }
 
 .latest .products {
-  background-color: #222;
+  background-color: #191919;
   border: 1px solid #2b2a33;
   padding: 1rem;
   border-radius: 0.8rem;
@@ -2052,7 +2052,7 @@ img {
 .info-container button {
   width: 100%;
   background-color: #48e271;
-  font-weight: 600;
+  font-weight: 400;
   min-height: 3rem;
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -2060,6 +2060,7 @@ img {
   border-radius: 0.5rem;
   cursor: pointer;
   margin-top: 1rem;
+  font-family: 'GT';
 }
 
 .widelogin {
@@ -3077,9 +3078,9 @@ img {
 
 .addresspop .toprow{
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   margin-bottom: 1rem;
 }
 
@@ -3172,9 +3173,9 @@ img {
 
 .addresspop .popbottom{
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content:flex-start;
 }
 
 .addresspop .popbottom .paragraph{
@@ -3186,6 +3187,24 @@ img {
 
 .addresspop .box:nth-of-type(2)  .popbottom button{
   max-width: 15rem;
+}
+
+.products .cattext{
+  background-color: #000;
+  padding: 1rem;
+  border-radius: .3rem;
+}
+
+.cats .column{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cats .column .heading{
+  width: auto;
+  margin-right: 1rem;
 }
 
 @media screen and (min-width: 376px) {
@@ -3298,6 +3317,14 @@ img {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+  }
+
+  .addresspop .toprow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
 }
 
@@ -3768,7 +3795,19 @@ img {
     margin-bottom: 0;
   }
 
-  
+  .cats .column,.cats .text .column{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .addresspop .popbottom{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+  }
   
 }
 

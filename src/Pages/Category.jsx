@@ -8,6 +8,7 @@ import MobileNav from "../Components/MobileNav";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
+import { Link } from "react-router-dom";
 const Category = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -102,14 +103,14 @@ const Category = () => {
                             ) : (
                                 products.map((item,i)=>{
                                     return(
-                                        <div className="products" key={i}>
+                                        <Link to={`/category/${item._id}`}><div className="products cats" key={i}>
                                             <div className="column">
                                                 <h3 className="heading">Category:</h3>
                                                 <h3 className="heading">{item.name}</h3>
                                             </div>
                                             {item.subcategories.map((sub,j)=>{
                                                 return (
-                                                    <div className="text">
+                                                    <div className="text cattext">
                                                         <div className="column">
                                                             <h3 className="heading">Subcategory:</h3>
                                                             <h3 className="heading">{sub.subcategoryname}</h3>
@@ -126,6 +127,7 @@ const Category = () => {
 
                                             <button onClick={()=>handleDelete(item)}>{deletingId === item._id ? (isSubmitting ? 'Deleting..' : 'Delete Category'): 'Delete Category'}</button>
                                         </div>
+                                        </Link>
                                     )
                                 })
                             )}

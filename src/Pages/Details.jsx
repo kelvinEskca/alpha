@@ -467,15 +467,15 @@ const Details = () => {
                           return (
                             <div className="box" key={item._id}>
                               <div className="product-image">
-                                {selectColor.length > 0 ? (
-                                  <img src={selectColor} alt={selectColor} />
-                                ) : (
-                                  item.colors.map((img, i) => {
-                                    img.image.map((bgimg,k)=>{
-                                      return <img src={bgimg.url} alt={bgimg.url} />;
-                                    })
-                                  })
-                                )}
+                              {selectColor.length > 0 ? (
+                                <img src={selectColor} alt={selectColor} />
+                              ) : (
+                                item.colors.map((col, i) => {
+                                  return col.image.map((pic, j) => {
+                                    return <img src={pic.url} alt={item.name} key={j} />;
+                                  });
+                                })
+                              )}
                               </div>
                             </div>
                           );
