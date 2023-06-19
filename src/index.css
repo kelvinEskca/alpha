@@ -92,6 +92,8 @@ textarea {
   resize: none;
 }
 
+
+
 .addressModal select{
   color: #191919;
 }
@@ -3205,6 +3207,29 @@ img {
 .cats .column .heading{
   width: auto;
   margin-right: 1rem;
+}
+
+form .FormGroup{
+  width:100%;
+  height: auto;
+  font-family: 'GT';
+  border: none;
+}
+
+.StripeElement--webkit-autofill {
+	background: transparent !important;
+}
+
+.StripeElement {
+	width: 100%;
+  margin-bottom: 1rem;
+  border: 2px solid #c8cdd1;
+  border-radius: 0.3rem;
+  padding: 1rem;
+}
+
+.StripeElement .Label{
+  color: #fff;
 }
 
 @media screen and (min-width: 376px) {

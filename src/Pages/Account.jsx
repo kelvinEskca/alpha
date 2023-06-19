@@ -13,7 +13,6 @@ const Account = () => {
     const [modal,setModal] = useState(false);
     const [mobile,setMobile] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
-    const useraddress = JSON.parse(localStorage.getItem('address'));
     const [orders,setOrders] = useState([]);
     const token = localStorage.getItem('token');
     const [loading,setLoading] = useState(false);
@@ -73,7 +72,7 @@ const Account = () => {
     
     useEffect(()=>{
         getaddress();
-    },[])
+    })
 
     return (
         <>
@@ -168,7 +167,7 @@ const Account = () => {
                             {address !== null ? (
                                 <div className="box address">
                                     <h3 className="heading">PRIMARY SHIPPING ADDRESS</h3>
-                                    <p className="paragraph">{address.fname + ' ' + useraddress.lname}</p>
+                                    <p className="paragraph">{address.fname + ' ' + address.lname}</p>
                                     <p className="paragraph">{address.country}</p>
                                     <p className="paragraph">{address.phone}</p>
                                     <p className="paragraph">{address.addressOne}</p>

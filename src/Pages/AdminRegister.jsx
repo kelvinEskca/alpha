@@ -50,7 +50,7 @@ const AdminRegister = () => {
                     setTimeout(()=>{
                         setIsSuccessModalOpen(false);
                     },3000)
-                    navigate('/dashboard');
+                    navigate('/admin');
                 }
                 else{
                     setLoading(false);
