@@ -1,8 +1,6 @@
 import React, { useState,useEffect } from "react";
-import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import Input from "../Components/Input";
 import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
@@ -19,6 +17,7 @@ const Dashboard = () => {
                 const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/order/`,{headers:{token:auth}});
                 setOrders(res.data);
                 setLoading(false);
+                console.log(res.data);
             }
             catch(err){
                 console.log(err);
@@ -40,42 +39,57 @@ const Dashboard = () => {
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
-                <section className="section latest products-latest">
+                <section className="section latest products-latest customers-latest">
                     <div className="wrapper">
                         <h3 className="heading">Latest Orders</h3>
-                        <Input placeholder={'Search...'} type={'search'} />
                         <div className="boxes">
                             {orders.length === 0 ? (
                                 <div className="table">
                                     <p className="paragraph">No data</p>
                                 </div>
                             ) : (
-                                orders.map((item)=>{
-                                    return(
-                                        <div className="products" key={item.id}>
-                                            <div className="product-image">
-                                                <img src="../images/WhiteCapitolCropHoodie3_400x.jpg" alt="WhiteCapitolCropHoodie3_400x" />
-                                            </div>
+                                <div className="table">
+                                    <div className="table-top">
+                                        <div className="inner"><h3 className="heading">Customer Id</h3></div>
+                                        <div className="inner"><h3 className="heading">Customer Name</h3></div>
+                                        <div className="inner"><h3 className="heading">Customer Email</h3></div>
+                                        <div className="inner"><h3 className="heading">Product Name</h3></div>
+                                        <div className="inner"><h3 className="heading">Product Image</h3></div>
+                                        <div className="inner"><h3 className="heading">Product Amount</h3></div>
+                                        <div className="inner"><h3 className="heading">Product Qty</h3></div>
+                                        <div className="inner"><h3 className="heading">Date</h3></div>
+                                    </div>
 
-                                            <div className="text">
-                                                <div className="column">
-                                                    <h3 className="heading">Name</h3>
-                                                    <h3 className="heading">{item.title}</h3>
-                                                </div>
 
-                                                <div className="column">
-                                                    <h3 className="heading">Price</h3>
-                                                    <h3 className="heading">${item.price}</h3>
-                                                </div>
+                                    {orders.map((item,i)=>{
+                                        return(
+                                            <div className="table-bottom" key={item._id}>
+                                                <div className="inner"><h3 className="heading">{item.customerId}</h3></div>
+                                                <div className="inner"><h3 className="heading">{item.address.name}</h3></div>
+                                                <div className="inner"><h3 className="heading">{item.address.email}</h3></div>
+                                                {item.products.map((pro,k)=>{
+                                                    return(
+                                                        <>
+                                                            <div className="inner"><h3 className="heading">{pro.name}</h3></div>
+                                                            {pro.images.map((img,l)=>{
+                                                                return(
+                                                                    <div className="inner image-inner"><img src={img} alt={pro.name}/></div>
+                                                                )
+                                                            })}
+                                                           
+                                                            <div className="inner"><h3 className="heading">${pro.price}</h3></div>
+                                                            <div className="inner"><h3 className="heading">{pro.qty}</h3></div>
+                                                        </>
+                                                    )   
+                                                })}
+                                                
+                                                <div className="inner"><h3 className="heading">{item.createdAt}</h3></div>
                                             </div>
+                                        )
+                                    })}
 
-                                            <div className="text">
-                                                <span><h3 className="heading">Quantity:{item.quantity}</h3></span>
-                                                <span><h3 className="heading">Category:{item.category[0]}</h3></span>
-                                            </div>
-                                        </div>
-                                    )
-                                })
+                                    
+                                </div>
                             )}
                             
                         </div>

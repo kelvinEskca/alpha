@@ -1428,7 +1428,7 @@ header .bottom-right .small .badge .count {
   align-items: center;
   justify-content: flex-start;
   background-color: #191919;
-  min-width: 45rem;
+  min-width: 94rem;
 }
 
 .latest .inner {
@@ -1437,6 +1437,15 @@ header .bottom-right .small .badge .count {
   justify-content: center;
   border: 1px solid #c8cdd1;
   width: 25rem;
+}
+
+.latest .table-bottom .inner{
+  height:120px;
+}
+
+.latest .table-bottom .image-inner img{
+  width:100px;
+  height:100px;
 }
 
 .latest .heading {
