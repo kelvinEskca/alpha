@@ -63,13 +63,14 @@ const Dashboard = () => {
 
                                     {orders.map((item,i)=>{
                                         return(
-                                            <div className="table-bottom" key={item._id}>
-                                                <div className="inner"><h3 className="heading">{item.customerId}</h3></div>
-                                                <div className="inner"><h3 className="heading">{item.address.name}</h3></div>
-                                                <div className="inner"><h3 className="heading">{item.address.email}</h3></div>
-                                                {item.products.map((pro,k)=>{
+                                            
+                                                item.products.map((pro,k)=>{
                                                     return(
                                                         <>
+                                                        <div className="table-bottom" key={item._id}>
+                                                            <div className="inner"><h3 className="heading">{item.customerId}</h3></div>
+                                                            <div className="inner"><h3 className="heading">{item.address.name}</h3></div>
+                                                            <div className="inner"><h3 className="heading">{item.address.email}</h3></div>
                                                             <div className="inner"><h3 className="heading">{pro.name}</h3></div>
                                                             {pro.images.map((img,l)=>{
                                                                 return(
@@ -79,12 +80,11 @@ const Dashboard = () => {
                                                            
                                                             <div className="inner"><h3 className="heading">${pro.price}</h3></div>
                                                             <div className="inner"><h3 className="heading">{pro.qty}</h3></div>
+                                                            <div className="inner"><h3 className="heading">{item.createdAt}</h3></div>
+                                                        </div>
                                                         </>
                                                     )   
-                                                })}
-                                                
-                                                <div className="inner"><h3 className="heading">{item.createdAt}</h3></div>
-                                            </div>
+                                                })   
                                         )
                                     })}
 
