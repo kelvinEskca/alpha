@@ -1,5 +1,4 @@
 import React,{useState} from "react";
-import Button from "./Button";
 import axios from "axios";
 import baseUrl from "../config/config.js";
 import AlertModal from "./AlertModal";
@@ -103,7 +102,7 @@ const CardModal = ({cardModal,openCard,cards,setCards}) => {
                                 </label>
 
                                 <label htmlFor="#">
-                                    <Button btnText={isSubmitting ? 'Uploading..' : 'Add Section'} />
+                                    <button>{isSubmitting ? 'Uploading..' : 'Add Section'}</button>
                                 </label>
 
                                 <label htmlFor="#">

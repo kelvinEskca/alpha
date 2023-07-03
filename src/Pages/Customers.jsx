@@ -6,10 +6,11 @@ import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
+import Pagination from "../Components/Pagination";
 const Customers = () => {
     axios.defaults.withCredentials = true;
     const auth = localStorage.getItem('token');
-    const [customers,setCustomers] = useState(null);
+    const [customers,setCustomers] = useState([]);
     const [loading,setLoading] = useState(true);
     const [search,setSearch] = useState(false);
 
@@ -38,6 +39,16 @@ const Customers = () => {
     const searchToggle = () =>{
         setSearch(!search);
     };
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
@@ -46,7 +57,7 @@ const Customers = () => {
                     <div className="wrapper">
                         <h3 className="heading">Latest Customers</h3>
                         <div className="boxes">
-                            {customers === null ? (
+                            {currentCustomers === null ? (
                                 <div className="table">
                                     <p className="paragraph">No data</p>
                                 </div>
@@ -60,7 +71,7 @@ const Customers = () => {
                                     </div>
 
 
-                                    {customers.map((customer,i)=>{
+                                    {currentCustomers.map((customer,i)=>{
                                         return(
                                             <div className="table-bottom" key={customer._id}>
                                                 <div className="inner"><h3 className="heading">{customer.fname}</h3></div>
@@ -76,6 +87,11 @@ const Customers = () => {
                             )}
                             
                         </div>
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={customers.length}
+                            paginate={paginate}
+                        />
                     </div>
                 </section>
 

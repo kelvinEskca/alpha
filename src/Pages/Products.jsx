@@ -9,6 +9,7 @@ import MobileNav from "../Components/MobileNav";
 import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
+import Pagination from "../Components/Pagination";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -170,6 +171,15 @@ const Dashboard = () => {
         setSearch(!search);
     };
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(4);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
@@ -182,12 +192,12 @@ const Dashboard = () => {
                         </div>
                          
                         <div className="boxes">
-                            {products.length === 0 ? (
+                            {currentProducts.length === 0 ? (
                                 <div className="table">
                                     <p className="paragraph">No data</p>
                                 </div>
                             ) : (
-                                products.map((item,i)=>{
+                                currentProducts.map((item,i)=>{
                                     return(
                                         
                                         <div className="products" key={i}>
@@ -228,6 +238,12 @@ const Dashboard = () => {
                             )}
                             
                         </div>
+
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={products.length}
+                            paginate={paginate}
+                        />
                     </div>
                 </section>
 

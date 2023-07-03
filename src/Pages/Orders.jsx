@@ -5,11 +5,17 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import baseUrl from "../config/config.js";
+import Pagination from "../Components/Pagination";
+import AlertModal from "../Components/AlertModal";
 const Dashboard = () => {
     axios.defaults.withCredentials = true;
     const [orders,setOrders] = useState([]);
     const auth = localStorage.getItem('token');
     const [loading,setLoading] = useState(true);
+    const [deletingId,setDeletingId] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [alertText,setAlertText] = useState('');
 
     useEffect(()=>{
         const getOrders = async ()=>{
@@ -35,6 +41,44 @@ const Dashboard = () => {
         setMobile(!mobile);
     }
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(4);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentOrders = orders.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
+    const handleDelete = async (i) =>{
+        const id = i._id;
+        setDeletingId(id); 
+        setIsSubmitting(true);
+        try{
+            const res = await axios.delete(`${baseUrl.baseUrl}/alphaapi/order/${id}`,{ headers:{token:auth} });
+            if(res.status === 200){
+                setIsSuccessModalOpen(true);
+                setAlertText("Order Deleted Successfully!");
+                setOrders(orders.filter(order => order._id !== id));
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+                setIsSubmitting(false);
+            }
+            else{
+                setIsSuccessModalOpen(true);
+                setAlertText("Error Deleting Order!");
+                setTimeout(() => {
+                    setIsSuccessModalOpen(false);
+                }, 5000);
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
@@ -43,7 +87,7 @@ const Dashboard = () => {
                     <div className="wrapper">
                         <h3 className="heading">Latest Orders</h3>
                         <div className="boxes">
-                            {orders.length === 0 ? (
+                            {currentOrders.length === 0 ? (
                                 <div className="table">
                                     <p className="paragraph">No data</p>
                                 </div>
@@ -53,39 +97,25 @@ const Dashboard = () => {
                                         <div className="inner"><h3 className="heading">Customer Id</h3></div>
                                         <div className="inner"><h3 className="heading">Customer Name</h3></div>
                                         <div className="inner"><h3 className="heading">Customer Email</h3></div>
-                                        <div className="inner"><h3 className="heading">Product Name</h3></div>
-                                        <div className="inner"><h3 className="heading">Product Image</h3></div>
-                                        <div className="inner"><h3 className="heading">Product Amount</h3></div>
-                                        <div className="inner"><h3 className="heading">Product Qty</h3></div>
+                                        <div className="inner"><h3 className="heading">View More</h3></div>
+                                        <div className="inner"><h3 className="heading">Delete</h3></div>
                                         <div className="inner"><h3 className="heading">Date</h3></div>
                                     </div>
 
 
-                                    {orders.map((item,i)=>{
+                                    {currentOrders.map((item,i)=>{    
                                         return(
-                                            
-                                                item.products.map((pro,k)=>{
-                                                    return(
-                                                        <>
-                                                        <div className="table-bottom" key={item._id}>
-                                                            <div className="inner"><h3 className="heading">{item.customerId}</h3></div>
-                                                            <div className="inner"><h3 className="heading">{item.address.name}</h3></div>
-                                                            <div className="inner"><h3 className="heading">{item.address.email}</h3></div>
-                                                            <div className="inner"><h3 className="heading">{pro.name}</h3></div>
-                                                            {pro.images.map((img,l)=>{
-                                                                return(
-                                                                    <div className="inner image-inner"><img src={img} alt={pro.name}/></div>
-                                                                )
-                                                            })}
-                                                           
-                                                            <div className="inner"><h3 className="heading">${pro.price}</h3></div>
-                                                            <div className="inner"><h3 className="heading">{pro.qty}</h3></div>
-                                                            <div className="inner"><h3 className="heading">{item.createdAt}</h3></div>
-                                                        </div>
-                                                        </>
-                                                    )   
-                                                })   
-                                        )
+                                            <>
+                                            <div className="table-bottom" key={item._id}>
+                                                <div className="inner"><h3 className="heading">{item.customerId}</h3></div>
+                                                <div className="inner"><h3 className="heading">{item.address.name}</h3></div>
+                                                <div className="inner"><h3 className="heading">{item.address.email}</h3></div>
+                                                <div className="inner"><a href={`/orderDetails/${item._id}`}>View More</a></div>
+                                                <div className="inner"><button style={{backgroundColor:"#730606", color:"#fff", width:"7rem"}} onClick={()=>handleDelete(item)}>{deletingId === item._id ? (isSubmitting ? 'Deleting..' : 'Delete Order') : 'Delete Order'}</button></div>
+                                                <div className="inner"><h3 className="heading">{item.createdAt}</h3></div>
+                                            </div>
+                                            </>
+                                        )   
                                     })}
 
                                     
@@ -93,10 +123,17 @@ const Dashboard = () => {
                             )}
                             
                         </div>
+
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={orders.length}
+                            paginate={paginate}
+                        />
                     </div>
                 </section>
                 <Modal modal={modal} handleModal={handleModal} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
             </main>
             <Footer />
         </>

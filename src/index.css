@@ -1440,7 +1440,17 @@ header .bottom-right .small .badge .count {
 }
 
 .latest .table-bottom .inner{
-  height:120px;
+  height:70px;
+}
+
+.latest .table-bottom .inner a{
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #c8cdd1;
+}
+
+.latest .table-bottom .inner a:hover{
+  color: #1f1fb4;
 }
 
 .latest .table-bottom .image-inner img{
@@ -3239,6 +3249,39 @@ form .FormGroup{
 
 .StripeElement .Label{
   color: #fff;
+}
+
+.pagination{
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.page-item{
+  min-width:2rem;
+  height:2rem;
+  background-color: #fefefe;
+  border-radius: .3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity .4s ease-in-out;
+  margin-right: 1rem;
+}
+
+.page-item:hover{
+  opacity: .5;
+}
+
+.page-item p{
+  font-family: 'GT';
+  color: #000;
+  font-weight: 400;
+  font-size: .8rem;
 }
 
 @media screen and (min-width: 376px) {

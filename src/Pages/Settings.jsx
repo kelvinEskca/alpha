@@ -11,6 +11,7 @@ import AlertModal from "../Components/AlertModal";
 import baseUrl from "../config/config.js";
 import { useNavigate } from "react-router-dom";
 import Search from "../Components/Search";
+import Pagination from "../Components/Pagination";
 const Settings = () => {
     axios.defaults.withCredentials = true;
     const token = localStorage.getItem('token');
@@ -23,6 +24,18 @@ const Settings = () => {
     const [alertText,setAlertText] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [search,setSearch] = useState(false);
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentHero = hero.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
     const navigate = useNavigate();
 
     const openModal = () =>{
@@ -103,12 +116,12 @@ const Settings = () => {
                 setTimeout(() => {
                     setIsSuccessModalOpen(false);
                   }, 5000);
-                setAlertText("Card Uploaded Successfully!");
+                setAlertText("Card Toggle Successful!");
                 setIsSubmitting(false);
             }
             else{
                 setIsSuccessModalOpen(true);
-                setAlertText("Card Uploaded Failed!");
+                setAlertText("Card Toggle Failed!");
                 setIsSubmitting(false);
                 setTimeout(() => {
                     setIsSuccessModalOpen(false);
@@ -159,9 +172,17 @@ const Settings = () => {
             },{ headers:{token:token} });
             if(res.status === 200){
                 const newProduct = res.data;
-                setHero([...hero, newProduct]);
+                setHero(prevHero => {
+                    const updatedHero = prevHero.map(item => {
+                      if (item._id === id) {
+                        return newProduct;
+                      }
+                      return item;
+                    });
+                    return updatedHero;
+                });
                 setIsSuccessModalOpen(true);
-                setAlertText("Card Toggled Successfully!");
+                setAlertText("Hero Toggled Successfully!");
                 setIsSubmitting(false);
                 setTimeout(() => {
                     setIsSuccessModalOpen(false);
@@ -170,7 +191,7 @@ const Settings = () => {
             }
             else{
                 setIsSuccessModalOpen(true);
-                setAlertText("Card Toggle Failed!");
+                setAlertText("Hero Toggle Failed!");
                 setIsSubmitting(true);
                 setTimeout(() => {
                     setIsSuccessModalOpen(false);
@@ -206,12 +227,12 @@ const Settings = () => {
                         </div>
                          
                         <div className="boxes">
-                            {hero && hero.length === 0 ? (
+                            {currentHero && currentHero.length === 0 ? (
                                 <div className="table">
                                     <p className="paragraph">No data</p>
                                 </div>
                             ) : (
-                                hero.map((item,i)=>{
+                                currentHero.map((item,i)=>{
                                     return(
                                         
                                         <div className="cards" key={i}>
@@ -252,7 +273,7 @@ const Settings = () => {
                                             ) : (
                                                 <>
                                                     <button type="button" onClick={()=>handleDeleteHero(item)}>{isSubmitting ? 'Deleting..' : 'Delete Card'}</button>
-                                                    <button type="button" onClick={()=>handleShowHero(item)}>Show Card</button>
+                                                    <button type="button" onClick={()=>handleShowHero(item)} style={{backgroundColor:'#fefefe', color:"#000"}}>{isSubmitting ? 'Processing..' : 'Show Card'}</button>
                                                 </>
                                             )}
 
@@ -265,6 +286,11 @@ const Settings = () => {
                             )}
                             
                         </div>
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={hero.length}
+                            paginate={paginate}
+                        />
                     </div>
 
                     {/* <div className="wrapper">
