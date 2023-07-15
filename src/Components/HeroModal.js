@@ -17,6 +17,7 @@ const HeroModal = ({heroModal,openModal,hero,setHero}) => {
         cta:"",
         ctatwo:"",
         category:"",
+        link:"",
         images: [],
     });
     const handleChange = e => {
@@ -36,6 +37,7 @@ const HeroModal = ({heroModal,openModal,hero,setHero}) => {
         data.append("cta", formData.cta);
         data.append("ctatwo", formData.ctatwo);
         data.append("category", formData.category);
+        data.append("link", formData.link);
         for (let i = 0; i < formData.images.length; i++) {
             data.append("image", formData.images[i]);
         }
@@ -83,7 +85,7 @@ const HeroModal = ({heroModal,openModal,hero,setHero}) => {
                         <form action="#" className="form" onSubmit={handleSubmit} encType="multipart/form-data">
                             <h3 className="heading">Add a new hero section</h3>
                             <label htmlFor="#">Hero Title
-                                <input type="text" name="title" placeholder="Hero title" onChange={handleChange} value={formData.title}/>
+                                <input type="text" name="title" placeholder="Hero title" onChange={handleChange} value={formData.title} required/>
                             </label>
 
                             <label htmlFor="#">Hero Subtitle
@@ -91,7 +93,7 @@ const HeroModal = ({heroModal,openModal,hero,setHero}) => {
                             </label>
 
                             <label htmlFor="#">Hero CTA
-                                <input type="text" name="cta" placeholder="CTA" onChange={handleChange} value={formData.cta}/>
+                                <input type="text" name="cta" placeholder="CTA" onChange={handleChange} value={formData.cta} required/>
                             </label>
 
                             <label htmlFor="#">Hero CTA 2 (Optional)
@@ -99,12 +101,16 @@ const HeroModal = ({heroModal,openModal,hero,setHero}) => {
                             </label>
 
                             <label htmlFor="#">Hero Image
-                                <input type="file" name="image" placeholder="Image" onChange={handleImageChange} multiple/>
+                                <input type="file" name="image" placeholder="Image" onChange={handleImageChange} multiple required/>
                             </label>
 
 
                             <label htmlFor="#">Content Category
-                                <input type="text" name="category" placeholder="Category" onChange={handleChange} value={formData.category}/>
+                                <input type="text" name="category" placeholder="Category" onChange={handleChange} value={formData.category} required/>
+                            </label>
+
+                            <label htmlFor="#">Content Link
+                                <input type="text" name="link" placeholder="Content Link" onChange={handleChange} value={formData.link} required/>
                             </label>
 
                             <label htmlFor="#">

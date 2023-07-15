@@ -8,9 +8,9 @@ import Modal from "../Components/Modal";
 import MobileNav from "../Components/MobileNav";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import SlideShow from "../Components/SlideShow";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
+import AlertModal from "../Components/AlertModal";
 const Women = () => {
     const [modal,setModal] = useState(false)
     const [mobile,setMobile] = useState(false)
@@ -25,6 +25,11 @@ const Women = () => {
     const [grabProductType,setGrabProductType] = useState([]);
     const [grabSizes,setGrabSizes] = useState([]);
     const [grabProductContent,setGrabProductContent] = useState([]);
+    const [selectColor, setSelectColor] = useState([]);
+    const [selectColorName, setSelectColorName] = useState([]);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [colorId, setColorId] = useState();
+    const [alertText,setAlertText] = useState('');
     let content;
 
     const handleModal = () =>{
@@ -39,7 +44,8 @@ const Women = () => {
         const getproducts = async ()=>{
             const gender = 'Female';
             try{
-                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/female/${gender}`)
+                const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/female/${gender}`);
+                console.log(res);
                 setProducts(res.data);
                 setLoading(false);
 
@@ -78,10 +84,18 @@ const Women = () => {
 
     },[]);
     
-    const handleClick = (size, item) => {
+    const handleClick = (item, size) => {
+        const selectedColor = selectColor.length > 0 ? selectColor : item.colors[0].image[0].url;
+        const selectedColorName = selectColorName.length > 0 ? selectColorName : item.colors[0].colorName;
         setSelectedSizes({ ...selectedSizes, [item._id]: size });
-        addToCart({ ...item, size });
+        addToCart({ ...item, size, colors: selectedColor, colorName: selectedColorName });
+        setIsSuccessModalOpen(true);
+        setAlertText("Item added to cart!");
+        setTimeout(() => {
+          setIsSuccessModalOpen(false);
+        }, 5000);
     };
+      
 
     const activateFilter = (filter) => {
         if (lastClickedFilter === filter) {
@@ -149,6 +163,12 @@ const Women = () => {
             </div>
         )
     }
+
+    const handleColorUpdate = (color,colorName,id) => {
+        setSelectColor(color);
+        setSelectColorName(colorName);
+        setColorId(id);
+    };
     
     return (
         <>
@@ -176,20 +196,25 @@ const Women = () => {
                             <div className="boxes">
                                 {grabProductContent.length > 0 ? (
                                     grabProductContent.map((item,i)=>{
-                                        if(item.inStock === true){
-
-                                            const {image} = item;   
-                                            let url = [];                 
-                                            image.map((img)=>{
-                                                return url.push(img.url);
-                                            })
+                                        if (item.inStock === true){
+                                            const itemId = item._id;
+                                            const href = `/details/${itemId}`;
                                             return (
                                                 <div className="box" key={i}>
                                                     <div className="tag"><small></small></div>
                                                     <div className="image-box">
-                                                        <Link to={`/details/${item._id}`}>
-                                                            <SlideShow url={url} />
-                                                        </Link>
+                                                    <Link to={href}>
+                                                        {selectColor.length > 0 && colorId === item._id ? (
+                                                            <img src={selectColor} alt={selectColor} />
+                                                        ) : (
+                                                            item.colors.map((col, i) => {
+                                                            return col.image.map((pic, j) => {
+                                                                return <img src={pic.url} alt={item.name} key={j} />;
+                                                            });
+                                                            })
+                                                        )}
+                                                    </Link>
+                        
                                 
                                                         <div className="quick-add">
                                                             <div className="quick-add-top">
@@ -200,14 +225,15 @@ const Women = () => {
                                                                 {item.sizes.map((size,i)=>{
                                                                     return (<div className="size" key={i}><small className={`${
                                                                         size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                                    }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                                    }`} onClick={()=>handleClick(item,size)}>{size}</small></div>)
                                                                 })}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="text">
                                                         <h3 className="heading">{item.name}</h3>
-                                                        <p className="paragraph">{item.color}</p>
+                                                        {selectColorName && selectColorName.length > 0 ? (<p className="paragraph">{selectColorName}</p>) : (<p className="paragraph">{item.colors[0].colorName}</p>)}
+                                                        
                                                         <p className="paragraph">${item.price}</p>
                                                     </div>
                                 
@@ -215,7 +241,17 @@ const Women = () => {
                                                         {item.sizes.map((size,i)=>{
                                                             return (<div className="size" key={i}><small className={`${
                                                                 size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                            }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                            }`} onClick={()=>handleClick(item,size)}>{size}</small></div>)
+                                                        })}
+                                                    </div>
+                        
+                                                    <div className="image-scroll">
+                                                        
+                                                        {item.colors.map((col, i) => {
+                                                            return col.image.map((pic, j) => {
+                                                                return <img src={pic.url} alt={item.name} key={j} onClick={() =>
+                                                                    handleColorUpdate(pic.url,col.colorName,item._id)} />;
+                                                            });
                                                         })}
                                                     </div>
                                                 </div>
@@ -233,20 +269,25 @@ const Women = () => {
                             <div className="boxes">
                                 {products.length > 0 ? (
                                     products.map((item,i)=>{
-                                        if(item.inStock === true){
-
-                                            const {image} = item;   
-                                            let url = [];                 
-                                            image.map((img)=>{
-                                                return url.push(img.url);
-                                            })
+                                        if (item.inStock === true){
+                                            const itemId = item._id;
+                                            const href = `/details/${itemId}`;
                                             return (
                                                 <div className="box" key={i}>
                                                     <div className="tag"><small></small></div>
                                                     <div className="image-box">
-                                                        <Link to={`/details/${item._id}`}>
-                                                            <SlideShow url={url} />
-                                                        </Link>
+                                                    <Link to={href}>
+                                                        {selectColor.length > 0 && colorId === item._id ? (
+                                                            <img src={selectColor} alt={selectColor} />
+                                                        ) : (
+                                                            item.colors.map((col, i) => {
+                                                            return col.image.map((pic, j) => {
+                                                                return <img src={pic.url} alt={item.name} key={j} />;
+                                                            });
+                                                            })
+                                                        )}
+                                                    </Link>
+                        
                                 
                                                         <div className="quick-add">
                                                             <div className="quick-add-top">
@@ -257,14 +298,15 @@ const Women = () => {
                                                                 {item.sizes.map((size,i)=>{
                                                                     return (<div className="size" key={i}><small className={`${
                                                                         size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                                    }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                                    }`} onClick={()=>handleClick(item,size)}>{size}</small></div>)
                                                                 })}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="text">
                                                         <h3 className="heading">{item.name}</h3>
-                                                        <p className="paragraph">{item.color}</p>
+                                                        {selectColorName && selectColorName.length > 0 ? (<p className="paragraph">{selectColorName}</p>) : (<p className="paragraph">{item.colors[0].colorName}</p>)}
+                                                        
                                                         <p className="paragraph">${item.price}</p>
                                                     </div>
                                 
@@ -272,7 +314,17 @@ const Women = () => {
                                                         {item.sizes.map((size,i)=>{
                                                             return (<div className="size" key={i}><small className={`${
                                                                 size === selectedSizes[item._id] ? 'sizeActive' : ''
-                                                            }`} onClick={()=>handleClick(size,item)}>{size}</small></div>)
+                                                            }`} onClick={()=>handleClick(item,size)}>{size}</small></div>)
+                                                        })}
+                                                    </div>
+                        
+                                                    <div className="image-scroll">
+                                                        
+                                                        {item.colors.map((col, i) => {
+                                                            return col.image.map((pic, j) => {
+                                                                return <img src={pic.url} alt={item.name} key={j} onClick={() =>
+                                                                    handleColorUpdate(pic.url,col.colorName,item._id)} />;
+                                                            });
                                                         })}
                                                     </div>
                                                 </div>
@@ -287,7 +339,7 @@ const Women = () => {
                 )}
 
                 <Modal modal={modal} handleModal={handleModal} />
-
+                <AlertModal isOpen={isSuccessModalOpen} alertText={alertText} onClose={() => setIsSuccessModalOpen(false)} />
                 <MobileNav mobile={mobile} handleMobile={handleMobile} />
                 <Search search={search} searchToggle={searchToggle} />
             </main>

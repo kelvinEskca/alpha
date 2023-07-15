@@ -5,13 +5,16 @@ import CartContext from "../CartContext";
 import baseUrl from "../config/config.js";
 import { v4 as uuidv4 } from 'uuid';
 
-const AddressPopUp = ({addressPop,addressPopUp,isSuccessModalOpen,alertText,setAlertText,setIsSuccessModalOpen}) => {
+const AddressPopUp = ({addressPop,addressPopUp}) => {
     const {items,getTotalAmount,getShipping} = useContext(CartContext);
     axios.defaults.withCredentials = true;
     const [isChecked, setIsChecked] = useState(true);
     const [email,setEmail] = useState('');
     const user = JSON.parse(localStorage.getItem('user'));
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const clearCartFromLocalStorage = () => {
+        localStorage.removeItem('cart');
+    };
     function handleToggle() {
         setIsChecked(!isChecked);
     }
@@ -26,38 +29,37 @@ const AddressPopUp = ({addressPop,addressPopUp,isSuccessModalOpen,alertText,setA
     }
 
     const userId = user === null ? uuidv4() : user._id;
-    
 
     const makePayment = async (e) =>{
         e.preventDefault();
         setIsSubmitting(true);
-        let paymentEmail = email;
+        let paymentEmail;
         if (user !== null) {
             paymentEmail = user.email;
-        }
-        if(email === ''){
-            setIsSuccessModalOpen(true);
-            setAlertText("Please ensure all fields are filled");
-            setIsSubmitting(false);
+            console.log(paymentEmail);
         }
         else{
-            try{
-                const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
-                    items:items,
-                    userId:userId,
-                    email:paymentEmail,
-                    total:totalAmount
-    
-                })
-                if(response.data.url){
-                    setIsSubmitting(false);
-                    window.location.href = response.data.url;
-                }
-            }
-            catch(error){
+            paymentEmail = email;
+            console.log(paymentEmail);
+        }
+        try{
+            clearCartFromLocalStorage();
+            const response = await axios.post(`${baseUrl.baseUrl}/alphaapi/pay/create-checkout-session`,{
+                items:items,
+                userId:userId,
+                email:paymentEmail,
+                total:totalAmount
+
+            })
+            if(response.data.url){
                 setIsSubmitting(false);
+                window.location.href = response.data.url;
             }
-        } 
+        }
+        catch(error){
+            setIsSubmitting(false);
+        }
+    
     }
     return (
         <section className={`section modal addresspop  ${addressPop ? ('modaloff') : ('')}`} >

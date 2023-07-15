@@ -58,10 +58,10 @@ const About = () => {
                     <div className="wrapper">
                         <div className="boxes">
                             <div className="box">
-                                <h3 className="heading">HOW IT STARTED</h3>
-                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, VELONTE was born.</p>
-
-                                <Link to='#'><Button btnText={'Watch My Story'} /></Link>
+                                <p className="paragraph">At VELONTÉ, we are driven by a shared passion for fitness and a desire to create the ultimate gym clothing brand. Founded by three motivated individuals, Adrian, Dzenis, and Sammy, who live and breathe an active lifestyle, our goal is to provide athletes and fitness enthusiasts with high-quality, stylish, and functional apparel that truly supports their fitness journey.</p>
+                                <p className="paragraph">
+                                Our team is determined to revolutionize the fitness industry by offering cutting-edge designs and utilizing innovative materials that enhance performance and comfort. With our expertise in both fashion and fitness, we are dedicated to creating garments that not only look good but are also optimized for the movements and rigors of any workout.</p>
+                                <p className="paragraph">We believe in inclusivity and cater to individuals of all shapes, sizes, and fitness levels. Our commitment to excellent customer service ensures that we listen to our customers, understand their needs, and continuously improve our products to meet their expectations.</p>
                             </div>
 
                             <div className="box">
@@ -71,27 +71,12 @@ const About = () => {
 
                         <div className="boxes">
                             <div className="box">
-                                <h3 className="heading">HOW IT STARTED</h3>
-                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, VELONTE was born.</p>
-
-                                <Link to='#'><Button btnText={'Watch My Story'} /></Link>
+                                <p className="paragraph">Being gym-goers ourselves, we understand the importance of confidence and motivation while pursuing fitness goals. That's why we are committed to empowering individuals through our clothing, helping them feel inspired, motivated, and ready to conquer any challenge they face in and outside the gym.</p>
+                                <p className="paragraph">Join us on this exciting journey as we build a brand that not only embraces the fitness community, but also inspires and motivates individuals to reach new heights in their fitness endeavors. Together, let's redefine what it means to look and feel great while pursuing a healthy and active lifestyle.</p>
                             </div>
 
                             <div className="box">
                                 <img src="../images/12227FB3-7FB7-43A9-AE8B-DFFD27293359.webp" alt="images" />
-                            </div>
-                        </div>
-
-                        <div className="boxes">
-                            <div className="box">
-                                <h3 className="heading">HOW IT STARTED</h3>
-                                <p className="paragraph">It all started around 2012 with my YouTube channel. I just wanted to help people out by sharing fitness and nutrition tips. Driven by my passion, what started as just a hobby, went from screen-printed shirts to custom-fitted shirts with a brand that captured everything I believed in. And thus, VELONTE was born.</p>
-
-                                <Link to='#'><Button btnText={'Watch My Story'} /></Link>
-                            </div>
-
-                            <div className="box">
-                                <img src="../images/Summer_Shredding_Crew_-_duotone.webp" alt="images" />
                             </div>
                         </div>
                     </div>

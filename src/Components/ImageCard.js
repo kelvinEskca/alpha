@@ -5,7 +5,7 @@ import CartContext from "../CartContext";
 import axios from "axios";
 import AlertModal from "./AlertModal";
 import baseUrl from "../config/config.js";
-import Skeleton,{SkeletonTheme } from "react-loading-skeleton";
+import SkeletonLoader from "./SkeletonLoader";
 import 'react-loading-skeleton/dist/skeleton.css'
 const ImageCard = ({toggleState}) => {
     axios.defaults.withCredentials = true;
@@ -67,11 +67,7 @@ const ImageCard = ({toggleState}) => {
     return (
         <>
         {loading ? (
-            <SkeletonTheme baseColor="#2b2a33" highlightColor="#222">
-            <div className="box skeletonbox">
-                <Skeleton height={280} count={products.length}/>
-            </div>
-            </SkeletonTheme>
+            <SkeletonLoader cards={5}/>
         ) : (
             products.map((item,i)=>{
                 if (item.inStock === true){

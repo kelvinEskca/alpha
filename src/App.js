@@ -35,9 +35,11 @@ import PublicRoute from "./Components/PublicRoute";
 import Warranty from "./Pages/Warranty";
 import CategoryDetails from "./Pages/CategoryDetails";
 import OrderDetails from "./Pages/OrderDetails";
+import { SkeletonTheme } from "react-loading-skeleton";
 const App = () => {
   return (
     <CartProvider>
+      <SkeletonTheme baseColor="#555555" highlightColor="#727272">
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />}/>
@@ -74,6 +76,7 @@ const App = () => {
           <Route path="*" element={<NotFound />}/>
         </Routes>
       </Router>
+      </SkeletonTheme>
     </CartProvider>
   );
 }

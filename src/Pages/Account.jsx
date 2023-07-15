@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useEffect } from "react";
 import baseUrl from "../config/config.js";
 import Search from "../Components/Search";
+import Pagination from "../Components/Pagination";
 const Account = () => {
     axios.defaults.withCredentials = true;
     const [modal,setModal] = useState(false);
@@ -40,11 +41,11 @@ const Account = () => {
         setSearch(!search);
     };
 
+    const email = user.email;
     useEffect(()=>{
-        const id = user._id;
         const grabOrders = async () =>{
             try{
-                const order = await axios.get(`${baseUrl.baseUrl}/alphaapi/order/${id}`,{headers:{token:token}});
+                const order = await axios.get(`${baseUrl.baseUrl}/alphaapi/order/orderedUser/${email}`);
                 setLoading(true);
                 if(order.status === 200){
                     setLoading(false);
@@ -52,11 +53,11 @@ const Account = () => {
                 }
             }
             catch(err){
-                console.log(err);
+                console.log(err.message);
             }
         }
         grabOrders()
-    },[token,user]);
+    },[]);
 
     const getaddress = async ()=>{
         const id = user._id;
@@ -72,7 +73,17 @@ const Account = () => {
     
     useEffect(()=>{
         getaddress();
-    })
+    });
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(1);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentOrders = orders.slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
         <>
@@ -89,69 +100,67 @@ const Account = () => {
                     </div>
                 </section>
 
-                <section className="section latest products-latest orders">
+                <section className="section latest products-latest orders orders-latest">
                     <div className="wrapper">
                         <div className="boxes">
-                            {orders.length === 0 ? (
+                            {currentOrders.length === 0 ? (
                                 <div className="box orders-box">
                                     <h3 className="heading">NO PLACED ORDERS YET</h3>
                                 </div>
                             ) : (
 
                                 <div className="products-wrapper">
-                                    {orders.map((item,i)=>{
+                                    {currentOrders.map((item,i)=>{
                                     return(
                                         <>
                                             <div className="products" key={i}>
                                                 <div className="product-image">
-                                                    <img src={`../images/${item.products[0].images[0]}`} alt={item.products[0].images[0]} />
+                                                    <img src={item.products[0].images[0]} alt={item.products[0].images[0]} />
                                                 </div>
 
                                                 <div className="text">
                                                     <div className="column">
-                                                        <h3 className="heading">Name:</h3>
-                                                        <h3 className="heading">{item.products[0].name}</h3>
+                                                        <h3 className="heading">Name: {item.products[0].name}</h3>
                                                     </div>
 
                                                     <div className="column">
-                                                        <h3 className="heading">Price:</h3>
-                                                        <h3 className="heading">${item.products[0].price}</h3>
+                                                        <h3 className="heading">Price: ${item.products[0].price}</h3>
                                                     </div>
                                                 </div>
 
                                                 <div className="text">
-                                                    <span><h3 className="heading">Quantity:{item.products[0].qty}</h3></span>
-                                                    <span><h3 className="heading">Category:{item.products[0].category}</h3></span>
+                                                    <span><h3 className="heading">Quantity: {item.products[0].qty}</h3></span>
+                                                    <span><h3 className="heading">Category: {item.products[0].category}</h3></span>
                                                 </div>
 
                                                 <div className="text">
-                                                    <span><h3 className="heading">Subtotal:${item.subTotal}</h3></span>
-                                                    <span><h3 className="heading">Total:${item.Total}</h3></span>
+                                                    <span><h3 className="heading">Subtotal: ${item.subTotal}</h3></span>
+                                                    <span><h3 className="heading">Total: ${item.Total}</h3></span>
                                                 </div>
 
                                                 <div className="text">
-                                                    <span><h3 className="heading">Size:{item.products[0].sizes}</h3></span>
+                                                    <span><h3 className="heading">Size: {item.products[0].sizes}</h3></span>
                                                 </div>   
 
                                                 <div className="shipping-details">
-                                                    <h3 className="heading">Customer Name:{item.address.name}</h3>
+                                                    <h3 className="heading">Customer Name: {item.address.name}</h3>
 
-                                                    <h3 className="heading">Customer Email:{item.address.email}</h3>
+                                                    <h3 className="heading">Customer Email: {item.address.email}</h3>
 
-                                                    <h3 className="heading">Customer Phone:{item.address.phone}</h3>
+                                                    <h3 className="heading">Customer Phone: {item.address.phone}</h3>
 
-                                                    <h3 className="heading">Customer Id:{item.customerId}</h3>
+                                                    <h3 className="heading">Customer Id: {item.customerId}</h3>
 
-                                                    <h3 className="heading">Delivery Status:{item.delivery_status}</h3>
+                                                    <h3 className="heading">Delivery Status: {item.delivery_status}</h3>
 
-                                                    <h3 className="heading">Payment Status:{item.payment_status}</h3>
+                                                    <h3 className="heading">Payment Status: {item.payment_status}</h3>
 
 
-                                                    <h3 className="heading">City:{item.address.address.city}</h3>
+                                                    <h3 className="heading">City: {item.address.address.city}</h3>
 
-                                                    <h3 className="heading">Country:{item.address.address.country}</h3>
+                                                    <h3 className="heading">Country: {item.address.address.country}</h3>
 
-                                                    <h3 className="heading">Street:{item.address.address.line1}</h3>
+                                                    <h3 className="heading">Street: {item.address.address.line1}</h3>
                                                     
                                                 </div>                                         
                                             </div>
@@ -160,6 +169,11 @@ const Account = () => {
                                         </>
                                     )
                                 })}
+                                <Pagination
+                                    postsPerPage={postsPerPage}
+                                    totalPosts={orders.length}
+                                    paginate={paginate}
+                                />
                                 </div>
                                 
                             )}
@@ -181,10 +195,11 @@ const Account = () => {
                                 <div className="box address">
                                     <h3 className="heading">PRIMARY SHIPPING ADDRESS</h3>
                                     <p className="paragraph">{user.fname + ' ' + user.lname}</p>
-                                    {<p className="paragraph">United States</p>}
                                     <Link to='/addresses'><button>{'Edit Addresses'}</button></Link>
                                 </div>
                             )}
+
+                            
                         </div>
                     </div>
                 </section>

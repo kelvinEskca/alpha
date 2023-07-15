@@ -263,6 +263,11 @@ const Settings = () => {
                                                 </div>
 
                                                 <div className="column">
+                                                    <h3 className="heading">Link:</h3>
+                                                    <h3 className="heading">{item.link}</h3>
+                                                </div>
+
+                                                <div className="column">
                                                     <h3 className="heading">Visibility:</h3>
                                                     <h3 className="heading">{item.active ? "Active" : "Inactive"}</h3>
                                                 </div>

@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import Search from "../Components/Search";
 import baseUrl from "../config/config.js";
 import axios from "axios";
+import SkeletonCardLoader from "../Components/SkeletonCardLoader";
+import SkeletonHeroLoader from "../Components/SkeletonHeroLoader";
 const Home = () => {
     const [toggleState, setToggleState] = useState(1);
     const [modal,setModal] = useState(false);
@@ -55,6 +57,7 @@ const Home = () => {
             try{
                 const res = await axios.get(`${baseUrl.baseUrl}/alphaapi/hero`)
                 setHero(res.data);
+                console.log(res);
                 setLoading(false);
             }
             catch(err){
@@ -68,21 +71,22 @@ const Home = () => {
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile} searchToggle={searchToggle}/>
             <main className="main">
-
-                {hero.map((item,i)=>{
-                    if(item.active === true && item.category === 'Home'){
-                        return(
-                            <section className="section visit hero">
-                                <div className="wrapper">
-                                    <div className="boxes">
-                                        <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} cat={item.category} />
+                {loading ? (<SkeletonHeroLoader cards={1}/>) : (
+                    hero.map((item,i)=>{
+                        if(item.active === true && item.category === "Home"){
+                            return(
+                                <section className="section visit hero">
+                                    <div className="wrapper">
+                                        <div className="boxes">
+                                            <VideoCard video={item.image[0].url} heading={item.title} paragraph={item.subtitle} btn={item.cta} btnTwo={item.ctatwo} cat={item.category} link={item.link} />
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        )
-                    }
-                    return null
-                })}
+                                </section>
+                            )
+                        }
+                        return null
+                    })
+                )}
                 {hero.some(item => item.active === true) ? null : <div></div>}
                 
 
@@ -100,7 +104,11 @@ const Home = () => {
                 </section>
 
                 <div className="row">
-                    {cards.map((item, i) => {
+                
+                {loading ? (
+                    <SkeletonCardLoader cards={2}/>
+                ) : (
+                    cards.map((item, i) => {
                         if (item.active === true) {
                         return (
                             <>
@@ -112,7 +120,8 @@ const Home = () => {
                                     <div className="text-box">
                                         <h3 className="heading">{item.title}</h3>
                                         <Button btnText={item.cta} btntheme={"shorter"} />
-                                        <Button btnText={item.cta} btntheme={"longer"} />
+                                        {item.ctatwo !== "" ? (<Button btnText={item.cta} btntheme={"longer"} />) :("")}
+                                        
                                     </div>
                                     </div>
                                 </div>
@@ -122,8 +131,10 @@ const Home = () => {
                         );
                         }
                         return null;
-                    })}
+                    })
+                    )}
                     {cards.some(item => item.active === true) ? null : <div></div>}
+                    
                 </div>
 
                 <Modal modal={modal} handleModal={handleModal} />

@@ -2161,10 +2161,12 @@ img {
 .orders .shipping-details .heading {
   color: #fff;
   font-weight: 300;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin-bottom: 0.5rem;
   width: 100%;
   border-bottom: 1px solid #434242;
   padding-bottom: 0.5rem;
+  text-transform: capitalize;
 }
 
 .loginbtn {
@@ -3284,6 +3286,21 @@ form .FormGroup{
   font-size: .8rem;
 }
 
+.skeletalHero{
+  width: 85%;
+  margin:1rem auto;
+}
+
+.skeletalCard{
+  width: 85%;
+  margin:1rem auto;
+  margin-right: 2rem;
+}
+
+.skeletelCardContainer{
+  width: 100%;
+}
+
 @media screen and (min-width: 376px) {
   body {
     max-width: 100%;
@@ -3627,10 +3644,12 @@ form .FormGroup{
 
   header .bottom .center a {
     color: #c8cdd1;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 501;
     text-transform: uppercase;
     font-family: "GT";
+    border: 1px solid #ccc;
+    padding: .15rem;
   }
 
   header .bottom-right {
@@ -3732,9 +3751,9 @@ form .FormGroup{
   }
 
   .orders .products-wrapper {
-    width: 80%;
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
     gap: 1rem;
   }
 
@@ -3792,6 +3811,13 @@ form .FormGroup{
   .latest .boxes {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+    gap: 1rem;
+  }
+
+
+  .orders-latest .boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
   }
 
@@ -3884,6 +3910,14 @@ form .FormGroup{
     flex-direction: row;
     align-items: center;
     justify-content:space-between;
+  }
+  
+  .skeletelCardContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
   }
   
 }
