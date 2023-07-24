@@ -119,7 +119,8 @@ const Home = () => {
                                     <img src={`${item.image[0].url}`} alt={item.image[0]} />
                                     <div className="text-box">
                                         <h3 className="heading">{item.title}</h3>
-                                        <Button btnText={item.cta} btntheme={"shorter"} />
+                                        
+                                        <a href={`/${item.link}`}><Button btnText={item.cta} btntheme={"shorter"} /></a>
                                         {item.ctatwo !== "" ? (<Button btnText={item.cta} btntheme={"longer"} />) :("")}
                                         
                                     </div>

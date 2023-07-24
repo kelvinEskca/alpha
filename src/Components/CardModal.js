@@ -15,6 +15,7 @@ const CardModal = ({cardModal,openCard,cards,setCards}) => {
         cta: "",
         ctatwo: "",
         category: "",
+        link:"",
         images: [],
     });
     const handleChange = e => {
@@ -33,6 +34,7 @@ const CardModal = ({cardModal,openCard,cards,setCards}) => {
         data.append("subtitle", formData.subtitle);
         data.append("cta", formData.cta);
         data.append("ctatwo", formData.ctatwo);
+        data.append("link", formData.link);
         data.append("category", formData.category);
         for (let i = 0; i < formData.images.length; i++) {
             data.append("image", formData.images[i]);
@@ -95,6 +97,10 @@ const CardModal = ({cardModal,openCard,cards,setCards}) => {
 
                                 <label htmlFor="#">Content Category
                                     <input type="text" name="category" placeholder="Category" onChange={handleChange} value={formData.category}/>
+                                </label>
+
+                                <label htmlFor="#">Card Link
+                                    <input type="text" name="link" placeholder="Link" onChange={handleChange} value={formData.link}/>
                                 </label>
 
                                 <label htmlFor="#">Card Image

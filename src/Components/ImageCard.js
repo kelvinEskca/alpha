@@ -26,6 +26,7 @@ const ImageCard = ({toggleState}) => {
               if (toggleState === 1) {
                 const gender = 'Female';
                 res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/female/${gender}`);
+                console.log(res);
               } else if (toggleState === 2) {
                 const gender = 'Male';
                 res = await axios.get(`${baseUrl.baseUrl}/alphaapi/product/male/${gender}`);
