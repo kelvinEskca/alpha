@@ -16,12 +16,13 @@ const Success = () => {
     return (
         <>
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
-            <main className="main">
+            <main className="main successmain">
                 <section className="section success">
                     <div className="wrapper">
                         <div className="boxes">
                             <div className="box">
-                                <h3 className="heading">Checkout Success!</h3>
+                                <h3 className="successheading">Thank you for the purchase!</h3>
+                                <p className="paragraph">Check your email for information about your order</p>
                             </div>
                         </div>
                     </div>

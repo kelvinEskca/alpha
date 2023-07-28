@@ -34,8 +34,6 @@ const Track = () => {
         const data = await result.text();
         console.log(data,result);
     }
-
-    console.log(email,order)
    
     return (
         <>

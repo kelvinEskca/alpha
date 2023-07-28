@@ -20,7 +20,7 @@
     "react-modal": "^3.16.1",
     "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^6.6.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
     "react-stripe-elements": "^6.1.2",
     "stripe": "^12.9.0",
@@ -55,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

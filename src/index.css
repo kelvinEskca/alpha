@@ -335,6 +335,23 @@ main {
   background-size: cover;
 }
 
+.successmain{
+  background-image: none;
+}
+
+.successmain .successheading{
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 501;
+}
+
+.successmain .paragraph{
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+}
+
 
 .support {
   background-color: #191919;
