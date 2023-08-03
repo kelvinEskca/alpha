@@ -3726,8 +3726,6 @@ form .FormGroup{
   .orders .address {
     min-width: 30%;
     margin: 0;
-    border-left: 2px solid #c8cdd1;
-    padding-left: 1.5rem;
   }
 
   .dash-default .boxes {

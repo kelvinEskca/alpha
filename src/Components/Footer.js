@@ -93,7 +93,7 @@ const Footer = ({search}) => {
                     <p className="paragraph">|</p>
                     <p className="paragraph">Terms of Service</p>
                     <p className="paragraph">|</p>
-                    <p className="paragraph">CCPA</p>
+                    <p className="paragraph">MPDPA</p>
                 </span>
             </div>
 

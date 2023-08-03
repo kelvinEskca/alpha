@@ -35,6 +35,7 @@ import PublicRoute from "./Components/PublicRoute";
 import Warranty from "./Pages/Warranty";
 import CategoryDetails from "./Pages/CategoryDetails";
 import OrderDetails from "./Pages/OrderDetails";
+import UserOrderDetails from "./Pages/UserOrderDetails";
 import { SkeletonTheme } from "react-loading-skeleton";
 const App = () => {
   return (
@@ -65,6 +66,7 @@ const App = () => {
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}/>
           <Route path="/customers" element={<PrivateRoute><Customers /></PrivateRoute>}/>
           <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>}/>
+          <Route path="/userorderDetails/:id" element={<PrivateUserRoute><UserOrderDetails /></PrivateUserRoute>}/>
           <Route path="/orderDetails/:id" element={<PrivateRoute><OrderDetails /></PrivateRoute>}/>
           <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>}/>
           <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>}/>

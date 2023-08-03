@@ -1,6 +1,4 @@
 import React,{useState,useEffect} from "react";
-import {Link} from 'react-router-dom';
-import Button from "../Components/Button";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Modal from "../Components/Modal";
@@ -39,7 +37,7 @@ const About = () => {
             <Header handleModal={handleModal} handleMobile={handleMobile}/>
             <main className="main">
                 {hero.map((item,i)=>{
-                    if(item.active === true && item.category === 'Home'){
+                    if(item.active === true && item.category === 'About'){
                         return(
                             <section className="section visit hero">
                                 <div className="wrapper">
@@ -63,20 +61,12 @@ const About = () => {
                                 Our team is determined to revolutionize the fitness industry by offering cutting-edge designs and utilizing innovative materials that enhance performance and comfort. With our expertise in both fashion and fitness, we are dedicated to creating garments that not only look good but are also optimized for the movements and rigors of any workout.</p>
                                 <p className="paragraph">We believe in inclusivity and cater to individuals of all shapes, sizes, and fitness levels. Our commitment to excellent customer service ensures that we listen to our customers, understand their needs, and continuously improve our products to meet their expectations.</p>
                             </div>
-
-                            <div className="box">
-                                <img src="../images/070A4425.jpg" alt="images" />
-                            </div>
                         </div>
 
                         <div className="boxes">
                             <div className="box">
                                 <p className="paragraph">Being gym-goers ourselves, we understand the importance of confidence and motivation while pursuing fitness goals. That's why we are committed to empowering individuals through our clothing, helping them feel inspired, motivated, and ready to conquer any challenge they face in and outside the gym.</p>
                                 <p className="paragraph">Join us on this exciting journey as we build a brand that not only embraces the fitness community, but also inspires and motivates individuals to reach new heights in their fitness endeavors. Together, let's redefine what it means to look and feel great while pursuing a healthy and active lifestyle.</p>
-                            </div>
-
-                            <div className="box">
-                                <img src="../images/12227FB3-7FB7-43A9-AE8B-DFFD27293359.webp" alt="images" />
                             </div>
                         </div>
                     </div>

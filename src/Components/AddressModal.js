@@ -10,7 +10,7 @@ const AddressModal = ({addressModal,openModal,setAlertText,setIsSuccessModalOpen
     const [loading,setLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     //add address;
-    const [address,setAddress] = useState({fname:"",lname:"",email:"", company:"",addressOne:"",addressTwo:"",city:"",country:"", province:"",phone:"",postalcode:""});
+    const [address,setAddress] = useState({fname:"",lname:"",email:"",addressOne:"",city:"",country:"", province:"",phone:"",postalcode:""});
 
     const handleToggle = ()=>{
         setCheckBox(checkBox => !checkBox);
@@ -29,9 +29,7 @@ const AddressModal = ({addressModal,openModal,setAlertText,setIsSuccessModalOpen
                     fname:address.fname,
                     lname:address.lname,
                     email:user.email,
-                    company:address.company,
                     addressOne:address.addressOne,
-                    addressTwo:address.addressTwo,
                     city:address.city,
                     country:address.country,
                     province:address.province,
@@ -94,17 +92,9 @@ const AddressModal = ({addressModal,openModal,setAlertText,setIsSuccessModalOpen
                                     <input type="text" id="lname" name="lname" onChange={handleChange} required/>
                                 </label>
                             </div>
-                          
-                            <label htmlFor="#">Company 
-                                <input type="text" id="company" name="company" onChange={handleChange} required/>
-                            </label>
 
                             <label htmlFor="#">Address1 
                                 <input type="text" id="address1" name="addressOne" onChange={handleChange} required/>
-                            </label>
-
-                            <label htmlFor="#">Address2 
-                                <input type="text" id="address2" name="addressTwo" onChange={handleChange} required/>
                             </label>
 
                             <div className="row-label">

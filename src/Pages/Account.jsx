@@ -57,7 +57,7 @@ const Account = () => {
             }
         }
         grabOrders()
-    },[]);
+    },[email]);
 
     const getaddress = async ()=>{
         const id = user._id;
@@ -76,7 +76,7 @@ const Account = () => {
     });
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(1);
+    const [postsPerPage] = useState(10);
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -103,81 +103,6 @@ const Account = () => {
                 <section className="section latest products-latest orders orders-latest">
                     <div className="wrapper">
                         <div className="boxes">
-                            {currentOrders.length === 0 ? (
-                                <div className="box orders-box">
-                                    <h3 className="heading">NO PLACED ORDERS YET</h3>
-                                </div>
-                            ) : (
-
-                                <div className="products-wrapper">
-                                    {currentOrders.map((item,i)=>{
-                                    return(
-                                        <>
-                                            <div className="products" key={i}>
-                                                <div className="product-image">
-                                                    <img src={item.products[0].images[0]} alt={item.products[0].images[0]} />
-                                                </div>
-
-                                                <div className="text">
-                                                    <div className="column">
-                                                        <h3 className="heading">Name: {item.products[0].name}</h3>
-                                                    </div>
-
-                                                    <div className="column">
-                                                        <h3 className="heading">Price: ${item.products[0].price}</h3>
-                                                    </div>
-                                                </div>
-
-                                                <div className="text">
-                                                    <span><h3 className="heading">Quantity: {item.products[0].qty}</h3></span>
-                                                    <span><h3 className="heading">Category: {item.products[0].category}</h3></span>
-                                                </div>
-
-                                                <div className="text">
-                                                    <span><h3 className="heading">Subtotal: ${item.subTotal}</h3></span>
-                                                    <span><h3 className="heading">Total: ${item.Total}</h3></span>
-                                                </div>
-
-                                                <div className="text">
-                                                    <span><h3 className="heading">Size: {item.products[0].sizes}</h3></span>
-                                                </div>   
-
-                                                <div className="shipping-details">
-                                                    <h3 className="heading">Customer Name: {item.address.name}</h3>
-
-                                                    <h3 className="heading">Customer Email: {item.address.email}</h3>
-
-                                                    <h3 className="heading">Customer Phone: {item.address.phone}</h3>
-
-                                                    <h3 className="heading">Customer Id: {item.customerId}</h3>
-
-                                                    <h3 className="heading">Delivery Status: {item.delivery_status}</h3>
-
-                                                    <h3 className="heading">Payment Status: {item.payment_status}</h3>
-
-
-                                                    <h3 className="heading">City: {item.address.address.city}</h3>
-
-                                                    <h3 className="heading">Country: {item.address.address.country}</h3>
-
-                                                    <h3 className="heading">Street: {item.address.address.line1}</h3>
-                                                    
-                                                </div>                                         
-                                            </div>
-
-                                            
-                                        </>
-                                    )
-                                })}
-                                <Pagination
-                                    postsPerPage={postsPerPage}
-                                    totalPosts={orders.length}
-                                    paginate={paginate}
-                                />
-                                </div>
-                                
-                            )}
-                            
                             {address !== null ? (
                                 <div className="box address">
                                     <h3 className="heading">PRIMARY SHIPPING ADDRESS</h3>
@@ -201,6 +126,53 @@ const Account = () => {
 
                             
                         </div>
+                    </div>
+                </section>
+
+                <section className="section latest products-latest customers-latest">
+                    <div className="wrapper">
+                        <h3 className="heading">Latest Orders</h3>
+                        <div className="boxes">
+                            {currentOrders.length === 0 ? (
+                                <div className="table">
+                                    <p className="paragraph">No data</p>
+                                </div>
+                            ) : (
+                                <div className="table">
+                                    <div className="table-top">
+                                        <div className="inner"><h3 className="heading">Customer Id</h3></div>
+                                        <div className="inner"><h3 className="heading">Customer Name</h3></div>
+                                        <div className="inner"><h3 className="heading">Customer Email</h3></div>
+                                        <div className="inner"><h3 className="heading">View More</h3></div>
+                                        <div className="inner"><h3 className="heading">Date</h3></div>
+                                    </div>
+
+
+                                    {currentOrders.map((item,i)=>{    
+                                        return(
+                                            <>
+                                            <div className="table-bottom" key={item._id}>
+                                                <div className="inner"><h3 className="heading">{item.customerId}</h3></div>
+                                                <div className="inner"><h3 className="heading">{item.address.name}</h3></div>
+                                                <div className="inner"><h3 className="heading">{item.address.email}</h3></div>
+                                                <div className="inner"><a href={`/userorderDetails/${item._id}`}>View More</a></div>
+                                                <div className="inner"><h3 className="heading">{item.createdAt}</h3></div>
+                                            </div>
+                                            </>
+                                        )   
+                                    })}
+
+                                    
+                                </div>
+                            )}
+                            
+                        </div>
+
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={orders.length}
+                            paginate={paginate}
+                        />
                     </div>
                 </section>
 
