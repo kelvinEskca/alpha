@@ -1,5 +1,4 @@
 import React,{useState} from "react";
-import Button from "./Button";
 import FooterBox from "./FooterBox";
 import axios from "axios";
 import baseUrl from "../config/config.js";
@@ -55,9 +54,9 @@ const Footer = ({search}) => {
             <div className="rows">
                 <div className="newsletter">
                     <h3 className="heading">SIGN UP FOR VELONTE NEWSLETTER</h3>
-                    <form action="#" className="form" onSubmit={handleSubmit}>
+                    <form className="form" onSubmit={handleSubmit}>
                         <label htmlFor="#"><input type='email' placeholder='Your Email Address' onChange={(e)=>{setEmail(e.target.value)}} required/></label>
-                        {fetching ? (<label htmlFor="#"><Button btnText={'Loading.....'}/></label>) : (<label htmlFor="#"><Button btnText={'Sign Up'}/></label>)}
+                        {fetching ? (<label htmlFor="#"><button>{'Loading.....'}</button></label>) : (<label htmlFor="#"><button>{'Sign Up'}</button></label>)}
                         
                     </form>
 

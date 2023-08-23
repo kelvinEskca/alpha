@@ -74,7 +74,7 @@ const App = () => {
           <Route path="/track" element={<Track />}/>
           <Route path="/men" element={<Men />}/>
           <Route path="/women" element={<Women />}/>
-          <Route path="/success" element={<Success />}/>
+          <Route path="/success/:id" element={<Success />}/>
           <Route path="*" element={<NotFound />}/>
         </Routes>
       </Router>
